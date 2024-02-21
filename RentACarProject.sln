@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentACarProject.Persistence", "Infrastructure\RentACarProject.Persistence\RentACarProject.Persistence.csproj", "{942F032F-4B40-4A33-A5EC-9A8F38F426E2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{61F6A7ED-D698-4327-9C97-0D3B81049F8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentACarProject.WebApi", "Presentation\RentACarProject.WebApi\RentACarProject.WebApi.csproj", "{D15F3485-B368-453B-B4F4-319F51D8A1C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +29,10 @@ Global
 		{942F032F-4B40-4A33-A5EC-9A8F38F426E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{942F032F-4B40-4A33-A5EC-9A8F38F426E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{942F032F-4B40-4A33-A5EC-9A8F38F426E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D15F3485-B368-453B-B4F4-319F51D8A1C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D15F3485-B368-453B-B4F4-319F51D8A1C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D15F3485-B368-453B-B4F4-319F51D8A1C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D15F3485-B368-453B-B4F4-319F51D8A1C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +40,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{1F953E15-2033-4588-9585-E9C7535721EA} = {FED1B53E-7D14-4AFD-9F8D-5C263EEE579D}
 		{942F032F-4B40-4A33-A5EC-9A8F38F426E2} = {2829082F-CB84-425F-B152-A9CF91294CA1}
+		{D15F3485-B368-453B-B4F4-319F51D8A1C1} = {61F6A7ED-D698-4327-9C97-0D3B81049F8A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EB8CFB5E-288E-46D5-B4EA-4CC2DF864EF8}
