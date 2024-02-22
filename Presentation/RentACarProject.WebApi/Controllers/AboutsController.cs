@@ -44,21 +44,21 @@ namespace RentACarProject.WebApi.Controllers
         public async Task<IActionResult> CreateAbout(CreateAboutCommand command)
         {
             await _createAboutCommandHandler.Handle(command);
-            return Ok("Hakkımda Bilgisi Eklendi!");
+            return Ok("About Added!");
         }
 
         [HttpDelete]
         public async Task<IActionResult> RemoveAbout(int id)
         {
             await _removeAboutCommandHandler.Handle(new RemoveAboutCommand(id));
-            return Ok("Hakkımda Bilgisi Silindi!");
+            return Ok("About Deleted!");
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateAbout(UpdateAboutCommand command)
         {
             await _updateAboutCommandHandler.Handle(command);
-            return Ok("Hakkımda Bilgisi Güncellendi!");
+            return Ok("About Updated!");
         }
     }
 }
