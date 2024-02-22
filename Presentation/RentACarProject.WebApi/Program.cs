@@ -1,5 +1,7 @@
 using RentACarProject.Application.Features.CQRS.Handlers.AboutHandlers.ReadOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.AboutHandlers.WriteOperations;
+using RentACarProject.Application.Features.CQRS.Handlers.BannerHandlers.ReadOperations;
+using RentACarProject.Application.Features.CQRS.Handlers.BannerHandlers.WriteOperations;
 using RentACarProject.Application.Interfaces;
 using RentACarProject.Domain.Entities;
 using RentACarProject.Persistence.Context;
@@ -11,11 +13,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<RentACarContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
+// About Service
 builder.Services.AddScoped<GetAboutQueryHandler>();
 builder.Services.AddScoped<GetAboutByIdQueryHandler>();
 builder.Services.AddScoped<CreateAboutCommandHandler>();
 builder.Services.AddScoped<UpdateAboutCommandHandler>();
 builder.Services.AddScoped<RemoveAboutCommandHandler>();
+
+// Banner Service
+builder.Services.AddScoped<GetBannerQueryHandler>();
+builder.Services.AddScoped<GetBannerByIdQueryHandler>();
+builder.Services.AddScoped<CreateBannerCommandHandler>();
+builder.Services.AddScoped<UpdateBannerCommandHandler>();
+builder.Services.AddScoped<RemoveBannerCommandHandler>();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
