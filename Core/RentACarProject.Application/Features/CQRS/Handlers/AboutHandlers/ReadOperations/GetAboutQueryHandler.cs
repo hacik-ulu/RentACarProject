@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RentACarProject.Application.Features.CQRS.Handlers.AboutHandlers;
+namespace RentACarProject.Application.Features.CQRS.Handlers.AboutHandlers.ReadOperations;
 
 public class GetAboutQueryHandler
 {
