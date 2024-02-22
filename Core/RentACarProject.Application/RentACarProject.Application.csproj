@@ -10,4 +10,8 @@
     <ProjectReference Include="..\RentACarProject.Domain\RentACarProject.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\CQRS\Handlers\BannerHandlers\WriteOperations\" />
+  </ItemGroup>
+
 </Project>
