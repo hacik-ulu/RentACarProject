@@ -2,8 +2,9 @@ using RentACarProject.Application.Features.CQRS.Handlers.AboutHandlers.ReadOpera
 using RentACarProject.Application.Features.CQRS.Handlers.AboutHandlers.WriteOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.BannerHandlers.ReadOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.BannerHandlers.WriteOperations;
+using RentACarProject.Application.Features.CQRS.Handlers.BrandHandlers.ReadOperations;
+using RentACarProject.Application.Features.CQRS.Handlers.BrandHandlers.WriteOperations;
 using RentACarProject.Application.Interfaces;
-using RentACarProject.Domain.Entities;
 using RentACarProject.Persistence.Context;
 using RentACarProject.Persistence.Repositories;
 
@@ -26,6 +27,13 @@ builder.Services.AddScoped<GetBannerByIdQueryHandler>();
 builder.Services.AddScoped<CreateBannerCommandHandler>();
 builder.Services.AddScoped<UpdateBannerCommandHandler>();
 builder.Services.AddScoped<RemoveBannerCommandHandler>();
+
+// Banner Service
+builder.Services.AddScoped<GetBrandQueryHandler>();
+builder.Services.AddScoped<GetBrandByIdQueryHandler>();
+builder.Services.AddScoped<CreateBrandCommandHandler>();
+builder.Services.AddScoped<UpdateBrandCommandHandler>();
+builder.Services.AddScoped<RemoveBrandCommandHandler>();
 
 
 builder.Services.AddControllers();

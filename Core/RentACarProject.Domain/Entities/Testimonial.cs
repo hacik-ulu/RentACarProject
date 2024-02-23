@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RentACarProject.Domain.Entities;
+﻿namespace RentACarProject.Domain.Entities;
 
 public class Testimonial
 {

@@ -1,11 +1,6 @@
 ﻿using RentACarProject.Application.Features.CQRS.Results.AboutResults;
 using RentACarProject.Application.Interfaces;
 using RentACarProject.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RentACarProject.Application.Features.CQRS.Handlers.AboutHandlers.ReadOperations;
 

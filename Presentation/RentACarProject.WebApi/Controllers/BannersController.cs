@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RentACarProject.Application.Features.CQRS.Commands.BannerCommands;
 using RentACarProject.Application.Features.CQRS.Handlers.BannerHandlers.ReadOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.BannerHandlers.WriteOperations;

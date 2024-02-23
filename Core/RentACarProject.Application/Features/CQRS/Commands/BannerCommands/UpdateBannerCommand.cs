@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RentACarProject.Application.Features.CQRS.Commands.BannerCommands;
+﻿namespace RentACarProject.Application.Features.CQRS.Commands.BannerCommands;
 
 public class UpdateBannerCommand
 {
