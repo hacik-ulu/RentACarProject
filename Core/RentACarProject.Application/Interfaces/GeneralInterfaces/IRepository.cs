@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RentACarProject.Application.Interfaces;
+namespace RentACarProject.Application.Interfaces.GeneralInterfaces;
 
 public interface IRepository<T> where T : class
 {

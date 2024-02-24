@@ -1,4 +1,4 @@
-﻿using RentACarProject.Application.Interfaces;
+﻿using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Domain.Entities;
 using UdemyCarBook.Application.Features.CQRS.Commands.CarCommands;
 

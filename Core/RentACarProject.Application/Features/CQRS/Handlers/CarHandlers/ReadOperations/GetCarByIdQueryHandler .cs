@@ -1,7 +1,7 @@
 ﻿using RentACarProject.Application.Features.CQRS.Queries.BrandQueries;
 using RentACarProject.Application.Features.CQRS.Queries.CarQueries;
 using RentACarProject.Application.Features.CQRS.Results.CarResults;
-using RentACarProject.Application.Interfaces;
+using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Domain.Entities;
 
 namespace RentACarProject.Application.Features.CQRS.Handlers.CarHandlers.ReadOperations;

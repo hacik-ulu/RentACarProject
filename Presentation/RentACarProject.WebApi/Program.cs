@@ -6,15 +6,18 @@ using RentACarProject.Application.Features.CQRS.Handlers.BrandHandlers.ReadOpera
 using RentACarProject.Application.Features.CQRS.Handlers.BrandHandlers.WriteOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.CarHandlers.ReadOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.CarHandlers.WriteOperations;
-using RentACarProject.Application.Interfaces;
+using RentACarProject.Application.Interfaces.CarInterfaces;
+using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Persistence.Context;
-using RentACarProject.Persistence.Repositories;
+using RentACarProject.Persistence.Repositories.CarRepository;
+using RentACarProject.Persistence.Repositories.GeneralRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<RentACarContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped(typeof(ICarRepository), typeof(CarRepository));
 
 // About Service
 builder.Services.AddScoped<GetAboutQueryHandler>();
@@ -43,6 +46,7 @@ builder.Services.AddScoped<GetCarByIdQueryHandler>();
 builder.Services.AddScoped<CreateCarCommandHandler>();
 builder.Services.AddScoped<UpdateCarCommandHandler>();
 builder.Services.AddScoped<RemoveCarCommandHandler>();
+builder.Services.AddScoped<GetCarWithBrandQueryHandler>();
 
 
 builder.Services.AddControllers();

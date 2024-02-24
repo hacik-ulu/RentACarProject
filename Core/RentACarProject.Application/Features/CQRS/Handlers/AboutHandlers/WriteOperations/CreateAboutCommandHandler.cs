@@ -1,5 +1,5 @@
 ﻿using RentACarProject.Application.Features.CQRS.Commands.AboutCommands;
-using RentACarProject.Application.Interfaces;
+using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Domain.Entities;
 using System;
 using System.Collections.Generic;

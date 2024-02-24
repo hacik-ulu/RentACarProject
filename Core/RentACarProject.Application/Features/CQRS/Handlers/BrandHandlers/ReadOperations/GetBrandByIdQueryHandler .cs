@@ -2,7 +2,7 @@
 using RentACarProject.Application.Features.CQRS.Queries.BrandQueries;
 using RentACarProject.Application.Features.CQRS.Results.BannerResults;
 using RentACarProject.Application.Features.CQRS.Results.BrandResults;
-using RentACarProject.Application.Interfaces;
+using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Domain.Entities;
 using System;
 using System.Collections.Generic;

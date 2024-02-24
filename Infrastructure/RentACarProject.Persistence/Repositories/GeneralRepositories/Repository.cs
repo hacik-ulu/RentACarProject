@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RentACarProject.Application.Interfaces;
+using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Persistence.Context;
 
-namespace RentACarProject.Persistence.Repositories;
+namespace RentACarProject.Persistence.Repositories.GeneralRepository;
 
 public class Repository<T> : IRepository<T> where T : class
 {

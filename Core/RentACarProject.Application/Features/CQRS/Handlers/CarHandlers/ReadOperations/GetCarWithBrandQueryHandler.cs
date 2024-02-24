@@ -1,24 +1,25 @@
 ﻿using RentACarProject.Application.Features.CQRS.Results.CarResults;
+using RentACarProject.Application.Interfaces.CarInterfaces;
 using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Domain.Entities;
-using System.Reflection;
 
 namespace RentACarProject.Application.Features.CQRS.Handlers.CarHandlers.ReadOperations;
 
-public class GetCarQueryHandler
+public class GetCarWithBrandQueryHandler
 {
-    private IRepository<Car> _repository;
+    private readonly ICarRepository _repository;
 
-    public GetCarQueryHandler(IRepository<Car> repository)
+    public GetCarWithBrandQueryHandler(ICarRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<List<GetCarQueryResult>> Handle()
+    public async Task<List<GetCarWithBrandQueryResult>> Handle()
     {
-        var values = await _repository.GetAllAsync();
-        return values.Select(x => new GetCarQueryResult
+        var values = await _repository.GetCarsListWithBrandsAsync();
+        return values.Select(x => new GetCarWithBrandQueryResult
         {
+            BrandName = x.Brand.Name,
             CarID = x.CarID,
             BrandID = x.BrandID,
             Model = x.Model,

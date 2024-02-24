@@ -1,6 +1,6 @@
 ﻿using RentACarProject.Application.Features.CQRS.Queries.AboutQueries;
 using RentACarProject.Application.Features.CQRS.Results.AboutResults;
-using RentACarProject.Application.Interfaces;
+using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Domain.Entities;
 
 namespace RentACarProject.Application.Features.CQRS.Handlers.AboutHandlers.ReadOperations;

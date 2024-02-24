@@ -1,5 +1,5 @@
 ﻿using RentACarProject.Application.Features.CQRS.Commands.BannerCommands;
-using RentACarProject.Application.Interfaces;
+using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Domain.Entities;
 
 namespace RentACarProject.Application.Features.CQRS.Handlers.BannerHandlers.WriteOperations

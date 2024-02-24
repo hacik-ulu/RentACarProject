@@ -1,6 +1,6 @@
 ﻿using RentACarProject.Application.Features.CQRS.Queries.BannerQueries;
 using RentACarProject.Application.Features.CQRS.Results.BannerResults;
-using RentACarProject.Application.Interfaces;
+using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Domain.Entities;
 
 namespace RentACarProject.Application.Features.CQRS.Handlers.BannerHandlers.ReadOperations;
