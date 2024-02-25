@@ -6,6 +6,8 @@ using RentACarProject.Application.Features.CQRS.Handlers.BrandHandlers.ReadOpera
 using RentACarProject.Application.Features.CQRS.Handlers.BrandHandlers.WriteOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.CarHandlers.ReadOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.CarHandlers.WriteOperations;
+using RentACarProject.Application.Features.CQRS.Handlers.CategoryHandlers.ReadOperations;
+using RentACarProject.Application.Features.CQRS.Handlers.CategoryHandlers.WriteOperations;
 using RentACarProject.Application.Interfaces.CarInterfaces;
 using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Persistence.Context;
@@ -47,6 +49,13 @@ builder.Services.AddScoped<CreateCarCommandHandler>();
 builder.Services.AddScoped<UpdateCarCommandHandler>();
 builder.Services.AddScoped<RemoveCarCommandHandler>();
 builder.Services.AddScoped<GetCarWithBrandQueryHandler>();
+
+// Category Service
+builder.Services.AddScoped<GetCategoryQueryHandler>();
+builder.Services.AddScoped<GetCategoryByIdQueryHandler>();
+builder.Services.AddScoped<CreateCategoryCommandHandler>();
+builder.Services.AddScoped<UpdateCategoryCommandHandler>();
+builder.Services.AddScoped<RemoveCategoryCommandHandler>();
 
 
 builder.Services.AddControllers();
