@@ -8,6 +8,8 @@ using RentACarProject.Application.Features.CQRS.Handlers.CarHandlers.ReadOperati
 using RentACarProject.Application.Features.CQRS.Handlers.CarHandlers.WriteOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.CategoryHandlers.ReadOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.CategoryHandlers.WriteOperations;
+using RentACarProject.Application.Features.CQRS.Handlers.ContactHandler.ReadOperations;
+using RentACarProject.Application.Features.CQRS.Handlers.ContactHandler.WriteOperations;
 using RentACarProject.Application.Interfaces.CarInterfaces;
 using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Persistence.Context;
@@ -57,6 +59,12 @@ builder.Services.AddScoped<CreateCategoryCommandHandler>();
 builder.Services.AddScoped<UpdateCategoryCommandHandler>();
 builder.Services.AddScoped<RemoveCategoryCommandHandler>();
 
+// Contact Service
+builder.Services.AddScoped<GetContactQueryHandler>();
+builder.Services.AddScoped<GetContactByIdQueryHandler>();
+builder.Services.AddScoped<CreateContactCommandHandler>();
+builder.Services.AddScoped<UpdateContactCommandHandler>();
+builder.Services.AddScoped<RemoveContactCommandHandler>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
