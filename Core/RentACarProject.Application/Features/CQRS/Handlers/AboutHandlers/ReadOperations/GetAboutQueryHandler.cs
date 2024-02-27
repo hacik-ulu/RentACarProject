@@ -28,3 +28,5 @@ public class GetAboutQueryHandler
         }).ToList();
     }
 }
+
+// GetAboutQueryHandler.
