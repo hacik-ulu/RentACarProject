@@ -12,6 +12,7 @@ using RentACarProject.Application.Features.CQRS.Handlers.ContactHandler.ReadOper
 using RentACarProject.Application.Features.CQRS.Handlers.ContactHandler.WriteOperations;
 using RentACarProject.Application.Interfaces.CarInterfaces;
 using RentACarProject.Application.Interfaces.GeneralInterfaces;
+using RentACarProject.Application.Services;
 using RentACarProject.Persistence.Context;
 using RentACarProject.Persistence.Repositories.CarRepository;
 using RentACarProject.Persistence.Repositories.GeneralRepository;
@@ -65,6 +66,9 @@ builder.Services.AddScoped<GetContactByIdQueryHandler>();
 builder.Services.AddScoped<CreateContactCommandHandler>();
 builder.Services.AddScoped<UpdateContactCommandHandler>();
 builder.Services.AddScoped<RemoveContactCommandHandler>();
+
+// Mediator
+builder.Services.AddApplicationService(builder.Configuration);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
