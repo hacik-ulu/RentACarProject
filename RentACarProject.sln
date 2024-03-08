@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentACarProject.Application
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontends", "Frontends", "{315B37EE-95F4-4B2F-8DC2-12DD0CD2E1F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentACarProject.WebUI", "Frontends\RentACarProject.WebUI\RentACarProject.WebUI.csproj", "{27D243F5-0955-432E-8F3D-9330AFE5AC69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentACarProject.WebUI", "Frontends\RentACarProject.WebUI\RentACarProject.WebUI.csproj", "{27D243F5-0955-432E-8F3D-9330AFE5AC69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentACarProject.Dto", "Frontends\RentACarProject.Dto\RentACarProject.Dto.csproj", "{EB53BF3B-34F8-4CD6-92F1-A2D0A6368B5E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{27D243F5-0955-432E-8F3D-9330AFE5AC69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27D243F5-0955-432E-8F3D-9330AFE5AC69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27D243F5-0955-432E-8F3D-9330AFE5AC69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB53BF3B-34F8-4CD6-92F1-A2D0A6368B5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB53BF3B-34F8-4CD6-92F1-A2D0A6368B5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB53BF3B-34F8-4CD6-92F1-A2D0A6368B5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB53BF3B-34F8-4CD6-92F1-A2D0A6368B5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +63,7 @@ Global
 		{D15F3485-B368-453B-B4F4-319F51D8A1C1} = {61F6A7ED-D698-4327-9C97-0D3B81049F8A}
 		{49D662DD-83E8-47FB-99D9-33EA354FD77B} = {FED1B53E-7D14-4AFD-9F8D-5C263EEE579D}
 		{27D243F5-0955-432E-8F3D-9330AFE5AC69} = {315B37EE-95F4-4B2F-8DC2-12DD0CD2E1F3}
+		{EB53BF3B-34F8-4CD6-92F1-A2D0A6368B5E} = {315B37EE-95F4-4B2F-8DC2-12DD0CD2E1F3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EB8CFB5E-288E-46D5-B4EA-4CC2DF864EF8}
