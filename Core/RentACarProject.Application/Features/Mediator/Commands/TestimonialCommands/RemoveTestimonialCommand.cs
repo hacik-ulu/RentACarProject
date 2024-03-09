@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RentACarProject.Application.Features.Mediator.Commands.FeatureCommands
+namespace RentACarProject.Application.Features.Mediator.Commands.TestimonialCommands
 {
-    public class RemoveFeatureCommand : IRequest
+    public class RemoveTestimonialCommand : IRequest
     {
-        public RemoveFeatureCommand(int id)
+        public RemoveTestimonialCommand(int id)
         {
             Id = id;
         }
