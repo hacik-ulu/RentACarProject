@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RentACarProject.Dto.AboutDtos;
+using RentACarProject.Dto.TestimonialDtos;
 
 namespace RentACarProject.WebUI.ViewComponents.TestimonialViewComponents
 {
@@ -22,8 +23,8 @@ namespace RentACarProject.WebUI.ViewComponents.TestimonialViewComponents
             {
                 // We are reading data from uotcome of our Api as string format.
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                //var values = JsonConvert.DeserializeObject<List<ResultAboutDto>>(jsonData);
-                //return View(values);
+                var values = JsonConvert.DeserializeObject<List<ResultTestimonialDto>>(jsonData);
+                return View(values);
             }
             return View();
         }
