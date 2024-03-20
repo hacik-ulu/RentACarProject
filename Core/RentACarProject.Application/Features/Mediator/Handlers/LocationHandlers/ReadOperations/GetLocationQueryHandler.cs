@@ -6,11 +6,11 @@ using RentACarProject.Domain.Entities;
 
 namespace RentACarProject.Application.Features.Mediator.Handlers.LocationHandlers.ReadOperations
 {
-    public class GetLocationQueryHandler : IRequestHandler<GetLocationQuery, List<GetLocationQueryResult>>
+    public class GetBlogQueryHandler : IRequestHandler<GetLocationQuery, List<GetLocationQueryResult>>
     {
         private readonly IRepository<Location> _repository;
 
-        public GetLocationQueryHandler(IRepository<Location> repository)
+        public GetBlogQueryHandler(IRepository<Location> repository)
         {
             _repository = repository;
         }

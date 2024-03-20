@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace RentACarProject.Application.Features.Mediator.Handlers.LocationHandlers.ReadOperations
 {
-    public class GetLocationByIdQueryHandler : IRequestHandler<GetLocationByIdQuery, GetLocationByIdQueryResult>
+    public class GetBlogByIdQueryHandler : IRequestHandler<GetLocationByIdQuery, GetLocationByIdQueryResult>
     {
         private readonly IRepository<Location> _repository;
 
-        public GetLocationByIdQueryHandler(IRepository<Location> repository)
+        public GetBlogByIdQueryHandler(IRepository<Location> repository)
         {
             _repository = repository;
         }

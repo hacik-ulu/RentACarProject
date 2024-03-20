@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace RentACarProject.Application.Features.Mediator.Handlers.LocationHandlers.WriteOperations
 {
-    public class CreateLocationCommandHandler : IRequestHandler<CreateLocationCommand>
+    public class CreateBlogCommandHandler : IRequestHandler<CreateLocationCommand>
     {
         private readonly IRepository<Location> _repository;
 
-        public CreateLocationCommandHandler(IRepository<Location> repository)
+        public CreateBlogCommandHandler(IRepository<Location> repository)
         {
             _repository = repository;
         }
