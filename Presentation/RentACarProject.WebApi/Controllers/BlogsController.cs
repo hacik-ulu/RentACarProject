@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RentACarProject.Application.Features.Mediator.Commands.BlogCommands;
+using RentACarProject.Application.Features.Mediator.Queries.AuthorQueries;
 using RentACarProject.Application.Features.Mediator.Queries.BlogQueries;
 
 namespace RentACarProject.WebApi.Controllers
@@ -51,6 +52,13 @@ namespace RentACarProject.WebApi.Controllers
             await _mediator.Send(command);
             return Ok("Blog Updated!");
 
+        }
+
+        [HttpGet("GetLastThreeBlogsWithAuthorsList")]
+        public async Task<IActionResult> GetLastThreeBlogsWithAuthorsList()
+        {
+            var values = await _mediator.Send(new GetLastThreeBlogsWithAuthorsQuery());
+            return Ok(values);
         }
     }
 }

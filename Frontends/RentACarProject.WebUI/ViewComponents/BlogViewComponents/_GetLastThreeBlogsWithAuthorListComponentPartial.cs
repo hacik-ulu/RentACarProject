@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using RentACarProject.Dto.AboutDtos;
-using RentACarProject.Dto.TestimonialDtos;
+using RentACarProject.Dto.BlogDtos;
 
-namespace RentACarProject.WebUI.ViewComponents.TestimonialViewComponents
+namespace RentACarProject.WebUI.ViewComponents.BlogViewComponents
 {
-    public class _TestimonialComponentPartial : ViewComponent
+    public class _GetLastThreeBlogsWithAuthorListComponentPartial : ViewComponent
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        public _TestimonialComponentPartial(IHttpClientFactory httpClientFactory)
+        public _GetLastThreeBlogsWithAuthorListComponentPartial(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
@@ -17,12 +16,12 @@ namespace RentACarProject.WebUI.ViewComponents.TestimonialViewComponents
         {
             var client = _httpClientFactory.CreateClient();
             // GetAsync used for list or get the datas.
-            var responseMessage = await client.GetAsync("https://localhost:7262/api/Testimonials");
+            var responseMessage = await client.GetAsync("https://localhost:7262/api/Blogs/GetLastThreeBlogsWithAuthorsList");
             if (responseMessage.IsSuccessStatusCode)
             {
                 // We are reading data from uotcome of our Api as string format.
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultTestimonialDto>>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<ResultLastThreeBlogsWithAuthors>>(jsonData);
                 return View(values);
             }
             return View();

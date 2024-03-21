@@ -10,10 +10,12 @@ using RentACarProject.Application.Features.CQRS.Handlers.CategoryHandlers.ReadOp
 using RentACarProject.Application.Features.CQRS.Handlers.CategoryHandlers.WriteOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.ContactHandler.ReadOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.ContactHandler.WriteOperations;
+using RentACarProject.Application.Interfaces.BlogInterfaces;
 using RentACarProject.Application.Interfaces.CarInterfaces;
 using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Application.Services;
 using RentACarProject.Persistence.Context;
+using RentACarProject.Persistence.Repositories.BlogRepositories;
 using RentACarProject.Persistence.Repositories.CarRepository;
 using RentACarProject.Persistence.Repositories.GeneralRepository;
 
@@ -23,6 +25,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<RentACarContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(ICarRepository), typeof(CarRepository));
+builder.Services.AddScoped(typeof(IBlogRepository), typeof(BlogRepository));
 
 // About Service
 builder.Services.AddScoped<GetAboutQueryHandler>();
@@ -67,6 +70,8 @@ builder.Services.AddScoped<GetContactByIdQueryHandler>();
 builder.Services.AddScoped<CreateContactCommandHandler>();
 builder.Services.AddScoped<UpdateContactCommandHandler>();
 builder.Services.AddScoped<RemoveContactCommandHandler>();
+
+// Blog Services
 
 // Mediator
 builder.Services.AddApplicationService(builder.Configuration);
