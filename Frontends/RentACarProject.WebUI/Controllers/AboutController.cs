@@ -6,8 +6,8 @@ namespace RentACarProject.WebUI.Controllers
     {
         public IActionResult Index()
         {
-            ViewBag.v1 = "Services";
-            ViewBag.v2 = "Our Services";
+            ViewBag.v1 = "ABOUT US ";
+            ViewBag.v2 = "About Us";
             return View();
         }
     }

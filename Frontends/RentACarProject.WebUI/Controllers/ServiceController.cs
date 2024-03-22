@@ -9,6 +9,8 @@ namespace RentACarProject.WebUI.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.v1 = "SERVİCES ";
+            ViewBag.v2 = "Our Services";
             return View();
         }
     }

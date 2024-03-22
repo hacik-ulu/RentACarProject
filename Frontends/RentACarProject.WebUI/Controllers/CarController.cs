@@ -13,6 +13,9 @@ namespace RentACarProject.WebUI.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            ViewBag.v1 = "CARS ";
+            ViewBag.v2 = "Choose Your Car";
+
             var client = _httpClientFactory.CreateClient();
             // GetAsync used for list or get the datas.
             var responseMessage = await client.GetAsync("https://localhost:7262/api/Cars/GetCarWithBrand");
