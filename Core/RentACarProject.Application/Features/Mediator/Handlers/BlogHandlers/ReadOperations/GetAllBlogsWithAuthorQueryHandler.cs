@@ -33,6 +33,7 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.BlogHandlers.Re
                 CoverImageUrl = x.CoverImageUrl,
                 CreatedDate = x.CreatedDate,
                 Title = x.Title,
+                Description = x.Description,
                 AuthorName = x.Author.Name
             }).ToList();
         }
