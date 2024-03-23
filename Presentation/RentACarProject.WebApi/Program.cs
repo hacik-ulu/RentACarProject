@@ -12,10 +12,12 @@ using RentACarProject.Application.Features.CQRS.Handlers.ContactHandler.ReadOper
 using RentACarProject.Application.Features.CQRS.Handlers.ContactHandler.WriteOperations;
 using RentACarProject.Application.Interfaces.BlogInterfaces;
 using RentACarProject.Application.Interfaces.CarInterfaces;
+using RentACarProject.Application.Interfaces.CarPricingInterfaces;
 using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Application.Services;
 using RentACarProject.Persistence.Context;
 using RentACarProject.Persistence.Repositories.BlogRepositories;
+using RentACarProject.Persistence.Repositories.CarPricingRepositories;
 using RentACarProject.Persistence.Repositories.CarRepository;
 using RentACarProject.Persistence.Repositories.GeneralRepository;
 
@@ -26,6 +28,7 @@ builder.Services.AddScoped<RentACarContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(ICarRepository), typeof(CarRepository));
 builder.Services.AddScoped(typeof(IBlogRepository), typeof(BlogRepository));
+builder.Services.AddScoped(typeof(ICarPricingRepository), typeof(CarPricingRepository));
 
 // About Service
 builder.Services.AddScoped<GetAboutQueryHandler>();
