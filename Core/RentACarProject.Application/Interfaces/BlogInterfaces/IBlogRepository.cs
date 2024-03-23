@@ -10,6 +10,7 @@ namespace RentACarProject.Application.Interfaces.BlogInterfaces
     public interface IBlogRepository
     {
         Task<List<Blog>> GetLastThreeBlogsWithAuthorsAsync();
+        Task<List<Blog>> GetAllBlogsWithAuthorsAsync();
 
     }
 }
