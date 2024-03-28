@@ -34,8 +34,9 @@ namespace RentACarProject.WebUI.Controllers
         {
             ViewBag.v1 = "BLOGS ";
             ViewBag.v2 = "Read Our Blogs";
-
+            ViewBag.BlogID=id;
             return View();
+
         }
     }
 }
