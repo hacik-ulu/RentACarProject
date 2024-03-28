@@ -3,7 +3,7 @@ using RentACarProject.Application.Features.Mediator.Queries.CarPricingQueries;
 using RentACarProject.Application.Features.Mediator.Results.CarPricingResults;
 using RentACarProject.Application.Interfaces.CarPricingInterfaces;
 
-namespace RentACarProject.Application.Features.Mediator.Handlers.CarPricingHandlers
+namespace RentACarProject.Application.Features.Mediator.Handlers.CarPricingHandlers.ReadOperations
 {
     public class GetCarPricingWithCarQueryHandler : IRequestHandler<GetCarPricingWithCarQuery, List<GetCarPricingWithCarQueryResult>>
     {

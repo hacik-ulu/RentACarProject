@@ -6,11 +6,11 @@ using RentACarProject.Domain.Entities;
 
 namespace UdemyCarBook.Application.Features.Mediator.Handlers.SocialMediaHandlers
 {
-    public class GetPricingByIdQueryHandler : IRequestHandler<GetSocialMediaByIdQuery, GetSocialMediaByIdQueryResult>
+    public class GetSocialMediaByIdQueryHandler : IRequestHandler<GetSocialMediaByIdQuery, GetSocialMediaByIdQueryResult>
     {
         private readonly IRepository<SocialMedia> _repository;
 
-        public GetPricingByIdQueryHandler(IRepository<SocialMedia> repository)
+        public GetSocialMediaByIdQueryHandler(IRepository<SocialMedia> repository)
         {
             _repository = repository;
         }
