@@ -30,11 +30,11 @@ namespace RentACarProject.WebUI.Controllers
             return View();
         }
 
-        public async Task<IActionResult> BlogDetail(int id)
+        public async Task<IActionResult> BlogDetail(int id, int tagCloudID)
         {
             ViewBag.v1 = "BLOGS ";
             ViewBag.v2 = "Read Our Blogs";
-            ViewBag.BlogID=id;
+            ViewBag.BlogID = id;
             return View();
 
         }

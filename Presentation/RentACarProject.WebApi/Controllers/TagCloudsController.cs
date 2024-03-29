@@ -51,5 +51,13 @@ namespace RentACarProject.WebApi.Controllers
             return Ok("TagCloud Updated!");
 
         }
+
+        [HttpGet("GetTagCloudByBlogId")]
+        public async Task<IActionResult> GetTagCloudByBlogId(int id)
+        {
+            return Ok(await _mediator.Send(new GetTagCloudByBlogIdQuery(id)));
+
+        }
+
     }
 }
