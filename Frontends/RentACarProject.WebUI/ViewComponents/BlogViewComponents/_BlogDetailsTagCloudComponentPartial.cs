@@ -13,17 +13,17 @@ namespace RentACarProject.WebUI.ViewComponents.BlogViewComponents
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(int id)
+         public async Task<IViewComponentResult> InvokeAsync(int id)
         {
             ViewBag.BlogID = id;
             var client = _httpClientFactory.CreateClient();
             // GetAsync used for list or get the datas.
-            var responseMessage = await client.GetAsync($"https://localhost:7262/api/TagClouds/GetTagCloudByBlogId/" + id);
+            var responseMessage = await client.GetAsync($"https://localhost:7262/api/TagClouds/GetTagCloudByBlogId?id=" + id);
             if (responseMessage.IsSuccessStatusCode)
             {
                 // We are reading data from uotcome of our Api as string format.
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<GetByBlogIdtagCloudDto>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<GetByBlogIdtagCloudDto>>(jsonData);
                 return View(values);
             }
             return View();

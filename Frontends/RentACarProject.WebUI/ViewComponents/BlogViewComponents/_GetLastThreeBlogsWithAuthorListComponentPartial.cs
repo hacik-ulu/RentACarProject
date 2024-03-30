@@ -21,7 +21,7 @@ namespace RentACarProject.WebUI.ViewComponents.BlogViewComponents
             {
                 // We are reading data from uotcome of our Api as string format.
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultLastThreeBlogsWithAuthors>>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<ResultLastThreeBlogsWithAuthorDto>>(jsonData);
                 return View(values);
             }
             return View();
