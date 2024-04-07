@@ -26,6 +26,7 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPost]
         public IActionResult CreateComment(Comment comment)
         {
+
             _commentsRepository.Create(comment);
             return Ok("Comment added!");
         }

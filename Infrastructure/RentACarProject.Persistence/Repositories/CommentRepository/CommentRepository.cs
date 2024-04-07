@@ -26,7 +26,14 @@ namespace RentACarProject.Persistence.Repositories.CommentRepositories
 
         public List<Comment> GetAll()
         {
-            return _context.Comments.ToList();
+            return _context.Comments.Select(x => new Comment
+            {
+                Name = x.Name,
+                Description = x.Description,
+                BlogID = x.BlogID,
+                CreatedDate = x.CreatedDate,
+                CommentID = x.CommentID
+            }).ToList();
 
         }
 
