@@ -4,7 +4,7 @@ namespace RentACarProject.WebUI.Controllers
 {
     public class AdminCarController : Controller
     {
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
         }
