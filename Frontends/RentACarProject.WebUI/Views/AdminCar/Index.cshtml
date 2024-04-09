@@ -1,25 +1,54 @@
-﻿
+﻿@model List<ResultCarWithBrandsDto>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
+    int count = 0;
 }
 
 <div class="page-content">
     <div class="container-fluid">
-
-        <!-- start page title -->
         <div class="row">
-            <div class="col-12">
-                <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="mb-0 font-size-18">Starter</h4>
-
-                    <div class="page-title-right">
-                        <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
-                            <li class="breadcrumb-item active">Starter</li>
-                        </ol>
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Car List</h4>
+                        <p class="card-subtitle mb-4">
+                            You can perform operations such as adding, deleting, updating, searching, and listing related to cars on this page.
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Brand</th>
+                                        <th>Model</th>
+                                        <th>Transmission Type</th>
+                                        <th>Km</th>
+                                        <th>Delete</th>
+                                        <th>Details</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        count++;
+                                        <tr>
+                                            <th scope="row">@count</th>
+                                            <td>@item.BrandName</td>
+                                            <td>@item.Model</td>
+                                            <td>@item.Transmission</td>
+                                            <td>@item.Mileage</td>
+                                            <td><a href="/AdminCar/RemoveCar/@item.CarID" class="btn btn-outline-danger">Remove</a></td>
+                                            <td><a href="/AdminCar/UpdateCar/@item.CarID" class="btn btn-outline-success">Update</a></td>
+                                            <td><a href="/CarList/CarDetail/@item.CarID" class="btn btn-outline-dark">Details</a></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <a href="/AdminCar/CreateCar/" class="btn btn-outline-dark">Create New Car</a>
+                        </div>
                     </div>
-
                 </div>
             </div>
         </div>
