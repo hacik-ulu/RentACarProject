@@ -8,6 +8,7 @@ public class Car
     public string Model { get; set; }
     public string CoverImagerUrl { get; set; }
     public decimal Mileage { get; set; }
+    public int Year { get; set; }
     public string Transmission { get; set; }
     public byte Seat { get; set; }
     public byte Luggage { get; set; }

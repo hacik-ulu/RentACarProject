@@ -29,7 +29,8 @@ public class GetCarByIdQueryHandler
             Seat = values.Seat,
             Luggage = values.Luggage,
             Fuel = values.Fuel,
-            BigImageUrl = values.BigImageUrl
+            BigImageUrl = values.BigImageUrl,
+            Year = values.Year
         };
     }
 }

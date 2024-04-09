@@ -25,7 +25,8 @@ public class CreateCarCommandHandler
             Transmission = command.Transmission,
             CoverImagerUrl = command.CoverImagerUrl,
             BrandID = command.BrandID,
-            Fuel = command.Fuel
+            Fuel = command.Fuel,
+            Year = command.Year
         });
     }
 }

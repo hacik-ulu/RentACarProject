@@ -25,6 +25,7 @@ public class UpdateCarCommandHandler
         values.Luggage = command.Luggage;
         values.Model = command.Model;
         values.Seat = command.Seat;
+        values.Year = command.Year;
         await _repository.UpdateAsync(values);
     }
 }

@@ -30,7 +30,7 @@ public class GetCarWithBrandQueryHandler
             Luggage = x.Luggage,
             Fuel = x.Fuel,
             BigImageUrl = x.BigImageUrl,
-
+            Year = x.Year
         }).ToList();
     }
 }
