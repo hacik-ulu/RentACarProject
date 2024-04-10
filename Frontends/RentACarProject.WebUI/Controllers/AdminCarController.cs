@@ -32,7 +32,6 @@ namespace RentACarProject.WebUI.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateCar()
         {
-            // For Brand Dropdpwn List
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.GetAsync("https://localhost:7262/api/Brands");
             var jsonData = await responseMessage.Content.ReadAsStringAsync();
@@ -43,30 +42,7 @@ namespace RentACarProject.WebUI.Controllers
                                                     Text = x.Name,
                                                     Value = x.BrandID.ToString()
                                                 }).ToList();
-
-            // Transmission Type Dropdown List
-            List<SelectListItem> transmissionValues = new List<SelectListItem>
-            {
-                new SelectListItem { Text = "Manual Transmission", Value = "Manual" },
-                new SelectListItem { Text = "Automatic Transmission", Value = "Automatic" },
-                new SelectListItem { Text = "Semi-Automatic Transmission", Value = "Semi-Automatic" },
-                new SelectListItem { Text = "Direct Drive (Fixed Gear)", Value = "Direct Drive" },
-                new SelectListItem { Text = "Dual-Clutch Transmission (DSG or PDK)", Value = "Dual-Clutch" }
-            };
-
-
-            // Fuel Type Dropdown List
-            List<SelectListItem> fuelTypeValues = new List<SelectListItem>
-            {
-                new SelectListItem { Text = "Gasoline", Value = "Gasoline" },
-                new SelectListItem { Text = "Diesel", Value = "Diesel" },
-                new SelectListItem { Text = "Electricity", Value = "Electricity" }
-            };
-
             ViewBag.BrandValues = brandValues;
-            ViewBag.TransmissionValues = transmissionValues;
-            ViewBag.FuelTypeValues = fuelTypeValues;
-
             return View();
         }
 
@@ -94,5 +70,54 @@ namespace RentACarProject.WebUI.Controllers
             }
             return View();
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateCar(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+
+            var responseMessage1 = await client.GetAsync("https://localhost:7262/api/Brands");
+            var jsonData1 = await responseMessage1.Content.ReadAsStringAsync();
+            var values1 = JsonConvert.DeserializeObject<List<ResultBrandDto>>(jsonData1);
+            List<SelectListItem> brandValues = (from x in values1
+                                                select new SelectListItem
+                                                {
+                                                    Text = x.Name,
+                                                    Value = x.BrandID.ToString()
+                                                }).ToList();
+            ViewBag.BrandValues = brandValues;
+
+
+            var resposenMessage = await client.GetAsync($"https://localhost:7262/api/Cars/{id}");
+            if (resposenMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await resposenMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<UpdateCarDto>(jsonData);
+                return View(values);
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateCar(UpdateCarDto updateCarDto)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(updateCarDto);
+            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMessage = await client.PutAsync("https://localhost:7262/api/Cars/", stringContent);
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                // API'den hata mesajını al ve kullanıcıya göster
+                var errorMessage = await responseMessage.Content.ReadAsStringAsync();
+                ModelState.AddModelError(string.Empty, errorMessage);
+                return View(updateCarDto);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
     }
 }

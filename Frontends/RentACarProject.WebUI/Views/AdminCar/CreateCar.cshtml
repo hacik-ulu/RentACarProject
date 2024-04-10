@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">New Car Entry</h4>
-                        <p class="card-subtitle mb-4">You are kindly requested to fill in the following fields completely. Please be sure to press the "Save Car" button to register the new vehicle.</p>
+                        <p class="card-subtitle mb-4">You are kindly requested to fill in the following fields completely. Please be sure to press the "Save Car" button to register the new car.</p>
                         <form method="post">
                             <div class="form-group">
                                 <label for="exampleInputBrand">Brand</label>
@@ -36,12 +36,7 @@
 
                             <div class="form-group">
                                 <label for="exampleInputTransmission">Transmission Type</label>
-                                <select class="form-control" id="exampleInputTransmission" asp-for="Transmission">
-                                    @foreach (var item in ViewBag.TransmissionValues)
-                                    {
-                                        <option value="@item.Value">@item.Text</option>
-                                    }
-                                </select>
+                                <input type="text" class="form-control" id="exampleInputTransmission" asp-for="Transmission">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputSeat">Seat Number</label>
@@ -53,12 +48,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputFuel">Fuel Type</label>
-                                <select class="form-control" id="exampleInputFuel" asp-for="Fuel">
-                                    @foreach (var item in ViewBag.FuelTypeValues)
-                                    {
-                                        <option value="@item.Value">@item.Text</option>
-                                    }
-                                </select>
+                                <input type="text" class="form-control" id="exampleInputFuel" asp-for="Fuel">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputBigCoverImage">Big Cover Image </label>
