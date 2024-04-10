@@ -30,6 +30,11 @@
                                 <input type="text" class="form-control" id="exampleInputMileage" asp-for="Mileage">
                             </div>
                             <div class="form-group">
+                                <label for="exampleInputYear">Year</label>
+                                <input type="text" class="form-control" id="exampleInputYear" asp-for="Year">
+                            </div>
+
+                            <div class="form-group">
                                 <label for="exampleInputTransmission">Transmission Type</label>
                                 <select class="form-control" id="exampleInputTransmission" asp-for="Transmission">
                                     @foreach (var item in ViewBag.TransmissionValues)

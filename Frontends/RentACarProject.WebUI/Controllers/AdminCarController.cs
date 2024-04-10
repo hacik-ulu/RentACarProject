@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using RentACarProject.Dto.BrandDtos;
 using RentACarProject.Dto.CarDtos;
+using System.Text;
 
 namespace RentACarProject.WebUI.Controllers
 {
@@ -67,8 +68,21 @@ namespace RentACarProject.WebUI.Controllers
             ViewBag.FuelTypeValues = fuelTypeValues;
 
             return View();
-
-
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCar(CreateCarDto createCarDto)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(createCarDto);
+            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync("https://localhost:7262/api/Cars", stringContent);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
     }
 }
