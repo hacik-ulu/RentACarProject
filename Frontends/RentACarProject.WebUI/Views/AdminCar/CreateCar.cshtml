@@ -19,7 +19,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputModel">Model</label>
-                                <input type="text" class="form-control" id="exampleInputModel" asp-for="Model" >
+                                <input type="text" class="form-control" id="exampleInputModel" asp-for="Model">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputCoverImageUrl">Cover Image Url</label>
@@ -31,7 +31,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputTransmission">Transmission Type</label>
-                                <input type="text" class="form-control" id="exampleInputTransmission" asp-for="Transmission">
+                                <select class="form-control" id="exampleInputTransmission" asp-for="Transmission">
+                                    @foreach (var item in ViewBag.TransmissionValues)
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputSeat">Seat Number</label>

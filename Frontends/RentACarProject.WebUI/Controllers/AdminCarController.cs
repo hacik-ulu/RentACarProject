@@ -31,6 +31,7 @@ namespace RentACarProject.WebUI.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateCar()
         {
+            // For Brand Dropdpwn List
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.GetAsync("https://localhost:7262/api/Brands");
             var jsonData = await responseMessage.Content.ReadAsStringAsync();
@@ -41,7 +42,20 @@ namespace RentACarProject.WebUI.Controllers
                                                     Text = x.Name,
                                                     Value = x.BrandID.ToString()
                                                 }).ToList();
+
+            // For Transmission Type Dropdpwn List
+            List<SelectListItem> transmissionValues = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Manual Transmission", Value = "Manual" },
+        new SelectListItem { Text = "Automatic Transmission", Value = "Automatic" },
+        new SelectListItem { Text = "Semi-Automatic Transmission", Value = "Semi-Automatic" },
+        new SelectListItem { Text = "Direct Drive (Fixed Gear)", Value = "Direct Drive" },
+        new SelectListItem { Text = "Dual-Clutch Transmission (DSG or PDK)", Value = "Dual-Clutch" }
+    };
+
             ViewBag.BrandValues = brandValues;
+            ViewBag.TransmissionValues = transmissionValues;
+
             return View();
 
 
