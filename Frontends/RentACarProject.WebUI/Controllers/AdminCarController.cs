@@ -44,7 +44,6 @@ namespace RentACarProject.WebUI.Controllers
             ViewBag.BrandValues = brandValues;
             return View();
 
-            // Fuel için ayrı bir entity oluşturup daha sonrasında sadece listeleme işlemi MEDİATOR ile yapılıp API call edilebilir sonrasında dropdown olabilir
 
         }
     }
