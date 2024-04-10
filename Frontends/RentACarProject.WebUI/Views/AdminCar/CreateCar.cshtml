@@ -48,7 +48,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputFuel">Fuel Type</label>
-                                <input type="text" class="form-control" id="exampleInputFuel" asp-for="Fuel">
+                                <select class="form-control" id="exampleInputFuel" asp-for="Fuel">
+                                    @foreach (var item in ViewBag.FuelTypeValues)
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputBigCoverImage">Big Cover Image </label>
