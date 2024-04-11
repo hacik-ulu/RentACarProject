@@ -5,6 +5,9 @@
     int count = 0;
 }
 
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <div class="page-content">
     <div class="container-fluid">
         <div class="row">
@@ -26,18 +29,34 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in Model)
+                                    @if (Model.Any())
                                     {
-                                        count++;
-                                        <tr>
-                                            <th scope="row">@count</th>
-                                            <td>@item.Name</td>
-                                            <td><a href="/AdminFeature/RemoveFeature/@item.FeatureID" class="btn btn-outline-danger">Remove</a></td>
-                                            <td><a href="/AdminFeature/UpdateFeature/@item.FeatureID" class="btn btn-outline-success">Update</a></td>
-                                        </tr>
+                                        @foreach (var item in Model)
+                                        {
+                                            count++;
+                                            <tr>
+                                                <th scope="row">@count</th>
+                                                <td>@item.Name</td>
+                                                <td><a href="/AdminFeature/RemoveFeature/@item.FeatureID" class="btn btn-outline-danger">Remove</a></td>
+                                                <td><a href="/AdminFeature/UpdateFeature/@item.FeatureID" class="btn btn-outline-success">Update</a></td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <script>
+                                            $(document).ready(function () {
+                                                Swal.fire({
+                                                    icon: "error",
+                                                    title: "Oops...",
+                                                    text: "No features found!",
+                                                });
+                                            });
+                                        </script>
                                     }
                                 </tbody>
                             </table>
+                            <br />
                             <a href="/AdminFeature/CreateFeature/" class="btn btn-outline-dark">Create New Feature</a>
                         </div>
                     </div>
@@ -46,4 +65,3 @@
         </div>
     </div>
 </div>
-w
