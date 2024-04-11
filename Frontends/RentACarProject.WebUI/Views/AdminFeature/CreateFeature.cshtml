@@ -1,0 +1,28 @@
+﻿@model CreateFeatureDto
+@{
+    ViewData["Title"] = "CreateFeature";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">New Feature Entry</h4>
+                        <p class="card-subtitle mb-4">You are kindly requested to fill in the following fields completely. Please be sure to press the "Save Feature" button to register the new Feature.</p>
+                        <form method="post">
+                            <div class="form-group">
+                                <label for="exampleInputName">Feature Name</label>
+                                <input type="text" class="form-control" id="exampleInputName" asp-for="Name">
+                            </div>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Create Feature</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -12,8 +12,10 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Araç Güncelleme Sayfası</h4>
-                        <p class="card-subtitle mb-4">Araç ile ilgili temel bilgileri eksiksiz doldurmanız önemlidir. Veri girişlerinden sonra kaydet butonuna tıklayarak güncelleme işlemini tamamlayabilirsiniz.</p>
+                        <h4 class="card-title">Car Update Page</h4>
+                        <p class="card-subtitle mb-4">
+                            It's important to fill in the basic information about the vehicle completely. After entering the data, you can complete the update process by clicking the save button.
+                        </p>
                         <form method="post">
                             <input type="hidden" asp-for="CarID" />
                             <div class="form-group">
@@ -22,53 +24,45 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputModel">Model</label>
-                                <input type="text" class="form-control" id="exampleInputModel" asp-for="Model" placeholder="Model Girişi Yapınız">
+                                <input type="text" class="form-control" id="exampleInputModel" asp-for="Model">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputCoverImage">Kapak Fotoğrafı</label>
-                                <input type="text" class="form-control" id="exampleInputCoverImage" asp-for="CoverImagerUrl" placeholder="Kapak Fotoğraf Linkini Giriniz">
+                                <input type="text" class="form-control" id="exampleInputCoverImage" asp-for="CoverImagerUrl">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputMileage">Mileage</label>
-                                <input type="text" class="form-control" id="exampleInputMileage" asp-for="Mileage" placeholder="Km Bilgisi Giriniz">
+                                <input type="text" class="form-control" id="exampleInputMileage" asp-for="Mileage">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputYear">Year</label>
-                                <input type="text" class="form-control" id="exampleInputYear" asp-for="Year" placeholder="Km Bilgisi Giriniz">
+                                <input type="text" class="form-control" id="exampleInputYear" asp-for="Year">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputTransmission">Vites Türü</label>
-                                <input type="text" class="form-control" id="exampleInputTransmission" asp-for="Transmission" placeholder="Vites Türünü Yazınız">
+                                <input type="text" class="form-control" id="exampleInputTransmission" asp-for="Transmission">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputSeat">Koltuk Sayısı</label>
-                                <input type="number" class="form-control" id="exampleInputSeat" asp-for="Seat" placeholder="Koltuk Sayısını Seçiniz">
+                                <input type="number" class="form-control" id="exampleInputSeat" asp-for="Seat">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputLuggage">Bagaj Sayısı</label>
-                                <input type="number" class="form-control" id="exampleInputLuggage" asp-for="Luggage" placeholder="Bagaj Sayısını Giriniz">
+                                <input type="number" class="form-control" id="exampleInputLuggage" asp-for="Luggage">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputFuel">Yakıt Türü</label>
-                                <input type="text" class="form-control" id="exampleInputFuel" asp-for="Fuel" placeholder="Yakıt Türünü Giriniz">
+                                <input type="text" class="form-control" id="exampleInputFuel" asp-for="Fuel">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputLuggage">Büyük Kapak Fotoğrafı</label>
-                                <input type="text" class="form-control" id="exampleInputLuggage" asp-for="BigImageUrl" placeholder="Araç Detayında Gözükecek Kapak Fotoğraf Linki">
+                                <input type="text" class="form-control" id="exampleInputLuggage" asp-for="BigImageUrl">
                             </div>
-                            <button type="submit" class="btn btn-primary waves-effect waves-light">Aracı Kaydet</button>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Save Car</button>
                         </form>
-
-                    </div> <!-- end card-body-->
+                    </div>
                 </div>
-
             </div>
-            <!-- end card-body-->
         </div>
-        <!-- end card -->
-
     </div>
-    <!-- end col -->
-
 </div>
-<!-- end page title -->

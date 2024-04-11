@@ -107,15 +107,12 @@ namespace RentACarProject.WebUI.Controllers
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var responseMessage = await client.PutAsync("https://localhost:7262/api/Cars/", stringContent);
 
-            if (!responseMessage.IsSuccessStatusCode)
+            if (responseMessage.IsSuccessStatusCode)
             {
-                // API'den hata mesajını al ve kullanıcıya göster
-                var errorMessage = await responseMessage.Content.ReadAsStringAsync();
-                ModelState.AddModelError(string.Empty, errorMessage);
-                return View(updateCarDto);
+                return RedirectToAction("Index");
             }
 
-            return RedirectToAction("Index");
+            return View();
         }
 
 
