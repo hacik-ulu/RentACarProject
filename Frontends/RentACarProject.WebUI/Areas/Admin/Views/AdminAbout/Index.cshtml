@@ -1,0 +1,65 @@
+﻿@model List<ResultAboutDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Home Page About Area</h4>
+                        <p class="card-subtitle mb-4">
+                            You can add new About, edit existing About, and remove a About from here.To ensure data consistency in the theme, please enter only one About data.
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th>Image Url</th>
+                                        <th>Remove</th>
+                                        <th>Update</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Any())
+                                    {
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>@item.Title</td>
+                                                <td>@item.Description</td>
+                                                <td>@item.ImageUrl</td>
+                                                <td><a href="/Admin/AdminAbout/RemoveAbout/@item.AboutId" class="btn btn-outline-danger">Remove</a></td>
+                                                <td><a href="/Admin/AdminAbout/UpdateAbout/@item.AboutId" class="btn btn-outline-success">Update</a></td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <script>
+                                            $(document).ready(function () {
+                                                Swal.fire({
+                                                    icon: "error",
+                                                    title: "Oops...",
+                                                    text: "No About found!",
+                                                });
+                                            });
+                                        </script>
+                                    }
+                                </tbody>
+                            </table>
+                            <br />
+                            <a href="/Admin/AdminAbout/CreateAbout/" class="btn btn-outline-dark">Create New About</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
