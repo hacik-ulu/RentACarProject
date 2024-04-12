@@ -1,8 +1,7 @@
-﻿@model List<ResultBrandDto>
+﻿@model List<ResultBannerDto>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
-    int count = 0;
 }
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -14,19 +13,21 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Brand Features List</h4>
+                        <h4 class="card-title">Home Page Banner Area</h4>
                         <p class="card-subtitle mb-4">
-                            You can add new brands, edit existing brands, and remove a brand from here.To ensure data consistency in the theme, enter data in multiples of three.
+                            You can add new banner, edit existing banner, and remove a banner from here.To ensure data consistency in the theme, please enter only one banner data.
                         </p>
                         <div class="table-responsive">
                             <table class="table mb-0">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Brand</th>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th>Video URL</th>
+                                        <th>Video Description</th>
                                         <th>Remove</th>
                                         <th>Update</th>
-                                        <th>Cars of The Brand</th>
+                                        <th>Watch from Youtube</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -34,13 +35,14 @@
                                     {
                                         @foreach (var item in Model)
                                         {
-                                            count++;
                                             <tr>
-                                                <th scope="row">@count</th>
-                                                <td>@item.Name</td>
-                                                <td><a href="/AdminBrand/RemoveBrand/@item.BrandID" class="btn btn-outline-danger">Remove</a></td>
-                                                <td><a href="/AdminBrand/UpdateBrand/@item.BrandID" class="btn btn-outline-success">Update</a></td>
-                                                <td><a href="/AdminBrand/UpdateBrand/@item.BrandID" class="btn btn-outline-success">Cars of The Brand</a></td>
+                                                <td>@item.Title</td>
+                                                <td>@item.Description</td>
+                                                <td>@item.VideoUrl</td>
+                                                <td>@item.VideoDescription</td>
+                                                <td><a href="/Admin/AdminBanner/RemoveBanner/@item.BannerID" class="btn btn-outline-danger">Remove</a></td>
+                                                <td><a href="/Admin/AdminBanner/UpdateBanner/@item.BannerID" class="btn btn-outline-success">Update</a></td>
+                                                <td><a href="#" class="btn btn-outline-success">Go to Video</a></td>
                                             </tr>
                                         }
                                     }
@@ -51,7 +53,7 @@
                                                 Swal.fire({
                                                     icon: "error",
                                                     title: "Oops...",
-                                                    text: "No Brand found!",
+                                                    text: "No Banner found!",
                                                 });
                                             });
                                         </script>
@@ -59,7 +61,7 @@
                                 </tbody>
                             </table>
                             <br />
-                            <a href="/AdminBrand/CreateBrand/" class="btn btn-outline-dark">Create New Brand</a>
+                            <a href="/Admin/AdminBanner/CreateBanner/" class="btn btn-outline-dark">Create New Banner</a>
                         </div>
                     </div>
                 </div>
@@ -67,5 +69,4 @@
         </div>
     </div>
 </div>
-
 
