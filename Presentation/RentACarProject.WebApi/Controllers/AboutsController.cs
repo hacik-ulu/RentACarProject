@@ -32,7 +32,7 @@ namespace RentACarProject.WebApi.Controllers
             return Ok(values);
         }
 
-        [HttpGet("get/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetAbout(int id)
         {
             var values = await _getAboutByIdQueryHandler.Handle(new GetAboutByIdQuery(id));
