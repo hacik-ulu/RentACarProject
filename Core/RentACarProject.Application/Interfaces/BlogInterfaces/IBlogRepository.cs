@@ -12,6 +12,6 @@ namespace RentACarProject.Application.Interfaces.BlogInterfaces
         Task<List<Blog>> GetLastThreeBlogsWithAuthorsAsync();
         Task<List<Blog>> GetAllBlogsWithAuthorsAsync();
         Task<List<Blog>> GetBlogByAuhorIdAsync(int id);
-
+        Task<string> GetCategoryNameByIdAsync(int categoryID);
     }
 }

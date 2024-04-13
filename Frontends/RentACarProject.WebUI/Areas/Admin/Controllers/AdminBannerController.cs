@@ -5,7 +5,6 @@ using System.Text;
 
 namespace RentACarProject.WebUI.Areas.Admin.Controllers
 {
-
     [Area("Admin")]
     [Route("Admin/AdminBanner")]
     public class AdminBannerController : Controller

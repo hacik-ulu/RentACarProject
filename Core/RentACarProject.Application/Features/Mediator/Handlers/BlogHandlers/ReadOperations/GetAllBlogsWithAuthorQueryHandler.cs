@@ -25,19 +25,30 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.BlogHandlers.Re
         public async Task<List<GetAllBlogsWithAuthorQueryResult>> Handle(GetAllBlogsWithAuthorQuery request, CancellationToken cancellationToken)
         {
             var values = await _repository.GetAllBlogsWithAuthorsAsync();
-            return values.Select(x => new GetAllBlogsWithAuthorQueryResult()
+            var result = new List<GetAllBlogsWithAuthorQueryResult>();
+
+            foreach (var x in values)
             {
-                AuthorID = x.AuthorID,
-                BlogID = x.BlogID,
-                CategoryID = x.CategoryID,
-                CoverImageUrl = x.CoverImageUrl,
-                CreatedDate = x.CreatedDate,
-                Title = x.Title,
-                AuthorName = x.Author.Name,
-                Description = x.Description,
-                AuthorDescription = x.Author.Description,
-                AuthorImageUrl = x.Author.ImageUrl
-            }).ToList();
+                var categoryName = await _repository.GetCategoryNameByIdAsync(x.CategoryID);
+                result.Add(new GetAllBlogsWithAuthorQueryResult()
+                {
+                    AuthorID = x.AuthorID,
+                    BlogID = x.BlogID,
+                    CategoryID = x.CategoryID,
+                    CategoryName = categoryName,
+                    CoverImageUrl = x.CoverImageUrl,
+                    CreatedDate = x.CreatedDate,
+                    Title = x.Title,
+                    AuthorName = x.Author.Name,
+                    Description = x.Description,
+                    AuthorDescription = x.Author.Description,
+                    AuthorImageUrl = x.Author.ImageUrl
+                });
+            }
+
+            return result;
         }
+
+
     }
 }

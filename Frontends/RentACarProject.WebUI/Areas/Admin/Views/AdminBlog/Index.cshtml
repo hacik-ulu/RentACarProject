@@ -1,0 +1,79 @@
+﻿@model List<ResultAllBlogsWithAuthorDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+}
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            Blog List
+                        </h4>
+                        <p class="card-subtitle mb-4">
+                            You can see deletions, updates and blog list access for blogs. Adding a new blog is not done by the admin. If you want to add a blog, you must log in to the system as an author.
+                            Each writer can only edit their own blogs.
+                            To do this, you can log in via the Login/WriterLogin page in the application.
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Title</th>
+                                        <th>Author</th>
+                                        <th>Category</th>
+                                        <th>Date</th>
+                                        <th>Remove</th>
+                                        <th>Open Blog</th>
+                                        <th>Comments</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Any())
+                                    {
+                                        @foreach (var item in Model)
+                                        {
+                                            count++;
+                                            <tr>
+                                                <td>@count</td>
+                                                <td>@item.Title</td>
+                                                <td>@item.AuthorName</td>
+                                                <td>@item.CategoryName</td>
+                                                <td>@item.CreatedDate.ToShortDateString()</td>
+                                                <td><a href="/Admin/AdminBlog/RemoveBlog/@item.BlogID" class="btn btn-outline-danger">Remove</a></td>
+                                                <td><a href="/Admin/AdminBlog/#/@item.BlogID" class="btn btn-outline-success">Open Blog</a></td>
+                                                <td><a href="/Admin/AdminBlog/#/@item.BlogID" class="btn btn-outline-success">Comment</a></td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <script>
+                                            $(document).ready(function () {
+                                                Swal.fire({
+                                                    icon: "error",
+                                                    title: "Oops...",
+                                                    text: "No Blog found!",
+                                                });
+                                            });
+                                        </script>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

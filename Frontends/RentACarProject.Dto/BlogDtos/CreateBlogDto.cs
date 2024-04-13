@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace RentACarProject.Dto.BlogDtos
 {
-    public class ResultAllBlogsWithAuthorDto
+    public class CreateBlogDto
     {
-        public int BlogID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string AuthorName { get; set; }
@@ -19,7 +18,6 @@ namespace RentACarProject.Dto.BlogDtos
         public int CategoryID { get; set; }
         public string AuthorDescription { get; set; }
         public string AuthorImageUrl { get; set; }
-
 
     }
 }
