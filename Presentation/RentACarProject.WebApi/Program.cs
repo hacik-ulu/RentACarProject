@@ -6,6 +6,7 @@ using RentACarProject.Application.Features.CQRS.Handlers.BrandHandlers.ReadOpera
 using RentACarProject.Application.Features.CQRS.Handlers.BrandHandlers.WriteOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.CarHandlers.ReadOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.CarHandlers.WriteOperations;
+using RentACarProject.Application.Features.CQRS.Handlers.CategoryHandlers;
 using RentACarProject.Application.Features.CQRS.Handlers.CategoryHandlers.ReadOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.CategoryHandlers.WriteOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.ContactHandler.ReadOperations;

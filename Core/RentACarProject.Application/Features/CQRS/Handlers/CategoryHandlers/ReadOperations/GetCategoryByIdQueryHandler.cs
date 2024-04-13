@@ -9,12 +9,10 @@ namespace RentACarProject.Application.Features.CQRS.Handlers.CategoryHandlers.Re
 public class GetCategoryByIdQueryHandler
 {
     private readonly IRepository<Category> _repository;
-
     public GetCategoryByIdQueryHandler(IRepository<Category> repository)
     {
         _repository = repository;
     }
-
     public async Task<GetCategoryByIdQueryResult> Handle(GetCategoryByIdQuery query)
     {
         var values = await _repository.GetByIdAsync(query.Id);

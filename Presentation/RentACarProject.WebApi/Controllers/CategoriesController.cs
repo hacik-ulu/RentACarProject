@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RentACarProject.Application.Features.CQRS.Commands.CategoryCommands;
+using RentACarProject.Application.Features.CQRS.Handlers.CategoryHandlers;
 using RentACarProject.Application.Features.CQRS.Handlers.CategoryHandlers.ReadOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.CategoryHandlers.WriteOperations;
 using RentACarProject.Application.Features.CQRS.Queries.CategoryQueries;
