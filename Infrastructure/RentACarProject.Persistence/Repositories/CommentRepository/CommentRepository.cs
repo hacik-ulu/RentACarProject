@@ -1,4 +1,5 @@
-﻿using RentACarProject.Application.Features.RepositoryPattern;
+﻿using Microsoft.EntityFrameworkCore;
+using RentACarProject.Application.Features.RepositoryPattern;
 using RentACarProject.Domain.Entities;
 using RentACarProject.Persistence.Context;
 using System;
@@ -40,6 +41,11 @@ namespace RentACarProject.Persistence.Repositories.CommentRepositories
         public Comment GetById(int id)
         {
             return _context.Comments.Find(id);
+        }
+
+        public List<Comment> GetCommentsByBlogId(int id)
+        {
+            return _context.Set<Comment>().Where(x => x.BlogID == id).ToList();
         }
 
         public void Remove(Comment entity)
