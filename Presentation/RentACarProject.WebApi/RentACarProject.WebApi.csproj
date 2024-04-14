@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Frontends\RentACarProject.Dto\RentACarProject.Dto.csproj" />
     <ProjectReference Include="..\..\Infrastructure\RentACarProject.Persistence\RentACarProject.Persistence.csproj" />
   </ItemGroup>
 

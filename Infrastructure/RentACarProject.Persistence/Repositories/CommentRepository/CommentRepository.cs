@@ -45,7 +45,22 @@ namespace RentACarProject.Persistence.Repositories.CommentRepositories
 
         public List<Comment> GetCommentsByBlogId(int id)
         {
-            return _context.Set<Comment>().Where(x => x.BlogID == id).ToList();
+            return _context.Set<Comment>()
+                    .Include(c => c.Blog) // Blog referansını dahil ediyoruz
+                    .Where(x => x.BlogID == id)
+                    .Select(c => new Comment
+                    {
+                        CommentID = c.CommentID,
+                        Name = c.Name,
+                        CreatedDate = c.CreatedDate,
+                        Description = c.Description,
+                        BlogID = c.BlogID,
+                        Blog = new Blog
+                        {
+                            Title = c.Blog.Title // Sadece Title'ı alıyoruz
+                        }
+                    })
+                    .ToList();
         }
 
         public void Remove(Comment entity)
