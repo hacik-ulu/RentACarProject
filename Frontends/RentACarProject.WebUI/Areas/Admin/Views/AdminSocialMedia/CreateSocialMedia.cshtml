@@ -1,0 +1,40 @@
+﻿@model CreateSocialMediaDto
+@{
+    ViewData["Title"] = "CreateSocialMedia";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">New Social Media Information Entry</h4>
+                        <p class="card-subtitle mb-4">
+                            You can enter data for your social media accounts here. You can add a new social media, delete or edit your existing social media accounts.
+                            You can access the list of icons via the icon list.
+                        </p>
+                        <form method="post">
+                            <div class="form-group">
+                                <label for="exampleInputTitle">Social Media Title</label>
+                                <input type="text" class="form-control" id="exampleInputTitle" asp-for="Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputTitle">URL</label>
+                                <input type="text" class="form-control" id="exampleInputTitle" asp-for="Url">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputTitle">Social Media Icon</label>
+                                <input type="text" class="form-control" id="exampleInputTitle" asp-for="Icon">
+                            </div>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Save SocialMedia</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                                
