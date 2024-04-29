@@ -95,4 +95,3 @@ namespace UdemyCarBook.WebUI.Areas.Admin.Controllers
     }
 }
 
-//UpdateAbout is editing.
