@@ -14,6 +14,11 @@ public class CarRepository : ICarRepository
         _context = context;
     }
 
+    public async Task<int> GetCarCountAsync()
+    {
+        var value = await _context.Cars.CountAsync();
+        return value;
+    }
 
     public async Task<List<Car>> GetCarsListWithBrandsAsync()
     {

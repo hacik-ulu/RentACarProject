@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using RentACarProject.Application.Features.CQRS.Commands.CarCommands;
 using RentACarProject.Application.Features.CQRS.Handlers.CarHandlers.ReadOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.CarHandlers.WriteOperations;
 using RentACarProject.Application.Features.CQRS.Queries.CarQueries;
+using RentACarProject.Application.Features.Mediator.Queries.StatisticsQueries;
 using UdemyCarBook.Application.Features.CQRS.Commands.CarCommands;
 
 namespace UdemyCarBook.WebApi.Controllers

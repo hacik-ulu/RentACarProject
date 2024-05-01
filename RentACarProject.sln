@@ -21,7 +21,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontends", "Frontends", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentACarProject.WebUI", "Frontends\RentACarProject.WebUI\RentACarProject.WebUI.csproj", "{27D243F5-0955-432E-8F3D-9330AFE5AC69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentACarProject.Dto", "Frontends\RentACarProject.Dto\RentACarProject.Dto.csproj", "{EB53BF3B-34F8-4CD6-92F1-A2D0A6368B5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentACarProject.Dto", "Frontends\RentACarProject.Dto\RentACarProject.Dto.csproj", "{EB53BF3B-34F8-4CD6-92F1-A2D0A6368B5E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ToDoList", "ToDoList", "{28310F92-A278-4F58-BBE8-DA75F2CD928B}"
+	ProjectSection(SolutionItems) = preProject
+		TextFile1.txt = TextFile1.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
