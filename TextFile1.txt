@@ -1,3 +1,17 @@
-CarCount
+Car Count
 Location Count
 Author Count
+Blog Count
+Brand Count
+Average Price Count (perday)
+Average Price Count (weekly)
+Average Price Count (per month)
+Automatic Car Count
+Katalogda bulunan en yüksek sayýdaki marka
+En Fazla Yorum Alan Blog Baþlýðý
+1000Kmden düþük araçlar
+Benzin veya Dizel Araçlar
+Elktrikli Araçlar
+En Pahalý Araç
+En Ucuz Araç
+
