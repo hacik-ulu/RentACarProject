@@ -24,7 +24,6 @@ namespace RentACarProject.Persistence.Repositories.StatisticsRepositories
             var value = await _context.Authors.CountAsync();
             return value;
         }
-
         public async Task<decimal> GetAvgRentPriceForHourlyAsync()
         {
             int id = await _context.Pricings.Where(x => x.Name == "Hourly").Select(y => y.PricingID).FirstOrDefaultAsync();
@@ -37,31 +36,26 @@ namespace RentACarProject.Persistence.Repositories.StatisticsRepositories
             var value = await _context.CarPricings.Where(w => w.PricingID == id).AverageAsync(x => x.Amount);
             return value;
         }
-
         public async Task<decimal> GetAvgRentPriceForWeeklyAsync()
         {
             int id = await _context.Pricings.Where(x => x.Name == "Weekly").Select(y => y.PricingID).FirstOrDefaultAsync();
             var value = await _context.CarPricings.Where(w => w.PricingID == id).AverageAsync(x => x.Amount);
             return value;
         }
-
         public async Task<int> GetBlogCountAsync()
         {
             var value = await _context.Blogs.CountAsync();
             return value;
         }
-
         public Task<string> GetBlogTitleByMaxBlogCommentAsync()
         {
             throw new NotImplementedException();
         }
-
         public async Task<int> GetBrandCountAsync()
         {
             var value = await _context.Brands.CountAsync();
             return value;
         }
-
         public Task<string> GetBrandNameByMaxCarAsync()
         {
             throw new NotImplementedException();
@@ -76,33 +70,31 @@ namespace RentACarProject.Persistence.Repositories.StatisticsRepositories
         {
             throw new NotImplementedException();
         }
-
         public async Task<int> GetCarCountAsync()
         {
             var value = await _context.Cars.CountAsync();
             return value;
         }
-
-        public Task<int> GetCarCountByFuelElectricAsync()
+        public async Task<int> GetCarCountByFuelElectricAsync()
         {
-            throw new NotImplementedException();
+            var value = await _context.Cars.Where(x => x.Fuel == "Electricity" || x.Fuel == "Diesel").CountAsync();
+            return value;
         }
-
-        public Task<int> GetCarCountByFuelGasolineOrDieselAsync()
+        public async Task<int> GetCarCountByFuelGasolineOrDieselAsync()
         {
-            throw new NotImplementedException();
+            var value = await _context.Cars.Where(x => x.Fuel == "Gasoline" || x.Fuel == "Diesel").CountAsync();
+            return value;
         }
-
-        public Task<int> GetCarCountByKmSmallerThen1000Async()
+        public async Task<int> GetCarCountByKmSmallerThen1000Async()
         {
-            throw new NotImplementedException();
+            var value = await _context.Cars.Where(x => x.Mileage < 1000).CountAsync();
+            return value;
         }
-
-        public Task<int> GetCarCountByTranmissionIsAutoAsync()
+        public async Task<int> GetCarCountByTranmissionIsAutoAsync()
         {
-            throw new NotImplementedException();
+            var value = await _context.Cars.Where(x => x.Transmission == "Automatic").CountAsync();
+            return value;
         }
-
         public async Task<int> GetLocationCountAsync()
         {
             var value = await _context.Locations.CountAsync();
