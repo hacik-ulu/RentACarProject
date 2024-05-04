@@ -1,12 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RentACarProject.Application.Interfaces.StatisticsInterfaces;
-using RentACarProject.Domain.Entities;
 using RentACarProject.Persistence.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RentACarProject.Persistence.Repositories.StatisticsRepositories
 {
