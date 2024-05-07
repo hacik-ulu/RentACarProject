@@ -1,4 +1,4 @@
-﻿namespace UdemyCarBook.Application.Features.CQRS.Commands.CarCommands;
+﻿namespace RentACarProject.Application.Features.CQRS.Commands.CarCommands;
 
 public class RemoveCarCommand
 {

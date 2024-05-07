@@ -1,7 +1,7 @@
 ﻿using MediatR;
+using RentACarProject.Application.Features.Mediator.Queries.StatisticsQueries;
 using RentACarProject.Application.Features.Mediator.Results.StatisticsResult;
 using RentACarProject.Application.Interfaces.StatisticsInterfaces;
-using UdemyCarBook.Application.Features.Mediator.Queries.StatisticsQueries;
 
 namespace RentACarProject.Application.Features.Mediator.Handlers.StatisticsHandlers
 {

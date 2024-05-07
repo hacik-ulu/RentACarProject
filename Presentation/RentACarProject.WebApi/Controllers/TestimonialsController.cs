@@ -4,7 +4,7 @@ using RentACarProject.Application.Features.Mediator.Commands.TestimonialCommands
 using RentACarProject.Application.Features.Mediator.Queries.TestimonailsQueries;
 using RentACarProject.Application.Features.Mediator.Queries.TestimonialsQueries;
 
-namespace UdemyCarBook.WebApi.Controllers
+namespace RentACarProject.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

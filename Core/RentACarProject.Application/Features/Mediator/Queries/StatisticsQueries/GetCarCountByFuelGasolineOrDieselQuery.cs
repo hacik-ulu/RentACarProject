@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using RentACarProject.Application.Features.Mediator.Results.StatisticsResult;
 
-namespace UdemyCarBook.Application.Features.Mediator.Queries.StatisticsQueries
+namespace RentACarProject.Application.Features.Mediator.Queries.StatisticsQueries
 {
     public class GetCarCountByFuelGasolineOrDieselQuery : IRequest<GetCarCountByFuelGasolineOrDieselQueryResult>
     {

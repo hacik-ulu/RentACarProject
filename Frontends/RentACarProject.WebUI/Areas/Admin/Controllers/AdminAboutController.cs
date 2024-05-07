@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using RentACarProject.Dto.AboutDtos;
 using System.Text;
 
-namespace UdemyCarBook.WebUI.Areas.Admin.Controllers
+namespace RentACarProject.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/AdminAbout")]

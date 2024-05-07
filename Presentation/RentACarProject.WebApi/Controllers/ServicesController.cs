@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RentACarProject.Application.Features.Mediator.Commands.ServiceCommands;
 using RentACarProject.Application.Features.Mediator.Queries.ServiceQueries;
 
-namespace UdemyCarBook.WebApi.Controllers
+namespace RentACarProject.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

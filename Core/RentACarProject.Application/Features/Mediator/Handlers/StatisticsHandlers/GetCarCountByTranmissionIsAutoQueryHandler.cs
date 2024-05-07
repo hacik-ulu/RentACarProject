@@ -3,7 +3,7 @@ using RentACarProject.Application.Features.Mediator.Queries.StatisticsQueries;
 using RentACarProject.Application.Features.Mediator.Results.StatisticsResult;
 using RentACarProject.Application.Interfaces.StatisticsInterfaces;
 
-namespace UdemyCarBook.Application.Features.Mediator.Handlers.StatisticsHandlers
+namespace RentACarProject.Application.Features.Mediator.Handlers.StatisticsHandlers
 {
     public class GetCarCountByTranmissionIsAutoQueryHandler : IRequestHandler<GetCarCountByTranmissionIsAutoQuery, GetCarCountByTransmissionIsAutoQueryResult>
     {

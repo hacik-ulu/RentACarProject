@@ -3,7 +3,7 @@ using RentACarProject.Application.Features.Mediator.Commands.ServiceCommands;
 using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Domain.Entities;
 
-namespace UdemyCarBook.Application.Features.Mediator.Handlers.ServiceHandlers
+namespace RentACarProject.Application.Features.Mediator.Handlers.ServiceHandlers
 {
     public class CreatePricingCommandHandler : IRequestHandler<CreateServiceCommand>
     {

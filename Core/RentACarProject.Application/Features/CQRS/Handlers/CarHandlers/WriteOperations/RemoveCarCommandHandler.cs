@@ -1,6 +1,6 @@
 ﻿using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Domain.Entities;
-using UdemyCarBook.Application.Features.CQRS.Commands.CarCommands;
+using RentACarProject.Application.Features.CQRS.Commands.CarCommands;
 
 namespace RentACarProject.Application.Features.CQRS.Handlers.CarHandlers.WriteOperations;
 

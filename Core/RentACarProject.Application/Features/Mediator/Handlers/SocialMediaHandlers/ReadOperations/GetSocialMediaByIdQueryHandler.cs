@@ -4,7 +4,7 @@ using RentACarProject.Application.Features.Mediator.Results.SocialMediaResults;
 using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Domain.Entities;
 
-namespace UdemyCarBook.Application.Features.Mediator.Handlers.SocialMediaHandlers
+namespace RentACarProject.Application.Features.Mediator.Handlers.SocialMediaHandlers
 {
     public class GetSocialMediaByIdQueryHandler : IRequestHandler<GetSocialMediaByIdQuery, GetSocialMediaByIdQueryResult>
     {
