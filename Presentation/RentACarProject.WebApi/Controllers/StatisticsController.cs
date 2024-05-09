@@ -42,6 +42,12 @@ namespace RentACarProject.WebApi.Controllers
             return Ok(values);
         }
 
+        [HttpGet("GetBrandCount")]
+        public async Task<IActionResult> GetBrandCount()
+        {
+            var values = await _mediator.Send(new GetBrandCountQuery());
+            return Ok(values);
+        }
 
         [HttpGet("GetAvgRentPriceForHourly")]
         public async Task<IActionResult> GetAvgRentPriceForHourly()
@@ -115,7 +121,7 @@ namespace RentACarProject.WebApi.Controllers
         }
 
         [HttpGet("GetCarBrandAndModelByRentPriceDailyMin")]
-        public async Task<IActionResult> GetBrandCount()
+        public async Task<IActionResult> GetCarBrandAndModelByRentPriceDailyMin()
         {
             var values = await _mediator.Send(new GetCarBrandAndModelByRentPriceDailyMinQuery());
             return Ok(values);

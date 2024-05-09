@@ -70,6 +70,41 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
             }
             #endregion
 
+            #region S5
+            var responseMessage5 = await client.GetAsync("https://localhost:7262/api/Statistics/GetBrandCount");
+            if (responseMessage5.IsSuccessStatusCode)
+            {
+                int brandCountRandom = random.Next(0, 101);
+                var jsonData5 = await responseMessage5.Content.ReadAsStringAsync();
+                var values5 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData5);
+                ViewBag.brandCount = values5.BrandCount;
+                ViewBag.brandCountRandom = brandCountRandom;
+            }
+            #endregion
+
+            #region S6
+            var responseMessage6 = await client.GetAsync("https://localhost:7262/api/Statistics/GetAvgRentPriceForPerDay");
+            if (responseMessage6.IsSuccessStatusCode)
+            {
+                int avgRentPriceDailyCountRandom = random.Next(0, 101);
+                var jsonData6 = await responseMessage6.Content.ReadAsStringAsync();
+                var values6 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData6);
+                ViewBag.avgRentPriceDailyCount = values6.AvgPriceForDaily;
+                ViewBag.avgRentPriceDailyCountRandom = avgRentPriceDailyCountRandom;
+            }
+            #endregion
+
+            #region S7
+            var responseMessage7 = await client.GetAsync("https://localhost:7262/api/Statistics/GetAvgRentPriceForWeekly");
+            if (responseMessage7.IsSuccessStatusCode)
+            {
+                int avgRentPriceWeeklyCountRandom = random.Next(0, 101);
+                var jsonData7 = await responseMessage7.Content.ReadAsStringAsync();
+                var values7 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData7);
+                ViewBag.avgRentPriceWeeklyCount = values7.AvgRentPriceForWeekly;
+                ViewBag.avgRentPriceWeeklyCountRandom = avgRentPriceWeeklyCountRandom;
+            }
+            #endregion
 
 
 

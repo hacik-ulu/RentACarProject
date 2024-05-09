@@ -12,5 +12,8 @@ namespace RentACarProject.Dto.StatisticsDtos
         public int LocationCount { get; set; }
         public int AuthorCount { get; set; }
         public int BlogCount { get; set; }
+        public int BrandCount { get; set; }
+        public decimal AvgPriceForDaily { get; set; }
+        public decimal AvgRentPriceForWeekly { get; set; }
     }
 }
