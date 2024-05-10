@@ -106,7 +106,65 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
             }
             #endregion
 
+            #region S8
+            var responseMessage8 = await client.GetAsync("https://localhost:7262/api/Statistics/GetAvgRentPriceForHourly");
+            if (responseMessage8.IsSuccessStatusCode)
+            {
+                int avgRentPriceHourlyCountRandom = random.Next(0, 101);
+                var jsonData8 = await responseMessage8.Content.ReadAsStringAsync();
+                var values8 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData8);
+                ViewBag.avgRentPriceHourlyCount = values8.AvgRentPriceForHourly;
+                ViewBag.avgRentPriceHourlyCountRandom = avgRentPriceHourlyCountRandom;
+            }
+            #endregion
 
+            #region S9
+            var responseMessage9 = await client.GetAsync("https://localhost:7262/api/Statistics/GetCarCountByTranmissionIsAuto");
+            if (responseMessage9.IsSuccessStatusCode)
+            {
+                int CarCountByTransmissionIsAutoRandom = random.Next(0, 101);
+                var jsonData9 = await responseMessage9.Content.ReadAsStringAsync();
+                var values9 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData9);
+                ViewBag.CarCountByTransmissionIsAutoCount = values9.CarCountByTransmissionIsAuto;
+                ViewBag.CarCountByTransmissionIsAutoCountRandom = CarCountByTransmissionIsAutoRandom;
+            }
+            #endregion
+
+            #region S12
+            var responseMessage12 = await client.GetAsync("https://localhost:7262/api/Statistics/GetCarCountByKmSmallerThen10000");
+            if (responseMessage12.IsSuccessStatusCode)
+            {
+                int CarCountByKmSmallerThen10000Random = random.Next(0, 101);
+                var jsonData12 = await responseMessage12.Content.ReadAsStringAsync();
+                var values12 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData12);
+                ViewBag.CarCountByKmSmallerThen10000 = values12.CarCountByKmSmallerThen10000;
+                ViewBag.CarCountByKmSmallerThen10000Random = CarCountByKmSmallerThen10000Random;
+            }
+            #endregion
+
+            #region S13
+            var responseMessage13 = await client.GetAsync("https://localhost:7262/api/Statistics/GetCarCountByFuelGasolineOrDiesel");
+            if (responseMessage13.IsSuccessStatusCode)
+            {
+                int CarCountByFuelGasolineOrDieselRandom = random.Next(0, 101);
+                var jsonData13 = await responseMessage13.Content.ReadAsStringAsync();
+                var values13 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData13);
+                ViewBag.CarCountByFuelGasolineOrDiesel = values13.CarCountByFuelGasolineOrDiesel;
+                ViewBag.CarCountByFuelGasolineOrDieselRandom = CarCountByFuelGasolineOrDieselRandom;
+            }
+            #endregion
+
+            #region S14
+            var responseMessage14 = await client.GetAsync("https://localhost:7262/api/Statistics/GetCarCountByFuelElectric");
+            if (responseMessage14.IsSuccessStatusCode)
+            {
+                int CarCountByFuelElectricRandom = random.Next(0, 101);
+                var jsonData14 = await responseMessage14.Content.ReadAsStringAsync();
+                var values14 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData14);
+                ViewBag.CarCountByFuelElectric = values14.CarCountByFuelElectric;
+                ViewBag.CarCountByFuelElectricRandom = CarCountByFuelElectricRandom;
+            }
+            #endregion
 
 
 

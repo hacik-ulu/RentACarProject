@@ -91,10 +91,10 @@ namespace RentACarProject.WebApi.Controllers
             return Ok(values);
         }
 
-        [HttpGet("GetCarCountByKmSmallerThen1000")]
-        public async Task<IActionResult> GetCarCountByKmSmallerThen1000()
+        [HttpGet("GetCarCountByKmSmallerThen10000")]
+        public async Task<IActionResult> GetCarCountByKmSmallerThen10000()
         {
-            var values = await _mediator.Send(new GetCarCountByKmSmallerThen1000Query());
+            var values = await _mediator.Send(new GetCarCountByKmSmallerThen10000Query());
             return Ok(values);
         }
 

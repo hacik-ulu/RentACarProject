@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace RentACarProject.Application.Features.Mediator.Results.StatisticsResult
 {
-    public class GetCarCountByKmSmallerThen1000QueryResult
+    public class GetCarCountByKmSmallerThen10000QueryResult
     {
-        public int CarCountByKmSmallerThen1000 { get; set; }
+        public int CarCountByKmSmallerThen10000 { get; set; }
     }
 }

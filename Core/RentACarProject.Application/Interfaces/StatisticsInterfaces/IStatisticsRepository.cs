@@ -19,7 +19,7 @@ namespace RentACarProject.Application.Interfaces.StatisticsInterfaces
         Task<int> GetCarCountByTranmissionIsAutoAsync();
         Task<string> GetBrandNameByMaxCarAsync();
         Task<string> GetBlogTitleByMaxBlogCommentAsync();
-        Task<int> GetCarCountByKmSmallerThen1000Async();
+        Task<int> GetCarCountByKmSmallerThen10000Async();
         Task<int> GetCarCountByFuelGasolineOrDieselAsync();
         Task<int> GetCarCountByFuelElectricAsync();
         Task<string> GetCarBrandAndModelByRentPriceDailyMaxAsync();

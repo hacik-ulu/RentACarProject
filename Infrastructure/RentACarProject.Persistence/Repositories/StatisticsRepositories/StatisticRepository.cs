@@ -71,7 +71,7 @@ namespace RentACarProject.Persistence.Repositories.StatisticsRepositories
         }
         public async Task<int> GetCarCountByFuelElectricAsync()
         {
-            var value = await _context.Cars.Where(x => x.Fuel == "Electricity" || x.Fuel == "Diesel").CountAsync();
+            var value = await _context.Cars.Where(x => x.Fuel == "Electricity").CountAsync();
             return value;
         }
         public async Task<int> GetCarCountByFuelGasolineOrDieselAsync()
@@ -79,9 +79,9 @@ namespace RentACarProject.Persistence.Repositories.StatisticsRepositories
             var value = await _context.Cars.Where(x => x.Fuel == "Gasoline" || x.Fuel == "Diesel").CountAsync();
             return value;
         }
-        public async Task<int> GetCarCountByKmSmallerThen1000Async()
+        public async Task<int> GetCarCountByKmSmallerThen10000Async()
         {
-            var value = await _context.Cars.Where(x => x.Mileage < 1000).CountAsync();
+            var value = await _context.Cars.Where(x => x.Mileage < 10000).CountAsync();
             return value;
         }
         public async Task<int> GetCarCountByTranmissionIsAutoAsync()
