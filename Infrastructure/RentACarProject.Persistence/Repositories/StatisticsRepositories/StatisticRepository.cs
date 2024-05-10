@@ -50,19 +50,30 @@ namespace RentACarProject.Persistence.Repositories.StatisticsRepositories
             var value = await _context.Brands.CountAsync();
             return value;
         }
-        public Task<string> GetBrandNameByMaxCarAsync()
+
+        public async Task<string> GetBrandNameByMaxCarAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<string> GetCarBrandAndModelByRentPriceDailyMaxAsync()
+        public async Task<string> GetCarBrandAndModelByRentPriceDailyMaxAsync()
         {
-            throw new NotImplementedException();
+            // Select * From CarPricings where Amount=(Select Max(Amount) From CarPricings where PricingID=3)
+            int pricingID = await _context.Pricings.Where(x => x.Name == "Per Day").Select(y => y.PricingID).FirstOrDefaultAsync();
+            decimal amount = await _context.CarPricings.Where(y => y.PricingID == pricingID).MaxAsync(x => x.Amount);
+            int carID = await _context.CarPricings.Where(x => x.Amount == amount).Select(y => y.CarID).FirstOrDefaultAsync();
+            string brandModel = await _context.Cars.Where(x => x.CarID == carID).Include(y => y.Brand).Select(z => z.Brand.Name + " " + z.Model).FirstOrDefaultAsync();
+            return brandModel;
         }
 
-        public Task<string> GetCarBrandAndModelByRentPriceDailyMinAsync()
+        public async Task<string> GetCarBrandAndModelByRentPriceDailyMinAsync()
         {
-            throw new NotImplementedException();
+            // Select * From CarPricings where Amount=(Select Max(Amount) From CarPricings where PricingID=3)
+            int pricingID = await _context.Pricings.Where(x => x.Name == "Per Day").Select(y => y.PricingID).FirstOrDefaultAsync();
+            decimal amount = await _context.CarPricings.Where(y => y.PricingID == pricingID).MinAsync(x => x.Amount);
+            int carID = await _context.CarPricings.Where(x => x.Amount == amount).Select(y => y.CarID).FirstOrDefaultAsync();
+            string brandModel = await _context.Cars.Where(x => x.CarID == carID).Include(y => y.Brand).Select(z => z.Brand.Name + " " + z.Model).FirstOrDefaultAsync();
+            return brandModel;
         }
         public async Task<int> GetCarCountAsync()
         {

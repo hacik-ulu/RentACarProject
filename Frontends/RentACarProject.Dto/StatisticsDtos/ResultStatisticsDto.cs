@@ -20,5 +20,7 @@ namespace RentACarProject.Dto.StatisticsDtos
         public int CarCountByKmSmallerThen10000 { get; set; }
         public int CarCountByFuelGasolineOrDiesel { get; set; }
         public int CarCountByFuelElectric { get; set; }
+        public string CarBrandNameAndModelByRentPriceDailyMax { get; set; }
+        public string CarBrandNameAndModelByRentPriceDailyMin { get; set; }
     }
 }
