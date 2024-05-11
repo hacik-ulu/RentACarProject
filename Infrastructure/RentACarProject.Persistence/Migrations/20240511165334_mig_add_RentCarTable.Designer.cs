@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RentACarProject.Persistence.Context;
 
@@ -11,9 +12,11 @@ using RentACarProject.Persistence.Context;
 namespace RentACarProject.Persistence.Migrations
 {
     [DbContext(typeof(RentACarContext))]
-    partial class RentACarContextModelSnapshot : ModelSnapshot
+    [Migration("20240511165334_mig_add_RentCarTable")]
+    partial class mig_add_RentCarTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -453,6 +456,9 @@ namespace RentACarProject.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("LocationID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PickUpLocationID")
                         .HasColumnType("int");
 
                     b.HasKey("RentCarID");
