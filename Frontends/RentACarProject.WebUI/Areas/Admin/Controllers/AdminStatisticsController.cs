@@ -130,6 +130,30 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
             }
             #endregion
 
+            #region S10
+            var responseMessage10 = await client.GetAsync("https://localhost:7262/api/Statistics/GetBrandNameByMaxCar");
+            if (responseMessage10.IsSuccessStatusCode)
+            {
+                int brandNameByMaxCarRandom = random.Next(0, 101);
+                var jsonData10 = await responseMessage10.Content.ReadAsStringAsync();
+                var values10 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData10);
+                ViewBag.brandNameByMaxCar = values10.BrandNameByMaxCar;
+                ViewBag.brandNameByMaxCarRandom = brandNameByMaxCarRandom;
+            }
+            #endregion
+
+            #region S11
+            var responseMessage11 = await client.GetAsync("https://localhost:7262/api/Statistics/GetBlogTitleByMaxBlogComment");
+            if (responseMessage11.IsSuccessStatusCode)
+            {
+                int BlogTitleByMaxBlogCommentRandom = random.Next(0, 101);
+                var jsonData11 = await responseMessage11.Content.ReadAsStringAsync();
+                var values11 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData11);
+                ViewBag.BrandNameByMaxCarRandomCount = values11.BlogTitleByMaxBlogComment;
+                ViewBag.BrandNameByMaxCarRandom = BlogTitleByMaxBlogCommentRandom;
+            }
+            #endregion
+
             #region S12
             var responseMessage12 = await client.GetAsync("https://localhost:7262/api/Statistics/GetCarCountByKmSmallerThen10000");
             if (responseMessage12.IsSuccessStatusCode)
