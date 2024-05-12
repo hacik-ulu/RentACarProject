@@ -16,9 +16,14 @@ namespace RentACarProject.WebApi.Controllers
             _meditor = meditor;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> GetRentCarByLocationList(GetRentCarQuery query)
+        [HttpGet]
+        public async Task<IActionResult> GetRentCarByLocationList(int locationID, bool available)
         {
+            GetRentCarQuery query = new GetRentCarQuery()
+            {
+                Available = available,
+                LocationID = locationID
+            };
             var values = await _meditor.Send(query);
             return Ok(values);
         }

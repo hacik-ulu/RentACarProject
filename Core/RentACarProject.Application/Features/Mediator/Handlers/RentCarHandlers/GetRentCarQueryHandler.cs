@@ -24,10 +24,14 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.RentCarHandlers
         public async Task<List<GetRentCarQueryResult>> Handle(GetRentCarQuery request, CancellationToken cancellationToken)
         {
             var values = await _repository.GetByFilterAsync(x => x.LocationID == request.LocationID && x.Available == true);
-            return values.Select(x => new GetRentCarQueryResult
+            var results = values.Select(y => new GetRentCarQueryResult
             {
-                CarID = x.CarID
+                CarID = y.CarID,
+                Brand = y.Car.Brand.Name,
+                Model = y.Car.Model,
+                CoverImageUrl = y.Car.CoverImagerUrl
             }).ToList();
+            return results;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace RentACarProject.Persistence.Repositories.RentCarRepositories
 
         public async Task<List<RentCar>> GetByFilterAsync(Expression<Func<RentCar, bool>> filter)
         {
-            var values = await _context.RentCars.Where(filter).ToListAsync();
+            var values = await _context.RentCars.Where(filter).Include(x => x.Car).ThenInclude(y => y.Brand).ToListAsync();
             return values;
         }
 
