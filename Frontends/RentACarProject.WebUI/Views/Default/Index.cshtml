@@ -32,28 +32,28 @@
                                 <h2>Rent A Car</h2>
                                 <div class="form-group">
                                     <label for="" class="label">Pickup Location</label>
-                                    @Html.DropDownListFor(x => x.LocationID, (List<SelectListItem>)ViewBag.v, new { @class = "form-control", name = "LocationID" })
+                                    @Html.DropDownListFor(x => x.LocationID, (List<SelectListItem>)ViewBag.v, new { @class = "form-control", name = "locationID" })
                                 </div>
                                 <div class="d-flex">
                                     <div class="form-group mr-2">
                                         <label for="" class="label">Pickup Date</label>
-                                        <input type="text" class="form-control" id="book_pick_date" placeholder="Date">
+                                        <input type="text" class="form-control" name="book_pick_date" id="book_pick_date" placeholder="Date">
                                     </div>
                                     <div class="form-group ml-2">
                                         <label for="" class="label">Dropoff Date</label>
-                                        <input type="text" class="form-control" id="book_off_date" placeholder="Date">
+                                        <input type="text" class="form-control" name="book_off_date" id="book_off_date" placeholder="Date">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="" class="label">Pickup Time</label>
-                                    <input type="text" class="form-control" id="time_pick" placeholder="Time">
+                                    <input type="text" class="form-control" name="time_pick" id="time_pick" placeholder="Time">
                                 </div>
                                 <div class="form-group">
                                     <label for="" class="label">Dropoff Time</label>
-                                    <input type="text" class="form-control" name="v" id="time_pick" placeholder="Time">
+                                    <input type="text" class="form-control" name="timw_off" id="time_pick" placeholder="Time">
                                 </div>
                                 <div class="form-group">
-                                    <a href="/RentCarList/Index/" class="btn btn-secondary py-3 px-4">List Available Car</a>
+                                    <button class="btn btn-secondary py-3 px-4">List Available Car</button>
                                 </div>
                             </form>
                         </div>
