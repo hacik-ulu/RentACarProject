@@ -19,6 +19,7 @@ public class Car
     public List<CarPricing> CarPricings { get; set; }
     public List<RentCar> RentCars { get; set; }
     public List<RentCarProcess> RentCarProcesses { get; set; }
+    public List<Reservation> Reservations { get; set; }
 
 
 
