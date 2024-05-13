@@ -30,5 +30,27 @@ public class RentACarContext : DbContext
     public DbSet<TagCloud> TagClouds { get; set; }
     public DbSet<Comment> Comments { get; set; }
     public DbSet<RentCar> RentCars { get; set; }
+    public DbSet<Reservation> Reservations { get; set; }
+
+    // Bir tabloda birden fazla ID'li ilişki kurmak için bu işlemi gerçekleştiriyoruz.
+    // Reservation tablosundaki PickUpLocationID ve DropOffLocationID değerini, Location tablosundaki LocationID ile eşleştirmeyi hedefliyoruz.
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // PickUpLocation ile PickUpReservationı ilişkilenecek(PickUpLocationID ile)
+        modelBuilder.Entity<Reservation>()
+             .HasOne(x => x.PickUpLocation)
+             .WithMany(y => y.PickUpReservation)
+             .HasForeignKey(z => z.PickUpLocationID)
+             .OnDelete(DeleteBehavior.ClientSetNull);
+
+        modelBuilder.Entity<Reservation>()
+            .HasOne(x => x.DropOffLocation)
+            .WithMany(y => y.DropOffReservation)
+            .HasForeignKey(z => z.DropOffLocationID)
+            .OnDelete(DeleteBehavior.ClientSetNull);
+
+
+    }
 
 }
