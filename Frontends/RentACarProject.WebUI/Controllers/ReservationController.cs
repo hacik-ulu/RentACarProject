@@ -48,6 +48,7 @@ namespace RentACarProject.WebUI.Controllers
             var responseMessage = await client.PostAsync("https://localhost:7262/api/Reservations", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
+                TempData["SuccessMessage"] = "Reservation has been successfully created!";
                 return RedirectToAction("Index", "Default");
             }
             return View();
