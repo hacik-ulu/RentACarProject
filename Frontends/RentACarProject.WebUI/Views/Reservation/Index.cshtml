@@ -1,80 +1,46 @@
 ﻿@model CreateReservationDto
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/UILayout/Index.cshtml";
 }
 
 <div class="col-md-12 block-9 mb-md-5">
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Success!</strong> @TempData["SuccessMessage"]
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    }
+
     <form class="bg-light p-5 contact-form" method="post">
         <h3 class="alert alert-success">Car Reservation Form</h3>
         <br />
+        <input type="hidden" asp-for="CarID" value="@ViewBag.v3" class="form-control" placeholder="Car You Want to Pick Up">
         <div class="form-group">
-            <input type="text" asp-for="CarID" class="form-control" placeholder="Car You Want to Pick Up">
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" asp-for="Name" id="name" class="form-control" placeholder="Enter your name">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="surname">Surname</label>
-                    <input type="text" asp-for="Surname" id="surname" class="form-control" placeholder="Enter your surname">
-                </div>
-            </div>
+            <input type="text" asp-for="Name" class="form-control" placeholder="Your Name">
         </div>
         <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" asp-for="Email" class="form-control" id="email" placeholder="Enter your email">
+            <input type="text" asp-for="Surname" class="form-control" placeholder="Your Surname">
         </div>
         <div class="form-group">
-            <label for="contactNumber">Contact Number</label>
-            <input type="tel" asp-for="Phone" class="form-control" id="contactNumber" placeholder="Enter your contact number">
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="pickUpLocation">Pick Up Location</label>
-                    @Html.DropDownListFor(x => x.PickUpLocationID, (List<SelectListItem>)ViewBag.v, new { @class = "form-control", id = "pickUpLocation" })
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="dropOffLocation">Drop Off Location</label>
-                    @Html.DropDownListFor(x => x.DropOffLocationID, (List<SelectListItem>)ViewBag.v, new { @class = "form-control", id = "dropOffLocation" })
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input type="text" asp-for="DriverLicenseYear" class="form-control" placeholder="Year of Driver's License">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input type="text" asp-for="Age" class="form-control" placeholder="Age">
-                </div>
-            </div>
+            <input type="text" asp-for="Email" class="form-control" placeholder="Your Email">
         </div>
         <div class="form-group">
-            <textarea class="form-control" placeholder="Any Additional Requests" rows="4"></textarea>
+            <input type="text" asp-for="Phone" class="form-control" placeholder="Your Contact Number">
+        </div>
+        <div class="form-group">
+            @Html.DropDownListFor(x => x.DropOffLocationID, (List<SelectListItem>)ViewBag.v, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.DropDownListFor(x => x.PickUpLocationID, (List<SelectListItem>)ViewBag.v, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <input type="text" asp-for="Age" class="form-control" placeholder="Your Age">
+        </div>
+        <div class="form-group">
+            <input type="text" asp-for="DriverLicenseYear" class="form-control" placeholder="Year of Driver's License">
+        </div>
+        <div class="form-group">
+            <textarea asp-for="Description" id="" cols="30" rows="7" class="form-control" placeholder="Any Additional Requests"></textarea>
         </div>
         <div class="form-group">
             <input type="submit" value="Complete Reservation" class="btn btn-primary py-3 px-5">
         </div>
     </form>
+
 </div>
-
-

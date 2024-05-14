@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using RentACarProject.Dto.LocationDtos;
 using RentACarProject.Dto.ReservationDtos;
-using RentACarProject.Dto.TestimonialDtos;
 using System.Text;
 
 namespace RentACarProject.WebUI.Controllers
@@ -17,10 +16,11 @@ namespace RentACarProject.WebUI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id)
         {
             ViewBag.v1 = "CAR RENTAL ";
             ViewBag.v2 = "Car Rental Form";
+            ViewBag.v3 = id;
 
 
             var client = _httpClientFactory.CreateClient();
@@ -48,7 +48,6 @@ namespace RentACarProject.WebUI.Controllers
             var responseMessage = await client.PostAsync("https://localhost:7262/api/Reservations", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
-                TempData["SuccessMessage"] = "Reservation completed successfully. Please check your email for further details.";
                 return RedirectToAction("Index", "Default");
             }
             return View();
