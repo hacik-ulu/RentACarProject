@@ -13,7 +13,7 @@ namespace RentACarProject.Application.Interfaces.StatisticsInterfaces
         Task<int> GetAuthorCountAsync();
         Task<int> GetBlogCountAsync();
         Task<int> GetBrandCountAsync();
-        Task<decimal> GetAvgRentPriceForHourlyAsync();
+        Task<decimal> GetAvgRentPriceForMonthlyAsync();
         Task<decimal> GetAvgRentPriceForPerDayAsync();
         Task<decimal> GetAvgRentPriceForWeeklyAsync();
         Task<int> GetCarCountByTranmissionIsAutoAsync();

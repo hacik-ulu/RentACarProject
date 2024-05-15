@@ -52,7 +52,7 @@ namespace RentACarProject.WebApi.Controllers
         [HttpGet("GetAvgRentPriceForHourly")]
         public async Task<IActionResult> GetAvgRentPriceForHourly()
         {
-            var values = await _mediator.Send(new GetAvgRentPriceForHourlyQuery());
+            var values = await _mediator.Send(new GetAvgRentPriceForMonthlyQuery());
             return Ok(values);
         }
 

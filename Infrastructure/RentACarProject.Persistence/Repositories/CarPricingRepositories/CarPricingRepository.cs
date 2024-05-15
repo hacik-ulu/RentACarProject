@@ -24,5 +24,10 @@ namespace RentACarProject.Persistence.Repositories.CarPricingRepositories
             var values = await _context.CarPricings.Include(x => x.Car).ThenInclude(y => y.Brand).Include(x => x.Pricing).Where(z => z.PricingID == 3).ToListAsync();
             return values;
         }
-    }
+
+		public Task<List<CarPricing>> GetCarPricingWithTimePeriodAsync()
+		{
+			var values = from
+		}
+	}
 }

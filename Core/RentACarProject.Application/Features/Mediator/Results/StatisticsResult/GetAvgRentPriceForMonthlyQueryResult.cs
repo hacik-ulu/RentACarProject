@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace RentACarProject.Application.Features.Mediator.Results.StatisticsResult
 {
-    public class GetAvgRentPriceForHourlyQueryResult
+    public class GetAvgRentPriceForMonthlyQueryResult
     {
-        public decimal AvgRentPriceForHourly { get; set; }
+        public decimal AvgRentPriceForMonthly { get; set; }
     }
 }

@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace RentACarProject.Application.Interfaces.CarPricingInterfaces
 {
-    public interface ICarPricingRepository
-    {
-        Task<List<CarPricing>> GetCarPricingWithCarsAsync();
-    }
+	public interface ICarPricingRepository
+	{
+		Task<List<CarPricing>> GetCarPricingWithCarsAsync();
+		Task<List<CarPricing>> GetCarPricingWithTimePeriodAsync();
+	}
 }

@@ -20,9 +20,9 @@ namespace RentACarProject.Persistence.Repositories.StatisticsRepositories
             var value = await _context.Authors.CountAsync();
             return value;
         }
-        public async Task<decimal> GetAvgRentPriceForHourlyAsync()
+        public async Task<decimal> GetAvgRentPriceForMonthlyAsync()
         {
-            int id = await _context.Pricings.Where(x => x.Name == "Hourly").Select(y => y.PricingID).FirstOrDefaultAsync();
+            int id = await _context.Pricings.Where(x => x.Name == "Monthly").Select(y => y.PricingID).FirstOrDefaultAsync();
             var value = await _context.CarPricings.Where(w => w.PricingID == id).AverageAsync(x => x.Amount);
             return value;
         }
