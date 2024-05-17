@@ -1,4 +1,5 @@
-﻿using RentACarProject.Domain.Entities;
+﻿using RentACarProject.Application.ViewModels;
+using RentACarProject.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace RentACarProject.Application.Interfaces.CarPricingInterfaces
 	public interface ICarPricingRepository
 	{
 		Task<List<CarPricing>> GetCarPricingWithCarsAsync();
-		Task<List<CarPricing>> GetCarPricingWithTimePeriodAsync();
+		Task<List<CarPricingViewModel>> GetCarPricingWithTimePeriodAsync();
+
 	}
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RentACarProject.Application.Features.Mediator.Results.CarPricingResults
+namespace RentACarProject.Dto.CarPricingDtos
 {
-	public class GetCarPricingWithTimePeriodQueryResult
+	public class ResultCarPricingListWithModelDto
 	{
 		public string Model { get; set; }
 		public decimal DailyAmount { get; set; }
@@ -14,6 +14,5 @@ namespace RentACarProject.Application.Features.Mediator.Results.CarPricingResult
 		public decimal MonthlyAmount { get; set; }
 		public string CoverImagerUrl { get; set; }
 		public string Brand { get; set; }
-
 	}
 }
