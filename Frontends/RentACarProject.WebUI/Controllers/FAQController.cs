@@ -14,8 +14,8 @@ namespace RentACarProject.WebUI.Controllers
         // FAQ View'ı döndüren action
         public async Task<IActionResult> Index()
         {
-
             ViewBag.v1 = "FAQ ";
+            ViewBag.v2 = "Frequently Asked Questions ";
             // FAQs listesini View'a gönder
             return View(FAQs);
         }
