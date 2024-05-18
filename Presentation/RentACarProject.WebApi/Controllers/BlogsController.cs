@@ -62,10 +62,16 @@ namespace RentACarProject.WebApi.Controllers
         }
 
         [HttpGet("GetAllBlogsWithAuthorsList")]
-        public async Task<IActionResult> GetAllBlogsWithAuthorsList()
+        public async Task<IActionResult> GetAllBlogsWithAuthorsList(int page = 1, int pageSize = 3)
         {
             var values = await _mediator.Send(new GetAllBlogsWithAuthorQuery());
-            return Ok(values);
+
+            // Pagination 
+            var paginatedBlogs = values.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            //Determine the total number of pages.
+            Response.Headers["X-Total-Count"] = values.Count().ToString();
+            return Ok(paginatedBlogs);
         }
 
         //BlogID numaraya göre ilgili bloğun bilgileri geliyor

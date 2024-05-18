@@ -12,19 +12,23 @@ namespace RentACarProject.WebUI.Controllers
         {
             _httpClientFactory = httpClientFactory;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 3)
         {
             ViewBag.v1 = "BLOG ";
             ViewBag.v2 = "Our Blog";
 
             var client = _httpClientFactory.CreateClient();
-            // GetAsync used for list or get the datas.
-            var responseMessage = await client.GetAsync("https://localhost:7262/api/Blogs/GetAllBlogsWithAuthorsList");
+            var responseMessage = await client.GetAsync($"https://localhost:7262/api/Blogs/GetAllBlogsWithAuthorsList?page={page}&pageSize={pageSize}");
             if (responseMessage.IsSuccessStatusCode)
             {
-                // We are reading data from uotcome of our Api as string format.
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultAllBlogsWithAuthorDto>>(jsonData);
+
+                // Calculate total number of pages
+                int totalCount = int.Parse(responseMessage.Headers.GetValues("X-Total-Count").FirstOrDefault());
+                ViewBag.TotalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+                ViewBag.CurrentPage = page;
+
                 return View(values);
             }
             return View();
