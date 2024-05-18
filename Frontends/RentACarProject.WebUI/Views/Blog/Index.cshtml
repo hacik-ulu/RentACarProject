@@ -4,6 +4,18 @@
     Layout = "~/Views/UILayout/Index.cshtml";
 }
 
+
+@functions {
+    public static string Truncate(string text, int maxLength)
+    {
+        if (string.IsNullOrEmpty(text) || text.Length <= maxLength)
+        {
+            return text;
+        }
+        return text.Substring(0, maxLength) + "...";
+    }
+}
+
 <section class="ftco-section">
     <div class="container">
         <div class="row d-flex justify-content-center">
@@ -20,13 +32,14 @@
                                 <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
                             </div>
                             <h3 class="heading mt-2"><a href="#">@item.Title</a></h3>
-                            <p>@item.Description</p>
+                            <p>@Truncate(item.Description, 350)</p>  @* Limited txt *@
                             <p><a href="/Blog/BlogDetail/@item.BlogID" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
                         </div>
                     </div>
                 </div>
             }
         </div>
+
         <!-- Pagination Controls -->
         <div class="row d-flex justify-content-center">
             <nav aria-label="Page navigation">
