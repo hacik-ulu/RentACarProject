@@ -17,10 +17,14 @@
                         </a>
                         <div class="text pt-4">
                             <div class="meta mb-3">
-                                <div><a href="#">@item.CreatedDate.ToShortDateString()</a></div>
-                                <div><a href="#">@item.AuthorName</a></div>
+                                <div><a href="/Blog/BlogDetail/@item.BlogID">@item.CreatedDate.ToShortDateString() - </a></div>
+                                <div><a href="/Blog/BlogDetail/@item.BlogID">@item.AuthorName</a></div>
                             </div>
-                            <h3 class="heading mt-2"><a href="#">@item.Title</a></h3>
+                            <h3 class="heading mt-2">
+                                <a href="/Blog/BlogDetail/@item.BlogID">
+                                    @(item.Title.Length > 50 ? item.Title.Substring(0, 50) + "..." : item.Title)
+                                </a>
+                            </h3>
                             <p><a href="/Blog/BlogDetail/@item.BlogID" class="btn btn-primary">Read More</a></p>
                         </div>
                     </div>
