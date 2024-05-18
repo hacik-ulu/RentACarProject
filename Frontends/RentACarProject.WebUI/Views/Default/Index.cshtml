@@ -6,7 +6,10 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
 @await Component.InvokeAsync("_HeadUILayoutComponentPartial")
 
 <body>
@@ -36,20 +39,20 @@
                                 <div class="d-flex">
                                     <div class="form-group mr-2">
                                         <label for="" class="label">Pickup Date</label>
-                                        <input type="text" class="form-control" name="book_pick_date" id="book_pick_date" placeholder="Date">
+                                        <input type="text" class="form-control" name="book_pick_date" id="book_pick_date" placeholder="Date" required>
                                     </div>
                                     <div class="form-group ml-2">
                                         <label for="" class="label">Dropoff Date</label>
-                                        <input type="text" class="form-control" name="book_off_date" id="book_off_date" placeholder="Date">
+                                        <input type="text" class="form-control" name="book_off_date" id="book_off_date" placeholder="Date" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="" class="label">Pickup Time</label>
-                                    <input type="text" class="form-control" name="time_pick" id="time_pick" placeholder="Time">
+                                    <input type="text" class="form-control" name="time_pick" id="time_pick" placeholder="Time" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="" class="label">Dropoff Time</label>
-                                    <input type="text" class="form-control" name="timw_off" id="time_pick" placeholder="Time">
+                                    <input type="text" class="form-control" name="time_off" id="time_off" placeholder="Time" required>
                                 </div>
                                 <div class="form-group">
                                     <button class="btn btn-secondary py-3 px-4">List Available Car</button>
@@ -86,7 +89,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <p><a href="#" class="btn btn-primary py-3 px-4">Reserve Your Perfect Car</a></p>
+                                <p><a href="/CarPricing/Index/" class="btn btn-primary py-3 px-4">Check the Car Price List</a></p>
                             </div>
                         </div>
                     </div>
@@ -94,6 +97,7 @@
             </div>
         </div>
     </section>
+
 
     @await Component.InvokeAsync("_DefaultLastFiveCarsWithBrandsComponentPartial")
 
@@ -112,6 +116,23 @@
     @await Component.InvokeAsync("_FooterUILayoutComponentPartial")
 
     @await Component.InvokeAsync("_ScriptUILayoutComponentPartial")
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            flatpickr("#time_pick", {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "h:i K",
+                time_24hr: false
+            });
+            flatpickr("#time_off", {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "h:i K",
+                time_24hr: false
+            });
+        });
+    </script>
 
 </body>
 </html>
