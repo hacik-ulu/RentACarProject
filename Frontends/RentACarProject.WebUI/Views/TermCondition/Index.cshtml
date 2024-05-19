@@ -1,0 +1,132 @@
+﻿@{
+    ViewData["Title"] = "Terms and Conditions";
+    Layout = "~/Views/UILayout/Index.cshtml";
+}
+<br />
+<br>
+<style>
+    .terms-container {
+        max-width: 1200px;
+        margin: 50px auto;
+        padding: 40px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .terms-header {
+        font-size: 2.2em;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #e74c3c;
+        border-bottom: 2px solid #e74c3c;
+        padding-bottom: 10px;
+    }
+
+    .terms-text {
+        font-size: 1.1em;
+        line-height: 1.7;
+        color: #333;
+    }
+
+        .terms-text p {
+            margin-bottom: 15px;
+        }
+
+    .terms-highlight {
+        font-weight: bold;
+        color: #e74c3c;
+    }
+
+    .terms-link {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+        font-size: 1.1em;
+    }
+
+        .terms-link a {
+            color: #e74c3c;
+            text-decoration: none;
+            border: 2px solid #e74c3c;
+            border-radius: 5px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+            .terms-link a:hover {
+                background-color: #e74c3c;
+                color: #ffffff;
+            }
+</style>
+
+<div class="terms-container">
+    <div class="terms-text">
+        <p>
+            By renting a vehicle from Rapid Rent, you agree to comply with the terms and conditions outlined in the agreement documents. These documents are designed to ensure a clear understanding of the rental process and to protect both the renter and the company.
+        </p>
+        <p>
+            The agreement documents cover all aspects of the car rental process, including the following:
+        </p>
+        <div style="overflow-x:auto;">
+            <table class="table table-bordered">
+                <thead>
+                    <tr style="background-color: #e74c3c; color: white;">
+                        <th scope="col" style="padding: 10px;">Aspect</th>
+                        <th scope="col" style="padding: 10px;">Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 10px;"><strong>Rental Period</strong></td>
+                        <td style="padding: 10px;">The rental period is defined as the time between when the vehicle is picked up and when it is returned. Extensions to the rental period may be requested but are subject to availability and additional charges.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;"><strong>Payment Terms</strong></td>
+                        <td style="padding: 10px;">Rental fees must be paid in full at the time of vehicle pick-up. Accepted payment methods include major credit cards and approved company accounts. Additional charges such as late return fees, extra mileage, and fuel surcharges will be billed at the end of the rental period.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;"><strong>Vehicle Use</strong></td>
+                        <td style="padding: 10px;">The rented vehicle must be used in accordance with the manufacturer's guidelines and must not be driven off-road or in prohibited areas. Only authorized drivers listed in the rental agreement are permitted to operate the vehicle. Violation of these terms may result in additional fees and penalties.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;"><strong>Insurance and Liability</strong></td>
+                        <td style="padding: 10px;">Basic insurance coverage is included with the rental. However, renters are responsible for any damage to the vehicle not covered by the insurance, as well as for any personal injuries or property damage resulting from the use of the vehicle. Optional insurance upgrades are available for additional protection.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;"><strong>Damages and Repairs</strong></td>
+                        <td style="padding: 10px;">In the event of damage to the vehicle, the renter must report the incident immediately to Rapid Rent. The cost of repairs will be assessed based on the extent of the damage and the terms of the rental agreement. Renters may be liable for the full cost of repairs if the damage is deemed to be caused by misuse or negligence.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;"><strong>Fines and Penalties</strong></td>
+                        <td style="padding: 10px;">Renters are responsible for any fines or penalties incurred during the rental period, including traffic violations, parking tickets, and toll fees. These charges will be billed to the renter's account along with an administrative fee for processing.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;"><strong>Toll Passes</strong></td>
+                        <td style="padding: 10px;">The vehicle is equipped with electronic toll pass systems, including <span class="terms-highlight">HGS (Hızlı Geçiş Sistemi)</span> and <span class="terms-highlight">OGS (Otomatik Geçiş Sistemi)</span>. Toll fees will be automatically billed to the renter's account, and a detailed statement of toll charges will be provided at the end of the rental period.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;"><strong>Fuel Policy</strong></td>
+                        <td style="padding: 10px;">The vehicle must be returned with the same level of fuel as at the start of the rental. If the vehicle is returned with less fuel, a refueling charge will apply based on the current fuel rates plus a service fee.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;"><strong>Cancellation Policy</strong></td>
+                        <td style="padding: 10px;">Reservations can be canceled without penalty up to 24 hours before the scheduled pick-up time. Cancellations made less than 24 hours in advance will incur a cancellation fee equal to one day's rental charge.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p>
+            We highly recommend that you thoroughly review these agreement documents to understand your responsibilities and our policies fully. By doing so, you can enjoy a seamless and worry-free rental experience.
+        </p>
+        <p>
+            At Rapid Rent, we are dedicated to providing excellent service and making your journey as enjoyable as possible. If you have any questions or need further clarification on any aspect of the rental process, please do not hesitate to contact us.
+        </p>
+        <p>
+            Thank you for choosing Rapid Rent. We wish you safe and pleasant journeys!
+        </p>
+    </div>
+</div>
+<br />
+<br />

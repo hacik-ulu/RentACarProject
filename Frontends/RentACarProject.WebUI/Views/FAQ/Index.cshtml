@@ -1,17 +1,109 @@
 ﻿@model List<string>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "FAQ";
     Layout = "~/Views/UILayout/Index.cshtml";
 }
 
-<body>
-    <ul>
-        @foreach (var faq in Model)
-        {
-            <li>@faq</li>
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #faq-container {
+            width: 60%; 
+            margin: 0 auto; 
+            padding: 20px;
         }
-    </ul>
+
+        .faq-item {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s;
+            color: black; 
+        }
+
+            .faq-item:hover {
+                background-color: #e9e9e9;
+            }
+
+        .faq-answer {
+            display: none;
+            margin-top: 10px;
+            color: black;
+        }
+
+        .feedback-section {
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+
+        .feedback-buttons {
+            margin-top: 10px;
+        }
+
+            .feedback-buttons button {
+                border: none;
+                background-color: #ddd;
+                padding: 10px 20px;
+                border-radius: 20px;
+                margin: 0 5px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+                .feedback-buttons button:hover {
+                    background-color: #ccc;
+                }
+
+        .feedback-message {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="faq-container">
+        @for (int i = 0; i < Model.Count; i += 2)
+        {
+            <div class="faq-item">
+                <strong onclick="toggleAnswer(@i)">@Model[i]</strong>
+                <div class="faq-answer" id="answer-@i">
+                    @Model[i + 1]
+                    <div class="feedback-section">
+                        <div>Did this answer help you?</div>
+                        <div class="feedback-buttons">
+                            <button type="button" onclick="showFeedback(@i, 'yes')">Yes</button>
+                            <button type="button" onclick="showFeedback(@i, 'no')">No</button>
+                        </div>
+                        <div class="feedback-message" id="feedback-@i"></div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <script>
+        function toggleAnswer(index) {
+            var answer = document.getElementById('answer-' + index);
+            if (answer.style.display === "none" || answer.style.display === "") {
+                answer.style.display = "block";
+            } else {
+                answer.style.display = "none";
+            }
+        }
+
+        function showFeedback(index, response) {
+            var messageDiv = document.getElementById('feedback-' + index);
+            if (response === 'yes') {
+                messageDiv.innerHTML = '😊 Thanks for your feedback!';
+            } else {
+                messageDiv.innerHTML = '😟 If you wish, you can call us for detailed information.';
+            }
+        }
+    </script>
 </body>
 </html>
-
