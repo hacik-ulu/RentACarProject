@@ -1,0 +1,64 @@
+﻿@model List<string>
+
+@{
+    ViewData["Title"] = "Security";
+    Layout = "~/Views/UILayout/Index.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #faq-container {
+            width: 60%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .faq-item {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s;
+            color: black;
+        }
+
+            .faq-item:hover {
+                background-color: #e9e9e9;
+            }
+
+        .faq-answer {
+            display: none;
+            margin-top: 10px;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div id="faq-container">
+        @for (int i = 0; i < Model.Count; i += 2)
+        {
+            <div class="faq-item" onclick="toggleAnswer(@i)">
+                <strong>@Model[i]</strong>
+                <div class="faq-answer" id="answer-@i">
+                    @Model[i + 1]
+                </div>
+            </div>
+        }
+    </div>
+
+    <script>
+        function toggleAnswer(index) {
+            var answer = document.getElementById('answer-' + index);
+            if (answer.style.display === "none" || answer.style.display === "") {
+                answer.style.display = "block";
+            } else {
+                answer.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
