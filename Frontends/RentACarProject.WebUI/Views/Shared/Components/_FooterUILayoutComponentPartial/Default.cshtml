@@ -3,19 +3,6 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<script>
-    $(document).ready(function () {
-
-        $('#btn5').click(function () {
-            swal("Payment Methods", "Payment transactions are made only with cards at our physical rental points.");
-        });
-
-        $('#btn6').click(function () {
-            swal("How It Works", "1. Rent Your Car \n 2. Check Your Email. \n 3. Come to Our Office.");
-        });
-    });
-</script>
-
 @foreach (var item in Model)
 {
     <footer class="ftco-footer ftco-bg-dark ftco-section">
@@ -38,9 +25,9 @@
                         <ul class="list-unstyled">
                             <li><a href="/About/Index/" class="py-2 d-block">About</a></li>
                             <li><a href="/Car/Index/" class="py-2 d-block">Services</a></li>
-                            <li><a href="/TermCondition/Index/" id="btn1" class="py-2 d-block">Term and Conditions</a></li>
-                            <li><a href="/Security/Index/" id="btn2" class="py-2 d-block">Security</a></li>
-                            <li><a href="/Cookies/Index/" id="btn3" class="py-2 d-block">Privacy &amp; Cookies Policy</a></li>
+                            <li><a href="/TermCondition/Index/" class="py-2 d-block">Term and Conditions</a></li>
+                            <li><a href="/Security/Index/" class="py-2 d-block">Security</a></li>
+                            <li><a href="/Cookies/Index/" class="py-2 d-block">Privacy &amp; Cookies Policy</a></li>
                         </ul>
                     </div>
                 </div>
@@ -48,10 +35,10 @@
                     <div class="ftco-footer-widget mb-4">
                         <h2 class="ftco-heading-2">Customer Support</h2>
                         <ul class="list-unstyled">
-                            <li><a href="@Url.Action("Index", "FAQ")" id="btn4" class="py-2 d-block">FAQ</a></li>
-                            <li><a href="#" id="btn5" class="py-2 d-block">Payment Option</a></li>
+                            <li><a href="/FAQ/Index/" class="py-2 d-block">FAQ</a></li>
+                            <li><a href="/Payment/Index/" class="py-2 d-block">Payment Option</a></li>
                             <li><a href="/CarPricing/Index/" class="py-2 d-block">Booking Tips</a></li>
-                            <li><a href="#" id="btn6" class="py-2 d-block">How It Works</a></li>
+                            <li><a href="/HowItWorks/Index/" class="py-2 d-block">How It Works</a></li>
                             <li><a href="/Contact/Index/" class="py-2 d-block">Contact Us</a></li>
                         </ul>
                     </div>
