@@ -76,5 +76,10 @@ namespace RentACarProject.Persistence.Repositories.CommentRepositories
             _context.SaveChanges();
 
         }
+
+        public int GetCountCommentByBlog(int id)
+        {
+            return (_context.Comments.Where(x => x.BlogID == id).Count());
+        }
     }
 }

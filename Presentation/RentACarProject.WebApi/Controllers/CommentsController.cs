@@ -65,10 +65,17 @@ namespace RentACarProject.WebApi.Controllers
                 CreatedDate = c.CreatedDate,
                 Description = c.Description,
                 BlogID = c.BlogID,
-                Title = c.Blog.Title 
+                Title = c.Blog.Title
             }).ToList();
 
             return Ok(commentDtos);
+        }
+
+        [HttpGet("CommentCountByBlog")]
+        public IActionResult CommentCountByBlog(int id)
+        {
+            var value = _commentsRepository.GetCountCommentByBlog(id);
+            return Ok(value);
         }
 
     }
