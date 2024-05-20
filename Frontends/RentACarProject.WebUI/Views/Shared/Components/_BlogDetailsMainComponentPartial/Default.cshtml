@@ -11,7 +11,10 @@
 
 
     <div class="pt-5 mt-5">
-        <h3 class="mb-5">Comments</h3>
+        <h3 class="mb-5">
+            <span class="comment-count" style="font-weight: bold; font-size: 1.2em;">@ViewBag.commentCount</span>
+            <span style="color: #000;">Comment</span>
+        </h3>
 
         @await Component.InvokeAsync("_CommentListByBlogComponentPartial", new { id = ViewBag.BlogID })
 

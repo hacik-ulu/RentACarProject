@@ -1,4 +1,6 @@
-﻿@model List<ResultCommentDto>
+﻿@using System.Globalization
+
+@model List<ResultCommentDto>
 
 <ul class="comment-list">
 
@@ -10,7 +12,7 @@
             </div>
             <div class="comment-body">
                 <h3>@item.Name</h3>
-                <div class="meta">@item.CreatedDate.ToShortDateString()</div>
+                <div class="meta">@item.CreatedDate.ToString("dd - MMM - yyyy", new CultureInfo("en-US"))</div>
                 <p>@item.Description</p>
             </div>
         </li>

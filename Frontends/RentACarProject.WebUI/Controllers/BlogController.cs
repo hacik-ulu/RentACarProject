@@ -39,6 +39,11 @@ namespace RentACarProject.WebUI.Controllers
             ViewBag.v1 = "BLOGS ";
             ViewBag.v2 = "Read Our Blogs";
             ViewBag.BlogID = id;
+
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage2 = await client.GetAsync($"https://localhost:7262/api/Comments/CommentCountByBlog?id=" + id);
+            var jsonData2 = await responseMessage2.Content.ReadAsStringAsync();
+            ViewBag.commentCount = jsonData2;
             return View();
 
         }
