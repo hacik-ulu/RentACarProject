@@ -2,6 +2,9 @@
 using Newtonsoft.Json;
 using RentACarProject.Dto.BlogDtos;
 using RentACarProject.Dto.CarPricingDtos;
+using RentACarProject.Dto.CommentDtos;
+using RentACarProject.Dto.LocationDtos;
+using System.Text;
 
 namespace RentACarProject.WebUI.Controllers
 {
@@ -49,14 +52,23 @@ namespace RentACarProject.WebUI.Controllers
         }
 
         [HttpGet]
-        public PartialViewResult AddComment()
+        public PartialViewResult AddComment(int id)
         {
+            ViewBag.BlogID = id;
             return PartialView();
         }
 
         [HttpPost]
-        public IActionResult AddComment(string p)
+        public async Task<IActionResult> AddComment(CreateCommentDto createCommentDto)
         {
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(createCommentDto);
+            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync("https://localhost:7262/api/Comments/CreateCommentWithMediator", stringContent);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index", "Default");
+            }
             return View();
         }
     }
