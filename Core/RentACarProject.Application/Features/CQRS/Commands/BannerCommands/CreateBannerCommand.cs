@@ -1,6 +1,8 @@
-﻿namespace RentACarProject.Application.Features.CQRS.Commands.BannerCommands;
+﻿using MediatR;
 
-public class CreateBannerCommand
+namespace RentACarProject.Application.Features.CQRS.Commands.BannerCommands;
+
+public class CreateBannerCommand :IRequest
 {
     public string Title { get; set; }
     public string Description { get; set; }
