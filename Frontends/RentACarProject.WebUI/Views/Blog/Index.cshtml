@@ -32,7 +32,6 @@
                             <div class="meta mb-3">
                                 <div><a href="/Blog/BlogDetail/@item.BlogID">@item.CreatedDate.ToString("dd - MMM - yyyy", new CultureInfo("en-US"))</a></div>
                                 <div><a href="/Blog/BlogDetail/@item.BlogID">@item.AuthorName</a></div>
-                                <div><a href="/Blog/BlogDetail/@item.BlogID" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
                             </div>
                             <h3 class="heading mt-2"><a href="/Blog/BlogDetail/@item.BlogID">@item.Title</a></h3>
                             <p>@Truncate(item.Description, 350)</p>  @* Limited txt *@

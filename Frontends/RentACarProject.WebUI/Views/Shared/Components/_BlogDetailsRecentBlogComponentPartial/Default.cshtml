@@ -4,13 +4,13 @@
     <h3>Recent Blog</h3>
     @foreach (var item in Model)
     {
+        var truncatedTitle = item.Title.Length > 60 ? item.Title.Substring(0, 60) + "..." : item.Title;
         <div class="block-21 mb-4 d-flex">
             <a class="blog-img mr-4" style="background-image: url(@item.CoverImageUrl);"></a>
             <div class="text">
-                <h3 class="heading"><a href="/Blog/BlogDetail/@item.BlogID">@item.Title</a></h3>
+                <h3 class="heading"><a href="/Blog/BlogDetail/@item.BlogID">@truncatedTitle</a></h3>
                 <div class="meta">
                     <div><a href="/Blog/BlogDetail/@item.BlogID"><span class="icon-calendar"></span> @item.CreatedDate.ToString("dd - MMM - yyyy", new CultureInfo("en-US"))</a></div>
-                    <div><a href="/Blog/BlogDetail/@item.BlogID"><span class="icon-person"></span> @item.AuthorName</a></div>
                 </div>
             </div>
         </div>
