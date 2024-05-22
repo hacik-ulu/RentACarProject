@@ -1,4 +1,5 @@
-﻿@model List<ResultLastThreeBlogsWithAuthorDto>
+﻿@using System.Globalization
+@model List<ResultLastThreeBlogsWithAuthorDto>
 <div class="sidebar-box ftco-animate">
     <h3>Recent Blog</h3>
     @foreach (var item in Model)
@@ -6,11 +7,10 @@
         <div class="block-21 mb-4 d-flex">
             <a class="blog-img mr-4" style="background-image: url(@item.CoverImageUrl);"></a>
             <div class="text">
-                <h3 class="heading"><a href="#">@item.Title</a></h3>
+                <h3 class="heading"><a href="/Blog/BlogDetail/@item.BlogID">@item.Title</a></h3>
                 <div class="meta">
-                    <div><a href="#"><span class="icon-calendar"></span> @item.CreatedDate.ToShortDateString()</a></div>
-                    <div><a href="#"><span class="icon-person"></span> @item.AuthorName</a></div>
-                    <div><a href="#"><span class="icon-chat"></span> 0</a></div>
+                    <div><a href="/Blog/BlogDetail/@item.BlogID"><span class="icon-calendar"></span> @item.CreatedDate.ToString("dd - MMM - yyyy", new CultureInfo("en-US"))</a></div>
+                    <div><a href="/Blog/BlogDetail/@item.BlogID"><span class="icon-person"></span> @item.AuthorName</a></div>
                 </div>
             </div>
         </div>

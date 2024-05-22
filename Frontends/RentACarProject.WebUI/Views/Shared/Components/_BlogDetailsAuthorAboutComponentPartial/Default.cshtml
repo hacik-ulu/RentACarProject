@@ -1,5 +1,13 @@
 ﻿@model List<GetAuthorByBlogAuthorIdDto>
 
+<style>
+    .bio img {
+        width: 330px; 
+        height: 160px; 
+        object-fit: cover; 
+    }
+</style>
+
 @foreach (var item in Model)
 {
     <div class="about-author d-flex p-4 bg-light">

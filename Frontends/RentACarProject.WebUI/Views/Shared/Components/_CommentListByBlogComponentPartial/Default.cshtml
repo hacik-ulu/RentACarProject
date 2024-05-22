@@ -2,8 +2,14 @@
 
 @model List<ResultCommentDto>
 
-<ul class="comment-list">
+<style>
+    .comment-list .vcard.bio img {
+        width: 24px; /* İstediğiniz genişlik */
+        height: 24px; /* İstediğiniz yükseklik */
+    }
+</style>
 
+<ul class="comment-list">
     @foreach (var item in Model)
     {
         <li class="comment">
