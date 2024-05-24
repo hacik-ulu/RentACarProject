@@ -20,15 +20,11 @@ namespace RentACarProject.Application.Features.CQRS.Handlers.CategoryHandlers.Re
             _repository = categoryInterface;
         }
 
-        public async Task<GetCategoryWithBlogCountResult> Handle(GetCategoryWithBlogCountQuery query)
+        public async Task<List<GetCategoryWithBlogCountResult>> Handle()
         {
-            var values = await _repository.GetCategoryBlogCountAsync(query.CategoryID);
-            return new GetCategoryWithBlogCountResult
-            {
-                CategoryID = values.CategoryID,
-                BlogCount = values.BlogCount,
-                CategoryName = values.CategoryName
-            };
+            var values = await _repository.GetCategoriesBlogCountAsync();
+            return values;
         }
+
     }
 }

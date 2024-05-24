@@ -13,7 +13,7 @@
 
                 @await Component.InvokeAsync("_BlogDetailsCategoryComponentPartial")
 
-                @await Component.InvokeAsync("_BlogDetailsRecentBlogComponentPartial")
+                @await Component.InvokeAsync("_BlogDetailsCategoryComponentPartial", new { categoryId = ViewBag.CategoryId })
 
                 @await Component.InvokeAsync("_BlogDetailsTagCloudComponentPartial", new { id = ViewBag.BlogID })
 

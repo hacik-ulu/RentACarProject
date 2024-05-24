@@ -63,14 +63,12 @@ namespace RentACarProject.WebApi.Controllers
             return Ok("Category Updated!");
         }
 
-        [HttpGet("GetCategoryWithBlogCount/{id}")]
-        public async Task<IActionResult> GetCategoryWithBlogCount(int id)
+        [HttpGet("GetCategoryWithBlogCount")]
+        public async Task<IActionResult> GetCategoryWithBlogCount()
         {
-            var values = await _getCategoryWithBlogCountHandler.Handle(new GetCategoryWithBlogCountQuery(id));
+            var values = await _getCategoryWithBlogCountHandler.Handle();
             return Ok(values);
         }
-
-
 
 
     }

@@ -10,7 +10,7 @@ namespace RentACarProject.Application.Interfaces.CategoryInterfaces
 {
     public interface ICategoryRepository
     {
-        Task<GetCategoryWithBlogCountResult> GetCategoryBlogCountAsync(int categoryId);
+        Task<List<GetCategoryWithBlogCountResult>> GetCategoriesBlogCountAsync();
 
     }
 }

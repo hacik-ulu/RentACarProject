@@ -18,21 +18,22 @@ namespace RentACarProject.Persistence.Repositories.CategoryRepositories
         {
             _context = context;
         }
-        public async Task<GetCategoryWithBlogCountResult> GetCategoryBlogCountAsync(int categoryId)
+
+        public async Task<List<GetCategoryWithBlogCountResult>> GetCategoriesBlogCountAsync()
         {
             var result = await _context.Categories
-                .Where(c => c.CategoryID == categoryId)
-            .GroupJoin(
+                .GroupJoin(
                     _context.Blogs,
                     category => category.CategoryID,
                     blog => blog.CategoryID,
                     (category, blogs) => new GetCategoryWithBlogCountResult
                     {
-                        CategoryID = category.CategoryID,
+                        CategoryID = category.CategoryID, // DTO sınıfındaki ile aynı olmalı
                         CategoryName = category.Name,
-                        BlogCount = category.Blogs.Count()
+                        BlogCount = blogs.Count()
                     })
-                .FirstOrDefaultAsync();
+                .ToListAsync();
+
             return result;
         }
 
