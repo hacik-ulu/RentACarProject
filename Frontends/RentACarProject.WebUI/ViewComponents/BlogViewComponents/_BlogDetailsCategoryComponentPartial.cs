@@ -16,7 +16,7 @@ namespace RentACarProject.WebUI.ViewComponents.BlogViewComponents
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7262/api/Categories/GetCategoriesWithBlogCount");
+            var responseMessage = await client.GetAsync("https://localhost:7262/api/Categories/GetCategoryWithBlogCount");
 
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -24,7 +24,7 @@ namespace RentACarProject.WebUI.ViewComponents.BlogViewComponents
                 var categories = JsonConvert.DeserializeObject<List<GetCategoryWithBlogCountResult>>(jsonData);
                 return View(categories); // Listeyi view'a gönder
             }
-            return View(new List<GetCategoryWithBlogCountResult>()); // Boş liste döndür
+            return View();
         }
     }
 }

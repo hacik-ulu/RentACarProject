@@ -3,9 +3,33 @@
 @model List<ResultCommentDto>
 
 <style>
-    .comment-list .vcard.bio img {
-        width: 24px; /* İstediğiniz genişlik */
-        height: 24px; /* İstediğiniz yükseklik */
+    .comment-list .comment {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1em; 
+    }
+
+    .vcard.bio {
+        margin-right: 1em; 
+    }
+
+        .vcard.bio img {
+            width: 24px;
+            height: 24px;
+        }
+
+    .comment-body {
+        flex: 1; 
+    }
+
+        .comment-body h3 {
+            margin: 0; 
+        }
+
+    .meta {
+        font-size: 0.9em; 
+        color: #666; 
+        margin-bottom: 0.5em; 
     }
 </style>
 
