@@ -6,7 +6,7 @@
     Layout = "~/Views/UILayout/Index.cshtml";
 }
 
-@* Blog resimlerini daha küçük getirebiliriz. *@
+@* Blog resimlerini daha küçük ve düzenli yapalım. *@
 
 @functions {
     public static string Truncate(string text, int maxLength)
@@ -24,18 +24,20 @@
         <div class="row d-flex justify-content-center">
             @foreach (var item in Model)
             {
-                <div class="col-md-12 text-center d-flex ftco-animate">
-                    <div class="blog-entry justify-content-end mb-md-5">
-                        <a href="blog-single.html" class="block-20 img" style="background-image: url(@item.CoverImageUrl);">
+                <div class="col-md-4 text-center d-flex ftco-animate mb-4">
+                    <div class="blog-entry justify-content-end d-flex flex-column">
+                        <a href="/Blog/BlogDetail/@item.BlogID" class="block-20 img" style="background-image: url(@item.CoverImageUrl); height: 200px; background-size: cover; background-position: center;">
                         </a>
-                        <div class="text px-md-5 pt-4">
-                            <div class="meta mb-3">
-                                <div><a href="/Blog/BlogDetail/@item.BlogID">@item.CreatedDate.ToString("dd - MMM - yyyy", new CultureInfo("en-US"))</a></div>
+                        <div class="text px-4 pt-3 d-flex flex-column flex-grow-1">
+                            <div class="meta mb-2">
+                                <div><a href="/Blog/BlogDetail/@item.BlogID">@item.CreatedDate.ToString("dd-MMM-yyyy", new CultureInfo("en-US"))</a></div>
                                 <div><a href="/Blog/BlogDetail/@item.BlogID">@item.AuthorName</a></div>
                             </div>
                             <h3 class="heading mt-2"><a href="/Blog/BlogDetail/@item.BlogID">@item.Title</a></h3>
-                            <p>@Truncate(item.Description, 350)</p>  @* Limited txt *@
-                            <p><a href="/Blog/BlogDetail/@item.BlogID" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
+                            <p>@Truncate(item.Description, 100)</p> @* Limited text *@
+                            <div class="mt-auto">
+                                <p><a href="/Blog/BlogDetail/@item.BlogID" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -43,7 +45,7 @@
         </div>
 
         <!-- Pagination Controls -->
-        <div class="row d-flex justify-content-center">
+        <div class="row d-flex justify-content-center mt-4">
             <nav aria-label="Page navigation">
                 <ul class="pagination">
                     <li class="page-item @(ViewBag.CurrentPage <= 1 ? "disabled" : "")">
@@ -67,3 +69,38 @@
         </div>
     </div>
 </section>
+
+<style>
+    .blog-entry {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .blog-entry:hover {
+            transform: scale(1.02);
+        }
+
+        .blog-entry .img {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .blog-entry .text {
+            padding: 15px;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+    .pagination .page-item.active .page-link {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+</style>
