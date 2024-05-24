@@ -15,6 +15,7 @@ using RentACarProject.Application.Features.RepositoryPattern;
 using RentACarProject.Application.Interfaces.BlogInterfaces;
 using RentACarProject.Application.Interfaces.CarInterfaces;
 using RentACarProject.Application.Interfaces.CarPricingInterfaces;
+using RentACarProject.Application.Interfaces.CategoryInterfaces;
 using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Application.Interfaces.RentCarInterfaces;
 using RentACarProject.Application.Interfaces.StatisticsInterfaces;
@@ -24,6 +25,7 @@ using RentACarProject.Persistence.Context;
 using RentACarProject.Persistence.Repositories.BlogRepositories;
 using RentACarProject.Persistence.Repositories.CarPricingRepositories;
 using RentACarProject.Persistence.Repositories.CarRepository;
+using RentACarProject.Persistence.Repositories.CategoryRepositories;
 using RentACarProject.Persistence.Repositories.CommentRepositories;
 using RentACarProject.Persistence.Repositories.GeneralRepository;
 using RentACarProject.Persistence.Repositories.RentCarRepositories;
@@ -41,6 +43,7 @@ builder.Services.AddScoped(typeof(IBlogRepository), typeof(BlogRepository));
 builder.Services.AddScoped(typeof(ICarPricingRepository), typeof(CarPricingRepository));
 builder.Services.AddScoped(typeof(ITagCloudRepository), typeof(TagCloudRepository));
 builder.Services.AddScoped(typeof(IRentCarRepository), typeof(RentCarRepository));
+builder.Services.AddScoped(typeof(ICategoryRepository), typeof(CategoryRepository));
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(CommentRepository<>));
 
 // About Service
@@ -79,6 +82,7 @@ builder.Services.AddScoped<GetCategoryByIdQueryHandler>();
 builder.Services.AddScoped<CreateCategoryCommandHandler>();
 builder.Services.AddScoped<UpdateCategoryCommandHandler>();
 builder.Services.AddScoped<RemoveCategoryCommandHandler>();
+builder.Services.AddScoped<GetCategoryWithBlogCountHandler>();
 
 // Contact Service
 builder.Services.AddScoped<GetContactQueryHandler>();

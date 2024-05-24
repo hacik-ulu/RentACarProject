@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RentACarProject.Application.Features.CQRS.Results.CategoryResults;
 using RentACarProject.Application.Interfaces.BlogInterfaces;
 using RentACarProject.Domain.Entities;
 using RentACarProject.Persistence.Context;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RentACarProject.Persistence.Repositories.BlogRepositories
@@ -33,7 +35,7 @@ namespace RentACarProject.Persistence.Repositories.BlogRepositories
 
         public async Task<string> GetCategoryNameByIdAsync(int categoryID)
         {
-            var value = await _context.Categories.FirstOrDefaultAsync(x=>x.CategoryID == categoryID);
+            var value = await _context.Categories.FirstOrDefaultAsync(x => x.CategoryID == categoryID);
             return value.Name;
         }
 

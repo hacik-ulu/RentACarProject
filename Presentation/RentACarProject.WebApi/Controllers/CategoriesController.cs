@@ -16,14 +16,16 @@ namespace RentACarProject.WebApi.Controllers
         private readonly GetCategoryQueryHandler _getCategoryQueryHandler;
         private readonly UpdateCategoryCommandHandler _updateCategoryCommandHandler;
         private readonly RemoveCategoryCommandHandler _removeCategoryCommandHandler;
+        private readonly GetCategoryWithBlogCountHandler _getCategoryWithBlogCountHandler;
 
-        public CategoriesController(CreateCategoryCommandHandler createCategoryCommandHandler, GetCategoryByIdQueryHandler getCategoryByIdQueryHandler, GetCategoryQueryHandler getCategoryQueryHandler, UpdateCategoryCommandHandler updateCategoryCommandHandler, RemoveCategoryCommandHandler removeCategoryCommandHandler)
+        public CategoriesController(CreateCategoryCommandHandler createCategoryCommandHandler, GetCategoryByIdQueryHandler getCategoryByIdQueryHandler, GetCategoryQueryHandler getCategoryQueryHandler, UpdateCategoryCommandHandler updateCategoryCommandHandler, RemoveCategoryCommandHandler removeCategoryCommandHandler, GetCategoryWithBlogCountHandler getCategoryWithBlogCountHandler)
         {
             _createCategoryCommandHandler = createCategoryCommandHandler;
             _getCategoryByIdQueryHandler = getCategoryByIdQueryHandler;
             _getCategoryQueryHandler = getCategoryQueryHandler;
             _updateCategoryCommandHandler = updateCategoryCommandHandler;
             _removeCategoryCommandHandler = removeCategoryCommandHandler;
+            _getCategoryWithBlogCountHandler = getCategoryWithBlogCountHandler;
         }
 
         [HttpGet]
@@ -59,6 +61,13 @@ namespace RentACarProject.WebApi.Controllers
         {
             await _updateCategoryCommandHandler.Handle(command);
             return Ok("Category Updated!");
+        }
+
+        [HttpGet("GetCategoryWithBlogCount/{id}")]
+        public async Task<IActionResult> GetCategoryWithBlogCount(int id)
+        {
+            var values = await _getCategoryWithBlogCountHandler.Handle(new GetCategoryWithBlogCountQuery(id));
+            return Ok(values);
         }
 
 
