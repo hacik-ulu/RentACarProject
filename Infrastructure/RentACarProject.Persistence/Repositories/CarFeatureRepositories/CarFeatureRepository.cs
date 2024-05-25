@@ -33,9 +33,15 @@ namespace RentACarProject.Persistence.Repositories.CarFeatureRepositories
             _context.SaveChanges();
         }
 
+        public void CreateCarFeatureByCar(CarFeature carFeature)
+        {
+            _context.CarFeatures.Add(carFeature);
+            _context.SaveChanges();
+        }
+
         public async Task<List<CarFeature>> GetCarFeaturesByCarIDAsync(int carID)
         {
-            var values = await _context.CarFeatures.Include(y=>y.Feature).Where(x => x.CarID == carID).ToListAsync();
+            var values = await _context.CarFeatures.Include(y => y.Feature).Where(x => x.CarID == carID).ToListAsync();
             return values;
         }
     }

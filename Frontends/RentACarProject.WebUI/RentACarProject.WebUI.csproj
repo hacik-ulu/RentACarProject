@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\RentACarProject.Application\RentACarProject.Application.csproj" />
     <ProjectReference Include="..\RentACarProject.Dto\RentACarProject.Dto.csproj" />
   </ItemGroup>
 

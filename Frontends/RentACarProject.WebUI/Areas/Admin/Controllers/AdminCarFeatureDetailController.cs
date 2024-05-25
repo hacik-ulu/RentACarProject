@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using RentACarProject.Dto.BlogDtos;
 using RentACarProject.Dto.CarFeatureDtos;
+using RentACarProject.Dto.FeatureDtos;
 
 namespace RentACarProject.WebUI.Areas.Admin.Controllers
 {
@@ -50,6 +51,22 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                 }
             }
             return RedirectToAction("Index", "AdminCar");
+        }
+
+
+        [Route("CreateFeatureByCarId")]
+        [HttpGet]
+        public async Task<IActionResult> CreateFeatureByCarId()
+        {
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.GetAsync("https://localhost:7262/api/Features");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultFeatureDto>>(jsonData);
+                return View(values);
+            }
+            return View();
         }
 
     }

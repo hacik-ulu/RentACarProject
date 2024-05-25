@@ -12,5 +12,6 @@ namespace RentACarProject.Application.Interfaces.CarFeatureInterfaces
         Task<List<CarFeature>> GetCarFeaturesByCarIDAsync(int carID);
         void ChangeCarFeatureAvailabilityToFalse(int id);
         void ChangeCarFeatureAvailabilityToTrue(int id);
+        void CreateCarFeatureByCar(CarFeature carFeature);
     }
 }
