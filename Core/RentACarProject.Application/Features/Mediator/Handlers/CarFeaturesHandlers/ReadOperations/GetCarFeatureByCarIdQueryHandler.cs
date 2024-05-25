@@ -6,7 +6,7 @@ using RentACarProject.Application.Interfaces.CarFeatureInterfaces;
 using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Domain.Entities;
 
-namespace RentACarProject.Application.Features.Mediator.Handlers.CarFeaturesHandlers
+namespace RentACarProject.Application.Features.Mediator.Handlers.CarFeaturesHandlers.ReadOperations
 {
     public class GetCarFeatureByCarIdQueryHandler : IRequestHandler<GetCarFeatureByCarIdQuery, List<GetCarFeatureByCarIdQueryResult>>
     {

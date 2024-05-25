@@ -16,6 +16,7 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
         }
 
         [Route("Index/{id}")]
+        [HttpGet]
         public async Task<IActionResult> Index(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -27,6 +28,28 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                 return View(values);
             }
             return View();
+        }
+
+        [HttpPost]
+        [Route("Index/{id}")]
+        public async Task<IActionResult> Index(List<ResultCarFeatureByCarIdDto> resultCarFeatureByCarIdDto)
+        {
+
+            foreach (var item in resultCarFeatureByCarIdDto)
+            {
+                if (item.Availability)
+                {
+                    var client = _httpClientFactory.CreateClient();
+                    await client.GetAsync("https://localhost:7262/api/CarFeatures/CarFeatureChangeAvailableToTrue?id=" + item.CarFeatureID);
+
+                }
+                else
+                {
+                    var client = _httpClientFactory.CreateClient();
+                    await client.GetAsync("https://localhost:7262/api/CarFeatures/CarFeatureChangeAvailableToFalse?id=" + item.CarFeatureID);
+                }
+            }
+            return RedirectToAction("Index", "AdminCar");
         }
 
     }
