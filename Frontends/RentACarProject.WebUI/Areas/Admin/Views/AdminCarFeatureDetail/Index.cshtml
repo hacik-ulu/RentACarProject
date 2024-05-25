@@ -1,8 +1,38 @@
-﻿
+﻿@model List<ResultCarFeatureByCarIdDto>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
 }
 
-<h1>New Page</h1>
-
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title">Car Features List</h4>
+                        <p class="card-subtitle mb-4 text-muted">
+                            You can add features to the car, remove existing features, and perform the necessary updates.
+                        </p>
+                        <form method="post">
+                            <div class="form-group">
+                                @for (int i = 0; i < Model.Count; i++)
+                                {
+                                    <div class="form-check mb-2">
+                                        <input type="hidden" asp-for="@Model[i].CarFeatureID" />
+                                        <input type="hidden" asp-for="@Model[i].FeatureName" />
+                                        <input type="checkbox" asp-for="@Model[i].Availability" class="form-check-input" id="featureCheck_@i" />
+                                        <label class="form-check-label" for="featureCheck_@i">@Model[i].FeatureName</label>
+                                    </div>
+                                }
+                            </div>
+                            <div class="text-right">
+                                <button class="btn btn-success">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -22,9 +22,10 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.CarFeaturesHand
             var values = await _repository.GetCarFeaturesByCarIDAsync(request.Id);
             return values.Select(x => new GetCarFeatureByCarIdQueryResult
             {
-               Availability= x.Availability,
-               CarFeatureID= x.CarFeatureID,
-               FeatureID= x.FeatureID             
+                Availability = x.Availability,
+                CarFeatureID = x.CarFeatureID,
+                FeatureName = x.Feature.Name,
+                FeatureID = x.FeatureID
             }).ToList();
 
         }
