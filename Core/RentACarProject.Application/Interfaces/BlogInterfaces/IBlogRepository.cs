@@ -11,6 +11,7 @@ namespace RentACarProject.Application.Interfaces.BlogInterfaces
     public interface IBlogRepository
     {
         Task<List<Blog>> GetLastThreeBlogsWithAuthorsAsync();
+        Task<List<Blog>> GetLastEightBlogsAsync();
         Task<List<Blog>> GetAllBlogsWithAuthorsAsync();
         Task<List<Blog>> GetBlogByAuhorIdAsync(int id);
         Task<string> GetCategoryNameByIdAsync(int categoryID);

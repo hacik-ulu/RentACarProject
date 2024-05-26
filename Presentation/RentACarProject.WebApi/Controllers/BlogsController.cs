@@ -82,5 +82,11 @@ namespace RentACarProject.WebApi.Controllers
             return Ok(values);
         }
 
+        [HttpGet("GetLastEightBlogsList")]
+        public async Task<IActionResult> GetLastEightBlogsList()
+        {
+            var values = await _mediator.Send(new GetLastEightBlogsQuery());
+            return Ok(values);
+        }
     }
 }
