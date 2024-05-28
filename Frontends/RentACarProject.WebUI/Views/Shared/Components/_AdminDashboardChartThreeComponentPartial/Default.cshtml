@@ -1,0 +1,82 @@
+﻿@model List<RentACarProject.Dto.LocationDtos.ResultLocationDto>
+@using Newtonsoft.Json
+
+@{
+    // Sorting locations by LocationID
+    var sortedLocations = Model.OrderBy(l => l.LocationID).ToList();
+
+    // Extracting sorted location names and generating data values based on LocationID
+    var locationNames = sortedLocations.Select(l => l.Name).ToList();
+    var locationValues = sortedLocations.Select(l => l.LocationID).ToList(); // Example: Multiplying LocationID by 2 for demonstration
+}
+
+<script src="~/chart.js"></script>
+
+<div class="col-lg-4">
+    <div class="card" style="margin-bottom: 20px; padding-bottom: 20px;">
+        <div class="card-body">
+            <h4 class="card-title d-inline-block">Location Data</h4>
+            <div style="height:320px;">
+                <canvas id="my3Chart" height="280px"></canvas>
+            </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var values = document.getElementById('my3Chart').getContext('2d');
+                    var myChart = new Chart(values, {
+                        type: 'bar',
+                        data: {
+                            labels: @Html.Raw(JsonConvert.SerializeObject(locationNames)),
+                            datasets: [{
+                                label: 'Locations',
+                                data: @Html.Raw(JsonConvert.SerializeObject(locationValues)),
+                                backgroundColor: [
+                                    'rgba(255,99,132,0.7)',
+                                    'rgba(54,162,235,0.7)',
+                                    'rgba(255,206,86,0.7)',
+                                    'rgba(75,192,192,0.7)',
+                                    'rgba(153,102,255,0.7)',
+                                    'rgba(255,159,64,0.7)',
+                                    'rgba(185,114,21,0.7)'
+                                ],
+                                borderColor: [
+                                    'rgba(255,99,132,1)',
+                                    'rgba(54,162,235,1)',
+                                    'rgba(255,206,86,1)',
+                                    'rgba(75,192,192,1)',
+                                    'rgba(153,102,255,1)',
+                                    'rgba(255,159,64,1)',
+                                    'rgba(185,114,21,1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                x: {
+                                    beginAtZero: true
+                                },
+                                y: {
+                                    beginAtZero: true // Ensure bars start from zero
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false // Hide the legend as it's redundant
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function (context) {
+                                            return context.dataset.label + ': ' + context.raw;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                });
+            </script>
+        </div>
+    </div>
+</div>
