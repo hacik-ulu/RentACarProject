@@ -1,1 +1,90 @@
-﻿
+﻿@model Tuple<List<ResultCarWithBrandsDto>, List<ResultBrandDto>>
+
+@using Newtonsoft.Json
+
+@{
+    // Get the models
+    var carList = Model.Item1 ?? new List<ResultCarWithBrandsDto>();
+    var brandList = Model.Item2 ?? new List<ResultBrandDto>();
+
+    // Get the brand names of the cars and count each brand
+    var brandNames = brandList.Select(b => b.Name).Distinct().ToList();
+    var brandCounts = brandNames.Select(name => carList.Count(car => car.BrandName == name)).ToList();
+
+    // Calculate the total number of cars and brands
+    var totalCarNumber = carList.Count;
+    var totalBrandNumber = brandNames.Count;
+
+    // Log data for debugging
+    System.Diagnostics.Debug.WriteLine("Car List: " + JsonConvert.SerializeObject(carList));
+    System.Diagnostics.Debug.WriteLine("Brand List: " + JsonConvert.SerializeObject(brandList));
+    System.Diagnostics.Debug.WriteLine("Brand Names: " + JsonConvert.SerializeObject(brandNames));
+    System.Diagnostics.Debug.WriteLine("Brand Counts: " + JsonConvert.SerializeObject(brandCounts));
+    System.Diagnostics.Debug.WriteLine("Total Car Number: " + totalCarNumber);
+    System.Diagnostics.Debug.WriteLine("Total Brand Number: " + totalBrandNumber);
+}
+
+<div class="col-lg-4">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title d-inline-block">Car and Brand Count</h4>
+            <div style="height:260px;">
+                <canvas id="carChart" height="220px"></canvas>
+            </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    // Function to generate random colors
+                    function getRandomColor() {
+                        var letters = '0123456789ABCDEF';
+                        var color = '#';
+                        for (var i = 0; i < 6; i++) {
+                            color += letters[Math.floor(Math.random() * 16)];
+                        }
+                        return color;
+                    }
+
+                    // Create an array of random colors
+                    var colors = [];
+                    for (var i = 0; i < @totalBrandNumber; i++) {
+                        colors.push(getRandomColor());
+                    }
+
+                    var carCtx = document.getElementById('carChart').getContext('2d');
+                    var carChart = new Chart(carCtx, {
+                        type: 'pie',
+                        data: {
+                            labels: @Html.Raw(JsonConvert.SerializeObject(brandNames)),
+                            datasets: [{
+                                label: 'Car Brand Count',
+                                data: @Html.Raw(JsonConvert.SerializeObject(brandCounts)),
+                                backgroundColor: colors,
+                                borderColor: colors,
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false
+                        }
+                    });
+
+                    // Update the car and brand count
+                    document.getElementById('carNumber').innerText = @totalCarNumber;
+                    document.getElementById('brandNumber').innerText = @totalBrandNumber;
+                });
+            </script>
+            <div class="row text-center mt-4">
+                <div class="col-6">
+                    <h4 id="carNumber"></h4>
+                    <p class="text-muted mb-0">Car Count</p>
+                </div>
+                <div class="col-6">
+                    <h4 id="brandNumber"></h4>
+                    <p class="text-muted mb-0">Brand Count</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/chart.js"></script>
