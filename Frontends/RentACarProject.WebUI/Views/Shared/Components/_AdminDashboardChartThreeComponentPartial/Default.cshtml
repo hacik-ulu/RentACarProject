@@ -5,9 +5,8 @@
     // Sorting locations by LocationID
     var sortedLocations = Model.OrderBy(l => l.LocationID).ToList();
 
-    // Extracting sorted location names and generating data values based on LocationID
     var locationNames = sortedLocations.Select(l => l.Name).ToList();
-    var locationValues = sortedLocations.Select(l => l.LocationID).ToList(); // Example: Multiplying LocationID by 2 for demonstration
+    var locationValues = sortedLocations.Select(l => l.LocationID).ToList(); 
 }
 
 <script src="~/chart.js"></script>
@@ -58,12 +57,12 @@
                                     beginAtZero: true
                                 },
                                 y: {
-                                    beginAtZero: true // Ensure bars start from zero
+                                    beginAtZero: true 
                                 }
                             },
                             plugins: {
                                 legend: {
-                                    display: false // Hide the legend as it's redundant
+                                    display: false 
                                 },
                                 tooltip: {
                                     callbacks: {
