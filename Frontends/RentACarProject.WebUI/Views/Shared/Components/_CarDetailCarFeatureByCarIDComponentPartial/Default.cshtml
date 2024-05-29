@@ -1,0 +1,64 @@
+﻿@model List<ResultCarFeatureByCarIdDto>
+
+<div class="tab-pane fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                @for (int i = 0; i < Model.Count; i += 3)
+                {
+                    <div class="col-md-4">
+                        @if (i < Model.Count)
+                        {
+                            var item = Model[i];
+                            <div class="feature">
+                                <span class="ion-ios-@(item.Availability ? "checkmark check-icon" : "close close-icon")"></span>@item.FeatureName
+                            </div>
+                        }
+                    </div>
+                    <div class="col-md-4">
+                        @if (i + 1 < Model.Count)
+                        {
+                            var item = Model[i + 1];
+                            <div class="feature">
+                                <span class="ion-ios-@(item.Availability ? "checkmark check-icon" : "close close-icon")"></span>@item.FeatureName
+                            </div>
+                        }
+                    </div>
+                    <div class="col-md-4">
+                        @if (i + 2 < Model.Count)
+                        {
+                            var item = Model[i + 2];
+                            <div class="feature">
+                                <span class="ion-ios-@(item.Availability ? "checkmark check-icon" : "close close-icon")"></span>@item.FeatureName
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .feature {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .ion-ios-checkmark {
+        margin-right: 5px;
+    }
+
+    .ion-ios-close {
+        margin-right: 5px;
+    }
+
+    .check-icon {
+        color: green;
+    }
+
+    .close-icon {
+        color: red;
+    }
+</style>

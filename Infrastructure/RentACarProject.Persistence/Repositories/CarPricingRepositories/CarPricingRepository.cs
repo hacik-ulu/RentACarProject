@@ -22,7 +22,7 @@ namespace RentACarProject.Persistence.Repositories.CarPricingRepositories
 
 		public async Task<List<CarPricing>> GetCarPricingWithCarsAsync()
 		{
-			var values = await _context.CarPricings.Include(x => x.Car).ThenInclude(y => y.Brand).Include(x => x.Pricing).Where(z => z.PricingID == 3).ToListAsync();
+			var values = await _context.CarPricings.Include(x => x.Car).ThenInclude(y => y.Brand).Include(x => x.Pricing).Where(z => z.PricingID == 1).ToListAsync();
 			return values;
 		}
 		public async Task<List<CarPricingViewModel>> GetCarPricingWithTimePeriodAsync()

@@ -17,7 +17,7 @@ namespace RentACarProject.WebApi.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
+        [HttpGet("CarFeatureListByCarId")]
         public async Task<IActionResult> CarFeatureListByCarId(int id)
         {
             var values = await _mediator.Send(new GetCarFeatureByCarIdQuery(id));
