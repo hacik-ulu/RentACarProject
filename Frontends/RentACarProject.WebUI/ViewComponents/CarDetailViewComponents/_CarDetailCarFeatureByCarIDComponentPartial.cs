@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using RentACarProject.Dto.CarFeatureDtos;
 
-namespace RentACarProject.WebUI.ViewComponents.DashboardComponents
+namespace RentACarProject.WebUI.ViewComponents.CarDetailViewComponents
 {
     public class _CarDetailCarFeatureByCarIDComponentPartial : ViewComponent
     {

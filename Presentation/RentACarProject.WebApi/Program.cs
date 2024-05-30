@@ -1,3 +1,4 @@
+using MediatR;
 using RentACarProject.Application.Features.CQRS.Handlers.AboutHandlers.ReadOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.AboutHandlers.WriteOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.BannerHandlers.ReadOperations;
@@ -13,6 +14,7 @@ using RentACarProject.Application.Features.CQRS.Handlers.ContactHandler.ReadOper
 using RentACarProject.Application.Features.CQRS.Handlers.ContactHandler.WriteOperations;
 using RentACarProject.Application.Features.RepositoryPattern;
 using RentACarProject.Application.Interfaces.BlogInterfaces;
+using RentACarProject.Application.Interfaces.CarDescriptionInterfaces;
 using RentACarProject.Application.Interfaces.CarFeatureInterfaces;
 using RentACarProject.Application.Interfaces.CarInterfaces;
 using RentACarProject.Application.Interfaces.CarPricingInterfaces;
@@ -24,6 +26,7 @@ using RentACarProject.Application.Interfaces.TagCloudInterfaces;
 using RentACarProject.Application.Services;
 using RentACarProject.Persistence.Context;
 using RentACarProject.Persistence.Repositories.BlogRepositories;
+using RentACarProject.Persistence.Repositories.CarDescriptionRepositories;
 using RentACarProject.Persistence.Repositories.CarFeatureRepositories;
 using RentACarProject.Persistence.Repositories.CarPricingRepositories;
 using RentACarProject.Persistence.Repositories.CarRepository;
@@ -36,7 +39,7 @@ using RentACarProject.Persistence.Repositories.TagCloudRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add Services to the container.
+// Add Services to the container. - These are using for Mediator - 
 builder.Services.AddScoped<RentACarContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(ICarRepository), typeof(CarRepository));
@@ -48,6 +51,9 @@ builder.Services.AddScoped(typeof(IRentCarRepository), typeof(RentCarRepository)
 builder.Services.AddScoped(typeof(ICategoryRepository), typeof(CategoryRepository));
 builder.Services.AddScoped(typeof(ICarFeatureRepository), typeof(CarFeatureRepository));
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(CommentRepository<>));
+builder.Services.AddScoped(typeof(ICarDescriptionRepository), typeof(CarDescriptionRepository));
+
+//- These are using for CQRS -
 
 // About Service
 builder.Services.AddScoped<GetAboutQueryHandler>();
