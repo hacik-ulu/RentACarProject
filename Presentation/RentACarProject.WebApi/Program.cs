@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using MediatR;
 using RentACarProject.Application.Features.CQRS.Handlers.AboutHandlers.ReadOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.AboutHandlers.WriteOperations;
@@ -38,6 +39,7 @@ using RentACarProject.Persistence.Repositories.RentCarRepositories;
 using RentACarProject.Persistence.Repositories.ReviewsRepositories;
 using RentACarProject.Persistence.Repositories.StatisticsRepositories;
 using RentACarProject.Persistence.Repositories.TagCloudRepositories;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -107,6 +109,12 @@ builder.Services.AddScoped<RemoveContactCommandHandler>();
 
 // Mediator
 builder.Services.AddApplicationService(builder.Configuration);
+
+// Fluent Validation
+builder.Services.AddControllers().AddFluentValidation(x =>
+{
+    x.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
