@@ -21,6 +21,7 @@ using RentACarProject.Application.Interfaces.CarPricingInterfaces;
 using RentACarProject.Application.Interfaces.CategoryInterfaces;
 using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Application.Interfaces.RentCarInterfaces;
+using RentACarProject.Application.Interfaces.ReviewInterfaces;
 using RentACarProject.Application.Interfaces.StatisticsInterfaces;
 using RentACarProject.Application.Interfaces.TagCloudInterfaces;
 using RentACarProject.Application.Services;
@@ -34,6 +35,7 @@ using RentACarProject.Persistence.Repositories.CategoryRepositories;
 using RentACarProject.Persistence.Repositories.CommentRepositories;
 using RentACarProject.Persistence.Repositories.GeneralRepository;
 using RentACarProject.Persistence.Repositories.RentCarRepositories;
+using RentACarProject.Persistence.Repositories.ReviewsRepositories;
 using RentACarProject.Persistence.Repositories.StatisticsRepositories;
 using RentACarProject.Persistence.Repositories.TagCloudRepositories;
 
@@ -52,6 +54,7 @@ builder.Services.AddScoped(typeof(ICategoryRepository), typeof(CategoryRepositor
 builder.Services.AddScoped(typeof(ICarFeatureRepository), typeof(CarFeatureRepository));
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(CommentRepository<>));
 builder.Services.AddScoped(typeof(ICarDescriptionRepository), typeof(CarDescriptionRepository));
+builder.Services.AddScoped(typeof(IReviewRepository), typeof(ReviewRepository));
 
 //- These are using for CQRS -
 

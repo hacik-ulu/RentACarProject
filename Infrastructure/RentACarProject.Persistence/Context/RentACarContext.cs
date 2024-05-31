@@ -31,6 +31,7 @@ public class RentACarContext : DbContext
     public DbSet<Comment> Comments { get; set; }
     public DbSet<RentCar> RentCars { get; set; }
     public DbSet<Reservation> Reservations { get; set; }
+    public DbSet<Review> Reviews { get; set; }
 
     // Bir tabloda birden fazla ID'li ilişki kurmak için bu işlemi gerçekleştiriyoruz.
     // Reservation tablosundaki PickUpLocationID ve DropOffLocationID değerini, Location tablosundaki LocationID ile eşleştirmeyi hedefliyoruz.
