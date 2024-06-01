@@ -1,5 +1,7 @@
 using FluentValidation.AspNetCore;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using RentACarProject.Application.Features.CQRS.Handlers.AboutHandlers.ReadOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.AboutHandlers.WriteOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.BannerHandlers.ReadOperations;
@@ -26,6 +28,7 @@ using RentACarProject.Application.Interfaces.ReviewInterfaces;
 using RentACarProject.Application.Interfaces.StatisticsInterfaces;
 using RentACarProject.Application.Interfaces.TagCloudInterfaces;
 using RentACarProject.Application.Services;
+using RentACarProject.Application.Tools;
 using RentACarProject.Persistence.Context;
 using RentACarProject.Persistence.Repositories.BlogRepositories;
 using RentACarProject.Persistence.Repositories.CarDescriptionRepositories;
@@ -40,8 +43,25 @@ using RentACarProject.Persistence.Repositories.ReviewsRepositories;
 using RentACarProject.Persistence.Repositories.StatisticsRepositories;
 using RentACarProject.Persistence.Repositories.TagCloudRepositories;
 using System.Reflection;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//JWT Configuration
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+{
+    opt.RequireHttpsMetadata = false;
+    opt.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidAudience = JwtTokenDefaults.ValidAudience,
+        ValidIssuer = JwtTokenDefaults.ValidIssuer,
+        ClockSkew = TimeSpan.Zero,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtTokenDefaults.Key)),
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true
+    };
+});
+
 
 // Add Services to the container. - These are using for Mediator - 
 builder.Services.AddScoped<RentACarContext>();
@@ -131,6 +151,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// JWT Configuration
+app.UseAuthentication();
 
 app.UseAuthorization();
 
