@@ -6,6 +6,7 @@ using RentACarProject.Application.Features.Mediator.Queries.LocationQueries;
 
 namespace RentACarProject.WebApi.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class LocationsController : ControllerBase
