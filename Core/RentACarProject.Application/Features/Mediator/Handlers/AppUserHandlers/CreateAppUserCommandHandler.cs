@@ -26,7 +26,10 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.AppUserHandlers
             {
                 Password = request.Password,
                 Username = request.Username,
-                AppRoleID = (int)RolesType.Member
+                AppRoleID = (int)RolesType.Member,
+                Email = request.Email,
+                Name = request.Name,
+                Surname = request.Surname
             });
         }
     }
