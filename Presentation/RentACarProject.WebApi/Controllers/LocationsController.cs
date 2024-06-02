@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RentACarProject.Application.Features.Mediator.Commands.LocationCommands;
 using RentACarProject.Application.Features.Mediator.Queries.LocationQueries;
