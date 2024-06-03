@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RentACarProject.Dto.LocationDtos;
 using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Text;
 
 namespace RentACarProject.WebUI.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/AdminLocation")]
     public class AdminLocationController : Controller
@@ -24,19 +25,29 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
             var token = User.Claims.FirstOrDefault(x => x.Type == "accessToken")?.Value;
             if (token != null)
             {
-                var client = _httpClientFactory.CreateClient();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                var responseMessage = await client.GetAsync("https://localhost:7262/api/Locations");
-                if (responseMessage.IsSuccessStatusCode)
+                var claims = User.Claims;
+                if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Admin"))
                 {
-                    var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                    var values = JsonConvert.DeserializeObject<List<ResultLocationDto>>(jsonData);
-                    return View(values);
+                    // Admin ise işlemleri yap ve AdminLocation/Index sayfasına yönlendir
+                    var client = _httpClientFactory.CreateClient();
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                    var responseMessage = await client.GetAsync("https://localhost:7262/api/Locations");
+                    if (responseMessage.IsSuccessStatusCode)
+                    {
+                        var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                        var values = JsonConvert.DeserializeObject<List<ResultLocationDto>>(jsonData);
+                        return View(values);
+                    }
+                }
+                else if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Member"))
+                {
+                    // Member ise Default/Index sayfasına yönlendir
+                    return RedirectToAction("Index", "Default");
                 }
             }
             return View();
-
         }
+
 
         [HttpGet]
         [Route("CreateLocation")]

@@ -61,7 +61,7 @@ namespace RentACarProject.WebUI.Controllers
                         {
                             return RedirectToAction("Index", "AdminLocation", new { area = "Admin" });
                         }
-                        else if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "User"))
+                        else if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Member"))
                         {
                             return RedirectToAction("Index", "Default");
                         }
