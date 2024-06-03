@@ -8,7 +8,6 @@ using System.Text;
 
 namespace RentACarProject.WebUI.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/AdminLocation")]
     public class AdminLocationController : Controller
@@ -41,7 +40,9 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                 }
                 else if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Member"))
                 {
-                    return RedirectToAction("Index", "Default");
+                    //return RedirectToAction("Index", "Default");
+                    return RedirectToAction("Index", "Default", new { area = "" }); // Default/Index'e yönlendir
+
                 }
             }
             return View();

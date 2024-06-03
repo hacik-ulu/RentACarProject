@@ -63,18 +63,20 @@ builder.Services.AddCors(opt =>
 builder.Services.AddSignalR();
 
 
-//JWT Configuration
+// JWT Configuration
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
 {
     opt.RequireHttpsMetadata = false;
     opt.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidAudience = JwtTokenDefaults.ValidAudience,
-        ValidIssuer = JwtTokenDefaults.ValidIssuer,
-        ClockSkew = TimeSpan.Zero,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtTokenDefaults.Key)),
+        ValidateIssuer = true,
+        ValidateAudience = true,
         ValidateLifetime = true,
-        ValidateIssuerSigningKey = true
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = JwtTokenDefaults.ValidIssuer,
+        ValidAudience = JwtTokenDefaults.ValidAudience,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtTokenDefaults.Key)),
+        ClockSkew = TimeSpan.Zero // Token süresini tam olarak belirlemek için
     };
 });
 

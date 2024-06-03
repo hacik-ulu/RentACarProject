@@ -27,7 +27,7 @@ namespace RentACarProject.Application.Tools
 
             var signinCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var expireDate = DateTime.UtcNow.AddDays(JwtTokenDefaults.Expire);
+            var expireDate = DateTime.UtcNow.AddMinutes(JwtTokenDefaults.Expire); // Dakika cinsinden ayarlama
 
             JwtSecurityToken token = new JwtSecurityToken(
                 issuer: JwtTokenDefaults.ValidIssuer,
