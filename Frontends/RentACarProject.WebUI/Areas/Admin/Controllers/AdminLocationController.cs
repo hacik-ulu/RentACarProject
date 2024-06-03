@@ -40,7 +40,6 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                 }
                 else if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Member"))
                 {
-                    // Member ise Default/Index sayfasına yönlendir
                     return RedirectToAction("Index", "Default");
                 }
             }

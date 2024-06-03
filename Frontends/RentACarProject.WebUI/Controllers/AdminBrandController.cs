@@ -104,3 +104,5 @@ namespace RentACarProject.WebUI.Controllers
         }
     }
 }
+
+//AREASDAKİ ADMİNLERİ LOCATİONDAKİ GİBİ DÜZENLE SONRA WEBUIDAKİ CONTROLLERLARI DUZENLE.

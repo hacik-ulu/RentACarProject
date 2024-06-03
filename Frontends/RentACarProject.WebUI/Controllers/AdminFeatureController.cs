@@ -4,6 +4,9 @@ using Newtonsoft.Json;
 using RentACarProject.Dto.BrandDtos;
 using RentACarProject.Dto.CarDtos;
 using RentACarProject.Dto.FeatureDtos;
+using RentACarProject.Dto.LocationDtos;
+using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Text;
 
 namespace RentACarProject.WebUI.Controllers
@@ -17,15 +20,30 @@ namespace RentACarProject.WebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7262/api/Features");
-            if (responseMessage.IsSuccessStatusCode)
+            var token = User.Claims.FirstOrDefault(x => x.Type == "accessToken")?.Value;
+            if (token != null)
             {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultFeatureDto>>(jsonData);
-                return View(values);
+                var claims = User.Claims;
+                if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Admin"))
+                {
+                    // Admin ise işlemleri yap ve AdminLocation/Index sayfasına yönlendir
+                    var client = _httpClientFactory.CreateClient();
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                    var responseMessage = await client.GetAsync("https://localhost:7262/api/Features");
+                    if (responseMessage.IsSuccessStatusCode)
+                    {
+                        var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                        var values = JsonConvert.DeserializeObject<List<ResultFeatureDto>>(jsonData);
+                        return View(values);
+                    }
+                }
+                else if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Member"))
+                {
+                    return RedirectToAction("Index", "Default");
+                }
             }
             return View();
         }
