@@ -8,12 +8,14 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace RentACarProject.WebUI.Controllers
 {
     public class LoginController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
+
         public LoginController(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
@@ -31,6 +33,7 @@ namespace RentACarProject.WebUI.Controllers
             var client = _httpClientFactory.CreateClient();
             var content = new StringContent(JsonSerializer.Serialize(createLoginDto), Encoding.UTF8, "application/json");
             var response = await client.PostAsync("https://localhost:7262/api/Login", content);
+
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
@@ -77,7 +80,7 @@ namespace RentACarProject.WebUI.Controllers
         public async Task<IActionResult> LogOut()
         {
             await HttpContext.SignOutAsync(JwtBearerDefaults.AuthenticationScheme);
-            return RedirectToAction("Index","Login");
+            return RedirectToAction("Index", "Login");
         }
     }
 }
