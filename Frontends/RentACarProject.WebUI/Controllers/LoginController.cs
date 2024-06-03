@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using RentACarProject.Dto.LoginDtos;
@@ -70,6 +71,13 @@ namespace RentACarProject.WebUI.Controllers
             }
 
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> LogOut()
+        {
+            await HttpContext.SignOutAsync(JwtBearerDefaults.AuthenticationScheme);
+            return RedirectToAction("Index","Login");
         }
     }
 }
