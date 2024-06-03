@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RentACarProject.Dto.BrandDtos;
+using RentACarProject.Dto.LocationDtos;
+using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Text;
 
 namespace RentACarProject.WebUI.Controllers
@@ -8,7 +11,6 @@ namespace RentACarProject.WebUI.Controllers
     public class AdminBrandController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
-
         public AdminBrandController(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
@@ -16,13 +18,28 @@ namespace RentACarProject.WebUI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7262/api/Brands");
-            if (responseMessage.IsSuccessStatusCode)
+            var token = User.Claims.FirstOrDefault(x => x.Type == "accessToken")?.Value;
+            if (token != null)
             {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultBrandDto>>(jsonData);
-                return View(values);
+                var claims = User.Claims;
+                if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Admin"))
+                {
+                    // Admin ise işlemleri yap ve AdminLocation/Index sayfasına yönlendir
+                    var client = _httpClientFactory.CreateClient();
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                    var responseMessage = await client.GetAsync("https://localhost:7262/api/Brands");
+                    if (responseMessage.IsSuccessStatusCode)
+                    {
+                        var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                        var values = JsonConvert.DeserializeObject<List<ResultBrandDto>>(jsonData);
+                        return View(values);
+                    }
+                }
+                else if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Member"))
+                {
+                    // Member ise Default/Index sayfasına yönlendir
+                    return RedirectToAction("Index", "Default");
+                }
             }
             return View();
         }
