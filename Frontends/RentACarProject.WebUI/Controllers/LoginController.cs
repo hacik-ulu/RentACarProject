@@ -55,7 +55,16 @@ namespace RentACarProject.WebUI.Controllers
                         };
 
                         await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProps);
-                        return RedirectToAction("Index", "Default");
+
+                        // Kullanıcı rolüne göre yönlendirme
+                        if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Admin"))
+                        {
+                            return RedirectToAction("Index", "AdminLocation", new { area = "Admin" });
+                        }
+                        else if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "User"))
+                        {
+                            return RedirectToAction("Index", "Default");
+                        }
                     }
                 }
             }
