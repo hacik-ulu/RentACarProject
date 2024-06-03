@@ -1,17 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using RentACarProject.Dto.CommentDtos;
+using RentACarProject.Dto.LocationDtos;
+using RentACarProject.Dto.TagCloudDtos;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 
 namespace RentACarProject.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("Admin/AdminComment")]
-    public class AdminCommentController : Controller
+    [Route("Admin/AdminTagCloud")]
+    public class AdminTagCloudController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        public AdminCommentController(IHttpClientFactory httpClientFactory)
+        public AdminTagCloudController(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
@@ -25,13 +26,14 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                 var claims = User.Claims;
                 if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Admin"))
                 {
+                    // Admin ise işlemleri yap ve AdminLocation/Index sayfasına yönlendir
                     var client = _httpClientFactory.CreateClient();
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                    var responseMessage = await client.GetAsync("https://localhost:7262/api/Comments");
+                    var responseMessage = await client.GetAsync("https://localhost:7262/api/TagClouds");
                     if (responseMessage.IsSuccessStatusCode)
                     {
                         var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                        var values = JsonConvert.DeserializeObject<List<ResultCommentDto>>(jsonData);
+                        var values = JsonConvert.DeserializeObject<List<ResultTagCloudDto>>(jsonData);
                         return View(values);
                     }
                 }

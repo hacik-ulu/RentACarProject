@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RentACarProject.Application.Features.RepositoryPattern;
 using RentACarProject.Domain.Entities;
+using RentACarProject.Dto.CommentDtos;
 using RentACarProject.Persistence.Context;
 using System;
 using System.Collections.Generic;
@@ -27,16 +28,25 @@ namespace RentACarProject.Persistence.Repositories.CommentRepositories
 
         public List<Comment> GetAll()
         {
-            return _context.Comments.Select(x => new Comment
-            {
-                Name = x.Name,
-                Description = x.Description,
-                BlogID = x.BlogID,
-                CreatedDate = x.CreatedDate,
-                CommentID = x.CommentID
-            }).ToList();
+            // Select comments with desired properties and include Blog data
+            var comments = _context.Comments
+                .Include(comment => comment.Blog) // Include Blog navigation property
+                .Select(comment => new Comment
+                {
+                    CommentID = comment.CommentID,
+                    BlogID = comment.BlogID,
+                    CreatedDate = comment.CreatedDate,
+                    Description = comment.Description,
+                    Name = comment.Name,
+                    // Access Blog properties directly through navigation property
+                    Blog = comment.Blog // Access Blog object with properties like Title
+                })
+                .ToList();
 
+            return comments;
         }
+
+
 
         public Comment GetById(int id)
         {
