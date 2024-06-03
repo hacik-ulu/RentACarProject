@@ -42,10 +42,26 @@ using RentACarProject.Persistence.Repositories.RentCarRepositories;
 using RentACarProject.Persistence.Repositories.ReviewsRepositories;
 using RentACarProject.Persistence.Repositories.StatisticsRepositories;
 using RentACarProject.Persistence.Repositories.TagCloudRepositories;
+using RentACarProject.WebApi.Hubs;
 using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddHttpClient();
+
+// CORS and SignalR
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsPolicy", builder =>
+    {
+        builder.AllowAnyHeader()
+        .AllowAnyMethod()
+        .SetIsOriginAllowed((host) => true)
+        .AllowCredentials();
+    });
+});
+builder.Services.AddSignalR();
+
 
 //JWT Configuration
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
@@ -63,6 +79,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 });
 
 
+# region Registrations
 // Add Services to the container. - These are using for Mediator - 
 builder.Services.AddScoped<RentACarContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -125,7 +142,7 @@ builder.Services.AddScoped<CreateContactCommandHandler>();
 builder.Services.AddScoped<UpdateContactCommandHandler>();
 builder.Services.AddScoped<RemoveContactCommandHandler>();
 
-// Blog Services
+#endregion
 
 // Mediator
 builder.Services.AddApplicationService(builder.Configuration);
@@ -150,6 +167,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("CorsPolicy");
+
 app.UseHttpsRedirection();
 
 // JWT Configuration
@@ -158,5 +177,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<CarHub>("/carhub");
 
 app.Run();
