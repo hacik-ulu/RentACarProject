@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RentACarProject.Dto.BlogDtos;
 using RentACarProject.Dto.CarDtos;
@@ -11,6 +12,7 @@ using System.Text;
 
 namespace RentACarProject.WebUI.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/AdminCarFeatureDetail")]
     public class AdminCarFeatureDetailController : Controller

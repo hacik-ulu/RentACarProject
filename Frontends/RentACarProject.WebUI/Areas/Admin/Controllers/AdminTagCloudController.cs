@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RentACarProject.Dto.LocationDtos;
 using RentACarProject.Dto.TagCloudDtos;
@@ -7,6 +8,7 @@ using System.Security.Claims;
 
 namespace RentACarProject.WebUI.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/AdminTagCloud")]
     public class AdminTagCloudController : Controller

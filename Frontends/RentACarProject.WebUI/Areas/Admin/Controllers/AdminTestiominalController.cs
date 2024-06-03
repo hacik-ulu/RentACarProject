@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RentACarProject.Dto.LocationDtos;
 using RentACarProject.Dto.TestimonialDtos;
@@ -8,6 +9,7 @@ using System.Text;
 
 namespace RentACarProject.WebUI.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/AdminTestimonial")]
     public class AdminTestimonialController : Controller

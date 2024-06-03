@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RentACarProject.Dto.CommentDtos;
 using System.Net.Http.Headers;
@@ -6,6 +7,7 @@ using System.Security.Claims;
 
 namespace RentACarProject.WebUI.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/AdminComment")]
     public class AdminCommentController : Controller

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using RentACarProject.Dto.BrandDtos;
@@ -10,6 +11,7 @@ using System.Text;
 
 namespace RentACarProject.WebUI.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class AdminCarController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;

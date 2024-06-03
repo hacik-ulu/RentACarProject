@@ -4,9 +4,11 @@ using RentACarProject.Dto.LocationDtos;
 using System.Net.Http.Headers;
 using System.Net.Http;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RentACarProject.WebUI.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/AdminDashboard")]
     public class AdminDashboardController : Controller
