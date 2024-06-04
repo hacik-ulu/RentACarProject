@@ -28,7 +28,8 @@ public class GetLastFiveCarsWithBrandsQueryHandler
             Luggage = x.Luggage,
             Fuel = x.Fuel,
             BigImageUrl = x.BigImageUrl,
-            Year = x.Year
+            Year = x.Year,
+            DailyPrice = x.CarPricings.FirstOrDefault()?.Amount ?? 0 // Filtrelenmiş CarPricings listesinden ilk kaydın Amount değerini alıyoruz
         }).ToList();
     }
 }

@@ -14,5 +14,7 @@ public class GetLastFiveCarsWithBrandsQueryResult
     public byte Luggage { get; set; }
     public string Fuel { get; set; }
     public string BigImageUrl { get; set; }
+    public decimal DailyPrice { get; set; }
+
 }
 

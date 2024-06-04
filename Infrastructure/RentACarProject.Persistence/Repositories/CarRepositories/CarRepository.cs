@@ -28,7 +28,21 @@ public class CarRepository : ICarRepository
 
     public async Task<List<Car>> GetLastFiveCarsWithBrandsAsync()
     {
-        var values = await _context.Cars.Include(x => x.Brand).OrderByDescending(y => y.CarID).Take(5).ToListAsync();
-        return values;
+        var cars = await _context.Cars
+            .Include(x => x.Brand) 
+            .Include(x => x.CarPricings) 
+            .OrderByDescending(y => y.CarID)
+            .Take(5)
+            .ToListAsync();
+
+        cars.ForEach(car =>
+        {
+            car.CarPricings = car.CarPricings
+                .Where(p => p.PricingID == 1)
+                .ToList();
+        });
+
+        return cars;
     }
+
 }
