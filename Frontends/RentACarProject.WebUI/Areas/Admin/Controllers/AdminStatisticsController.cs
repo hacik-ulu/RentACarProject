@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 namespace RentACarProject.WebUI.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/AdminStatistics")]
     public class AdminStatisticsController : Controller
@@ -26,6 +26,10 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
             var client = _httpClientFactory.CreateClient();
 
             var token = User.Claims.FirstOrDefault(x => x.Type == "accessToken")?.Value;
+            if (token == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             if (token != null)
             {
                 var claims = User.Claims;

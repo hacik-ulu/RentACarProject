@@ -9,7 +9,7 @@ using System.Text;
 
 namespace RentACarProject.WebUI.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class AdminBrandController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -21,6 +21,10 @@ namespace RentACarProject.WebUI.Controllers
         public async Task<IActionResult> Index()
         {
             var token = User.Claims.FirstOrDefault(x => x.Type == "accessToken")?.Value;
+            if (token == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             if (token != null)
             {
                 var claims = User.Claims;

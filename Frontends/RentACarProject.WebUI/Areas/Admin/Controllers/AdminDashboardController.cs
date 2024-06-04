@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace RentACarProject.WebUI.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/AdminDashboard")]
     public class AdminDashboardController : Controller
@@ -17,6 +17,10 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
         public IActionResult Index()
         {
             var token = User.Claims.FirstOrDefault(x => x.Type == "accessToken")?.Value;
+            if (token == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             if (token != null)
             {
                 var claims = User.Claims;

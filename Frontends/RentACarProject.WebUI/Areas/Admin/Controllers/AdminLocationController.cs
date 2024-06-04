@@ -22,6 +22,10 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var token = User.Claims.FirstOrDefault(x => x.Type == "accessToken")?.Value;
+            if (token == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             if (token != null)
             {
                 var claims = User.Claims;
