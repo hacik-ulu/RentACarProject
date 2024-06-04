@@ -1,0 +1,58 @@
+﻿@model List<RentACarProject.WebUI.Models.DriverModel>
+
+@{
+    ViewData["Title"] = "Rent A Driver";
+    Layout = "~/Views/UILayout/Index.cshtml";
+    int count = 0;
+}
+<br />
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Driver List</h4>
+                        <p class="card-subtitle mb-4">
+                            To contact the drivers, please use their e-mail addresses.
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center;">#</th>
+                                        <th style="text-align: center;">First Name</th>
+                                        <th style="text-align: center;">Last Name</th>
+                                        <th style="text-align: center;">Age</th>
+                                        <th style="text-align: center;">Experience (Years)</th>
+                                        <th style="text-align: center;">Email</th>
+                                        <th style="text-align: center;">Car Brand</th>
+                                        <th style="text-align: center;">Car Model</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var driver in Model)
+                                    {
+                                        count++;
+                                        <tr>
+                                            <td style="text-align: center;">@count</td>
+                                            <td style="text-align: center;">@driver.FirstName</td>
+                                            <td style="text-align: center;">@driver.LastName</td>
+                                            <td style="text-align: center;">@driver.Age</td>
+                                            <td style="text-align: center;">@driver.Experience</td>
+                                            <td style="text-align: center;"><a href="mailto:@driver.Email">@driver.Email</a></td>
+                                            <td style="text-align: center;">@driver.CarBrand</td>
+                                            <td style="text-align: center;">@driver.CarModel</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<br />
