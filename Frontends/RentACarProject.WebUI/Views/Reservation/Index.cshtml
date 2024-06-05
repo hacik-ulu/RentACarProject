@@ -5,50 +5,92 @@
     Layout = "~/Views/UILayout/Index.cshtml";
 }
 
-<div class="col-md-12 block-9 mb-md-5">
-    <form class="bg-light p-5 contact-form" method="post">
-        <h3 class="alert alert-success">Car Reservation Form</h3>
-        <br />
-        <input type="hidden" asp-for="CarID" value="@ViewBag.v3" class="form-control" placeholder="Car You Want to Pick Up">
-        <div class="form-group">
-            <label>Name</label>
-            <input type="text" asp-for="Name" class="form-control" placeholder="Your Name">
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-lg">
+                <div class="card-body p-5">
+                    <form method="post" class="needs-validation" novalidate>
+                        <input type="hidden" asp-for="CarID" value="@ViewBag.v3" class="form-control">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="Name">Name</label>
+                                <input type="text" asp-for="Name" class="form-control" placeholder="Your Name" required>
+                                <div class="invalid-feedback">Please enter your name.</div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="Surname">Surname</label>
+                                <input type="text" asp-for="Surname" class="form-control" placeholder="Your Surname" required>
+                                <div class="invalid-feedback">Please enter your surname.</div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="Email">Email Address</label>
+                                <input type="email" asp-for="Email" class="form-control" placeholder="Your Email" required>
+                                <div class="invalid-feedback">Please enter a valid email address.</div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="Phone">Contact Number</label>
+                                <input type="tel" asp-for="Phone" class="form-control" placeholder="Your Contact Number" required>
+                                <div class="invalid-feedback">Please enter your contact number.</div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="PickUpLocationID">Pick Up Location</label>
+                                @Html.DropDownListFor(x => x.PickUpLocationID, (List<SelectListItem>)ViewBag.v, new { @class = "form-control", required = "required" })
+                                <div class="invalid-feedback">Please select a pick up location.</div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="DropOffLocationID">Drop Off Location</label>
+                                @Html.DropDownListFor(x => x.DropOffLocationID, (List<SelectListItem>)ViewBag.v, new { @class = "form-control", required = "required" })
+                                <div class="invalid-feedback">Please select a drop off location.</div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="Age">Age</label>
+                                <input type="number" asp-for="Age" class="form-control" placeholder="Your Age" required>
+                                <div class="invalid-feedback">Please enter your age.</div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="DriverLicenseYear">Driver License Year</label>
+                                <input type="number" asp-for="DriverLicenseYear" class="form-control" placeholder="Year of Driver's License" required>
+                                <div class="invalid-feedback">Please enter the year of your driver's license.</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Description">Your Requests</label>
+                            <textarea asp-for="Description" id="" cols="30" rows="7" class="form-control" placeholder="Any Additional Requests"></textarea>
+                        </div>
+                        <br />
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">Complete Reservation</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label>Surname</label>
-            <input type="text" asp-for="Surname" class="form-control" placeholder="Your Surname">
-        </div>
-        <div class="form-group">
-            <label>Email Address</label>
-            <input type="text" asp-for="Email" class="form-control" placeholder="Your Email">
-        </div>
-        <div class="form-group">
-            <label>Contact Number</label>
-            <input type="text" asp-for="Phone" class="form-control" placeholder="Your Contact Number">
-        </div>
-        <div class="form-group">
-            <label>Pick Up Location</label>
-            @Html.DropDownListFor(x => x.DropOffLocationID, (List<SelectListItem>)ViewBag.v, new { @class = "form-control" })
-        </div>
-        <div class="form-group">
-            <label>Drop Off Location</label>
-            @Html.DropDownListFor(x => x.PickUpLocationID, (List<SelectListItem>)ViewBag.v, new { @class = "form-control" })
-        </div>
-        <div class="form-group">
-            <label>Age</label>
-            <input type="text" asp-for="Age" class="form-control" placeholder="Your Age">
-        </div>
-        <div class="form-group">
-            <label>Driver License Year</label>
-            <input type="text" asp-for="DriverLicenseYear" class="form-control" placeholder="Year of Driver's License">
-        </div>
-        <div class="form-group">
-            <label>Your Requests</label>
-            <textarea asp-for="Description" id="" cols="30" rows="7" class="form-control" placeholder="Any Additional Requests"></textarea>
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Complete Reservation" class="btn btn-primary py-3 px-5">
-        </div>
-    </form>
-
+    </div>
 </div>
+<br />
+
+<script>
+    // Custom validation for Bootstrap
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
