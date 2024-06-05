@@ -5,10 +5,13 @@
     Layout = "~/Views/UILayout/Index.cshtml";
 }
 
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div class="card shadow-lg">
+                <div class="card-header bg-gray text-white text-center">
+                    <h3 class="mb-0">Car Reservation Form</h3>
+                </div>
                 <div class="card-body p-5">
                     <form method="post" class="needs-validation" novalidate>
                         <input type="hidden" asp-for="CarID" value="@ViewBag.v3" class="form-control">
@@ -51,22 +54,22 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="Age">Age</label>
-                                <input type="number" asp-for="Age" class="form-control" placeholder="Your Age" required>
-                                <div class="invalid-feedback">Please enter your age.</div>
+                                <input type="number" asp-for="Age" class="form-control" placeholder="Your Age" required min="20">
+                                <div class="invalid-feedback">You must be at least 20 years old to rent a car.</div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="DriverLicenseYear">Driver License Year</label>
-                                <input type="number" asp-for="DriverLicenseYear" class="form-control" placeholder="Year of Driver's License" required>
-                                <div class="invalid-feedback">Please enter the year of your driver's license.</div>
+                                <input type="number" asp-for="DriverLicenseYear" class="form-control" placeholder="Years of Driver's License" required min="2" max="50">
+                                <div class="invalid-feedback">Please enter a valid number of years (2 to 50) for your driver's license.</div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="Description">Your Requests</label>
-                            <textarea asp-for="Description" id="" cols="30" rows="7" class="form-control" placeholder="Any Additional Requests"></textarea>
+                            <textarea asp-for="Description" id="Description" cols="50" rows="10" class="form-control" placeholder="Any Additional Requests"></textarea>
                         </div>
                         <br />
-                        <div class="form-group text-center">
-                            <button type="submit" class="btn btn-primary btn-lg">Complete Reservation</button>
+                        <div class="form-group text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">Complete Reservation</button>
                         </div>
                     </form>
                 </div>
@@ -74,23 +77,43 @@
         </div>
     </div>
 </div>
-<br />
 
 <script>
-    // Custom validation for Bootstrap
     (function () {
         'use strict';
         window.addEventListener('load', function () {
             var forms = document.getElementsByClassName('needs-validation');
             Array.prototype.filter.call(forms, function (form) {
                 form.addEventListener('submit', function (event) {
+                    var ageInput = form.querySelector('input[name="Age"]');
+                    var driverLicenseYearInput = form.querySelector('input[name="DriverLicenseYear"]');
+                    var experience = driverLicenseYearInput.value;
+
                     if (form.checkValidity() === false) {
                         event.preventDefault();
                         event.stopPropagation();
+                    } else if (ageInput.value < 20) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        ageInput.setCustomValidity("You must be at least 20 years old to rent a car.");
+                    } else if (experience < 2) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        driverLicenseYearInput.setCustomValidity("You cannot rent a car with less than 2 years of driving experience. You are considered a trainee driver.");
+                    } else if (experience > 50) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        driverLicenseYearInput.setCustomValidity("You cannot rent a car with more than 50 years of driving experience.");
+                    } else {
+                        ageInput.setCustomValidity("");
+                        driverLicenseYearInput.setCustomValidity("");
                     }
+
                     form.classList.add('was-validated');
-                }, false);
+                }, false); s
             });
         }, false);
     })();
 </script>
+
+
