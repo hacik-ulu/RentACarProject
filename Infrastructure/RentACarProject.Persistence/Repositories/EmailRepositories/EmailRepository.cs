@@ -48,9 +48,8 @@ namespace RentACarProject.Persistence.Repositories.EmailRepositories
             }
             catch (Exception ex)
             {
-                // Hata loglama veya işleme
                 Console.WriteLine($"Email gönderme hatası: {ex.Message}");
-                throw; // Hatanın yukarıya fırlatılması (opsiyonel)
+                throw; 
             }
         }
     }
