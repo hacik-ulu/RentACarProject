@@ -2,6 +2,10 @@ using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using NETCore.MailKit;
+using NETCore.MailKit.Core;
+using NETCore.MailKit.Extensions;
+using NETCore.MailKit.Infrastructure.Internal;
 using RentACarProject.Application.Features.CQRS.Handlers.AboutHandlers.ReadOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.AboutHandlers.WriteOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.BannerHandlers.ReadOperations;
@@ -22,6 +26,7 @@ using RentACarProject.Application.Interfaces.CarFeatureInterfaces;
 using RentACarProject.Application.Interfaces.CarInterfaces;
 using RentACarProject.Application.Interfaces.CarPricingInterfaces;
 using RentACarProject.Application.Interfaces.CategoryInterfaces;
+using RentACarProject.Application.Interfaces.EmailInterfaces;
 using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Application.Interfaces.RentCarInterfaces;
 using RentACarProject.Application.Interfaces.ReviewInterfaces;
@@ -29,6 +34,7 @@ using RentACarProject.Application.Interfaces.StatisticsInterfaces;
 using RentACarProject.Application.Interfaces.TagCloudInterfaces;
 using RentACarProject.Application.Services;
 using RentACarProject.Application.Tools;
+using RentACarProject.Domain.Entities;
 using RentACarProject.Persistence.Context;
 using RentACarProject.Persistence.Repositories.BlogRepositories;
 using RentACarProject.Persistence.Repositories.CarDescriptionRepositories;
@@ -37,6 +43,7 @@ using RentACarProject.Persistence.Repositories.CarPricingRepositories;
 using RentACarProject.Persistence.Repositories.CarRepository;
 using RentACarProject.Persistence.Repositories.CategoryRepositories;
 using RentACarProject.Persistence.Repositories.CommentRepositories;
+using RentACarProject.Persistence.Repositories.EmailRepositories;
 using RentACarProject.Persistence.Repositories.GeneralRepository;
 using RentACarProject.Persistence.Repositories.RentCarRepositories;
 using RentACarProject.Persistence.Repositories.ReviewsRepositories;
@@ -96,6 +103,8 @@ builder.Services.AddScoped(typeof(ICarFeatureRepository), typeof(CarFeatureRepos
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(CommentRepository<>));
 builder.Services.AddScoped(typeof(ICarDescriptionRepository), typeof(CarDescriptionRepository));
 builder.Services.AddScoped(typeof(IReviewRepository), typeof(ReviewRepository));
+builder.Services.AddScoped(typeof(IEmailRepository), typeof(EmailRepository));
+
 
 //- These are using for CQRS -
 
@@ -143,6 +152,23 @@ builder.Services.AddScoped<GetContactByIdQueryHandler>();
 builder.Services.AddScoped<CreateContactCommandHandler>();
 builder.Services.AddScoped<UpdateContactCommandHandler>();
 builder.Services.AddScoped<RemoveContactCommandHandler>();
+
+// Email Service
+// Email Service
+// Email Service
+builder.Services.AddMailKit(config =>
+{
+    config.UseMailKit(new MailKitOptions()
+    {
+        Server = builder.Configuration["Smtp:Host"],
+        Port = int.Parse(builder.Configuration["Smtp:Port"]),
+        //SenderName = "RAPÝD RENT",
+        SenderEmail = builder.Configuration["Smtp:UserName"],
+        Account = builder.Configuration["Smtp:UserName"],
+        Password = builder.Configuration["Smtp:Password"],
+        Security = builder.Configuration.GetValue<bool>("Smtp:EnableSsl")
+    });
+});
 
 #endregion
 

@@ -6,6 +6,9 @@
 }
 
 <div class="container mt-5 mb-5">
+    <div id="reservation-success" class="alert alert-success mt-3" style="display: none;" role="alert">
+        Reservation successfully completed!
+    </div>
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card shadow-lg">
@@ -107,13 +110,15 @@
                     } else {
                         ageInput.setCustomValidity("");
                         driverLicenseYearInput.setCustomValidity("");
+                        document.getElementById('reservation-success').style.display = 'block';
+                        setTimeout(function () {
+                            document.getElementById('reservation-success').style.display = 'none';
+                        }, 5000);
                     }
 
                     form.classList.add('was-validated');
-                }, false); s
+                }, false);
             });
         }, false);
     })();
 </script>
-
-
