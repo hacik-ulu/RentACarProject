@@ -17,8 +17,7 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.ReservationHand
     {
         private readonly IRepository<Reservation> _repository;
         private readonly IEmailRepository _emailRepository;
-        private readonly ILogger<CreateReservationCommandHandler> _logger; 
-
+        private readonly ILogger<CreateReservationCommandHandler> _logger;
         public CreateReservationCommandHandler(IRepository<Reservation> repository, IEmailRepository emailRepository, ILogger<CreateReservationCommandHandler> logger)
         {
             _repository = repository;
@@ -157,3 +156,5 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.ReservationHand
         }
     }
 }
+
+// TABLO BİRLEŞTİREREK DENE QUERY GİBİ.

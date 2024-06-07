@@ -45,7 +45,7 @@ namespace RentACarProject.WebUI.Controllers
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createReservationDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync("https://localhost:7262/api/Reservations", stringContent);
+            var responseMessage = await client.PostAsync("https://localhost:7262/api/Reservations", stringContent).ConfigureAwait(false);
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index", "Default");
