@@ -30,8 +30,7 @@ namespace RentACarProject.Persistence.Repositories.EmailRepositories
                 var client = new SmtpClient(host, port)
                 {
                     Credentials = new NetworkCredential(userName, password),
-                    //EnableSsl = enableSsl
-                    EnableSsl = true
+                    EnableSsl = enableSsl
                 };
 
                 var mailMessage = new MailMessage
@@ -42,14 +41,15 @@ namespace RentACarProject.Persistence.Repositories.EmailRepositories
                     IsBodyHtml = true,
                 };
 
-                mailMessage.To.Add(toEmail);
+                // HTML gövdesini AlternateView olarak ekleme
 
+                mailMessage.To.Add(toEmail);
                 await client.SendMailAsync(mailMessage);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Email gönderme hatası: {ex.Message}");
-                throw; 
+                throw;
             }
         }
     }

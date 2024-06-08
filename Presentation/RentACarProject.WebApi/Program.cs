@@ -1,6 +1,7 @@
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using NETCore.MailKit;
 using NETCore.MailKit.Core;
