@@ -18,6 +18,9 @@ namespace RentACarProject.WebUI.Controllers
 
         public async Task<IActionResult> Index(int id)
         {
+            ViewBag.v1 = "FİLTERED CARS ";
+            ViewBag.v2 = "Available Cars";
+
             var locationID = TempData["locationID"];
 
             id = int.Parse(locationID.ToString());
