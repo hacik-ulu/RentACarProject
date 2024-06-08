@@ -151,6 +151,10 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.ReservationHand
                                 <td>" + reservation.Phone + @"</td>
                             </tr>
                             <tr>
+                                <td>Email Address</td>
+                                <td>" + reservation.Email + @"</td>
+                            </tr>
+                            <tr>
                                 <td>Age</td>
                                 <td>" + reservation.Age + @"</td>
                             </tr>
@@ -159,7 +163,11 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.ReservationHand
                                 <td>" + reservation.DriverLicenseYear + @"</td>
                             </tr>
                             <tr>
-                                <td>Email Adress</td>
+                                <td>Car Brand</td>
+                                <td>" + brand.Name + @"</td>
+                            </tr>
+                            <tr>
+                                <td>Car Model</td>
                                 <td>" + car.Model + @"</td>
                             </tr>
                             <tr>
