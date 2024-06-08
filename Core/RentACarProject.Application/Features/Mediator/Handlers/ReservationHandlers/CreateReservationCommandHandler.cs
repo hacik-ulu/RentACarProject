@@ -191,4 +191,3 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.ReservationHand
     }
 }
 
-//price değerine de bakalım.

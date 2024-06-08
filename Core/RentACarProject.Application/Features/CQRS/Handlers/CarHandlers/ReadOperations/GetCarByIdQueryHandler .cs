@@ -8,29 +8,42 @@ namespace RentACarProject.Application.Features.CQRS.Handlers.CarHandlers.ReadOpe
 
 public class GetCarByIdQueryHandler
 {
-    private readonly IRepository<Car> _repository;
+    private readonly IRepository<Car> _carRepository;
+    private readonly IRepository<Brand> _brandRepository;
 
-    public GetCarByIdQueryHandler(IRepository<Car> repository)
+    public GetCarByIdQueryHandler(IRepository<Car> carRepository, IRepository<Brand> brandRepository)
     {
-        _repository = repository;
+        _carRepository = carRepository;
+        _brandRepository = brandRepository;
     }
 
     public async Task<GetCarByIdQueryResult> Handle(GetCarByIdQuery query)
     {
-        var values = await _repository.GetByIdAsync(query.Id);
-        return new GetCarByIdQueryResult
-        {
-            CarID = values.CarID,
-            BrandID = values.BrandID,
-            Model = values.Model,
-            CoverImagerUrl = values.CoverImagerUrl,
-            Mileage = values.Mileage,
-            Transmission = values.Transmission,
-            Seat = values.Seat,
-            Luggage = values.Luggage,
-            Fuel = values.Fuel,
-            BigImageUrl = values.BigImageUrl,
-            Year = values.Year
-        };
+
+        var cars = await _carRepository.GetAllAsync();
+        var brands = await _brandRepository.GetAllAsync();
+
+        var queryResult = (from car in cars
+                           join brand in brands
+                           on car.BrandID equals brand.BrandID
+                           where car.CarID == query.Id
+                           select new GetCarByIdQueryResult
+                           {
+                               CarID = car.CarID,
+                               BrandID = car.BrandID,
+                               BrandName = brand.Name,
+                               Model = car.Model,
+                               CoverImagerUrl = car.CoverImagerUrl,
+                               Mileage = car.Mileage,
+                               Transmission = car.Transmission,
+                               Seat = car.Seat,
+                               Luggage = car.Luggage,
+                               Fuel = car.Fuel,
+                               BigImageUrl = car.BigImageUrl,
+                               Year = car.Year
+                           }).FirstOrDefault();
+
+
+        return queryResult;
     }
 }

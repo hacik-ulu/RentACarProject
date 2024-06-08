@@ -7,6 +7,7 @@ public class GetCarByIdQueryResult
     public int CarID { get; set; }
     public int BrandID { get; set; }
     public string Model { get; set; }
+    public string BrandName { get; set; }
     public string CoverImagerUrl { get; set; }
     public decimal Mileage { get; set; }
     public int Year { get; set; }
