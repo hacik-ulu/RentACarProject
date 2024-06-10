@@ -22,25 +22,4 @@ body {
 }
 
 
-#invoice-details {
-    background: #f7f7f7;
-}
-
-
-#invoice-details h4 
-{
-   font-weight: bold;
-   color: #333;
-}
-
-#invoice-details p 
-{
-   margin: 0;
-   padding: 5px 0;
-   font-size: 16px;
-}
-
-#invoice-details p strong 
-{
-   color: #555;
-}
+#

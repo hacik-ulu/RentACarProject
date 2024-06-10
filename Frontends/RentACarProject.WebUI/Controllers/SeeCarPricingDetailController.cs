@@ -7,7 +7,7 @@ namespace RentACarProject.WebUI.Controllers
         public IActionResult Index()
         {
             ViewBag.v1 = "CAR PRİCİNG DETAİLS ";
-            ViewBag.v2 = "Various Car Pricing Details";
+            ViewBag.v2 = "Rental Packages Details";
             return View();
         }
 
