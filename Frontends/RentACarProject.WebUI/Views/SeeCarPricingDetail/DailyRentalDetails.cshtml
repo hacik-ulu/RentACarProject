@@ -1,0 +1,86 @@
+﻿@{
+    ViewData["Title"] = "Daily Rental Package Details";
+    Layout = "~/Views/UILayout/Index.cshtml";
+}
+<br />
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 85%; /* Tablonun genişliğini ayarlayabilirsiniz */
+            margin: 0 auto; /* Tabloyu sayfanın ortasına hizalama */
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: white; /* Başlık hücrelerinin arka planını beyaz yap */
+            cursor: pointer; /* Başlıkların tıklanabilir olduğunu göstermek için */
+            color: red; /* Başlık yazı rengi kırmızı */
+        }
+
+        .description {
+            display: none; /* Başlangıçta açıklamaları gizle */
+            color: black; /* Açıklamaların yazı rengi siyah */
+        }
+    </style>
+    <script>
+        function toggleDescription(id) {
+            var description = document.getElementById(id);
+            if (description.style.display === "none") {
+                description.style.display = "table-row";
+            } else {
+                description.style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <table>
+        <tr>
+            <th onclick="toggleDescription('basicInsurance')">Basic Insurance</th>
+        </tr>
+        <tr id="basicInsurance" class="description">
+            <td>Provides comprehensive coverage for damages, theft, and liabilities associated with the rental. This insurance package ensures that in case of any unfortunate incidents such as accidents or theft, you are financially protected and the costs are covered, offering peace of mind during your rental period.</td>
+        </tr>
+        <tr>
+            <th onclick="toggleDescription('roadsideAssistance')">24/7 Roadside Assistance</th>
+        </tr>
+        <tr id="roadsideAssistance" class="description">
+            <td>Ensures immediate assistance in case of breakdowns, flat tires, fuel delivery, or lockouts, available round the clock. No matter where you are or what time it is, help is just a call away, providing you with uninterrupted travel support and security.</td>
+        </tr>
+        <tr>
+            <th onclick="toggleDescription('towingAssurance')">Towing Assurance</th>
+        </tr>
+        <tr id="towingAssurance" class="description">
+            <td>Guarantees prompt towing service to the nearest repair facility in case the vehicle becomes inoperable due to mechanical issues. This service ensures that you're never stranded and that your vehicle is quickly and efficiently taken care of, minimizing your inconvenience.</td>
+        </tr>
+        <tr>
+            <th onclick="toggleDescription('freeCancellation')">Free Cancellation</th>
+        </tr>
+        <tr id="freeCancellation" class="description">
+            <td>Allows hassle-free cancellation of the rental reservation without any cancellation charges, providing flexibility to the customer. Whether your plans change or an emergency arises, you can cancel your booking without worrying about penalties.</td>
+        </tr>
+        <tr>
+            <th onclick="toggleDescription('unlimitedMileage')">Unlimited Mileage</th>
+        </tr>
+        <tr id="unlimitedMileage" class="description">
+            <td>Offers unlimited mileage, allowing customers to travel without worrying about additional charges based on the distance traveled. This feature is perfect for long road trips or when you need to cover large distances, as it removes the stress of calculating and managing mileage limits.</td>
+        </tr>
+        <tr>
+            <th onclick="toggleDescription('flexiblePickup')">Flexible Pickup and Drop-off</th>
+        </tr>
+        <tr id="flexiblePickup" class="description">
+            <td>Provides flexibility in pickup and drop-off locations, allowing customers to choose convenient locations for a seamless rental experience. Whether you need to pick up your car from the airport or return it to a different city, this option offers you the convenience and adaptability to suit your travel plans.</td>
+        </tr>
+    </table>
+    <br />
+</body>
+</html>

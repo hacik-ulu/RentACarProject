@@ -1,0 +1,146 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/UILayout/Index.cshtml";
+}
+
+<section class="ftco-section ftco-packages bg-light">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <h2 class="mb-4">Rental Packages</h2>
+                <p>Choose from our daily, weekly, or monthly rental packages, each including various benefits and assurances.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 ftco-animate">
+                <div class="package bg-white shadow p-4 d-flex flex-column" style="height: 100%;">
+                    <h3 class="text-primary">Daily Rental Package</h3>
+                    <ul class="list-unstyled flex-grow-1">
+                        <li><i class="icon-check text-success"></i> Basic Insurance</li>
+                        <li><i class="icon-check text-success"></i> 24/7 Roadside Assistance</li>
+                        <li><i class="icon-check text-success"></i> Towing Assurance</li>
+                        <li><i class="icon-check text-success"></i> Free Cancellation</li>
+                    </ul>
+                    <p class="mt-auto btn-custom"><a href="/Car/Index/" class="btn btn-primary py-2 px-4">Book Now</a></p>
+                </div>
+            </div>
+            <div class="col-md-4 ftco-animate">
+                <div class="package bg-white shadow p-4 d-flex flex-column position-relative" style="height: 100%;">
+                    <h3 class="text-primary">Weekly Rental Package</h3>
+                    <ul class="list-unstyled flex-grow-1">
+                        <li><i class="icon-check text-success"></i> Standard Insurance</li>
+                        <li><i class="icon-check text-success"></i> 24/7 Roadside Assistance</li>
+                        <li><i class="icon-check text-success"></i> Towing Assurance</li>
+                        <li><i class="icon-check text-success"></i> Discounted Rates</li>
+                        <li><i class="icon-check text-success"></i> Free Cancellation</li>
+                    </ul>
+                    <div class="save-label save-label-weekly">30% Save</div>
+                    <p class="mt-auto btn-custom"><a href="/Car/Index/" class="btn btn-primary py-2 px-4">Book Now</a></p>
+                </div>
+            </div>
+            <div class="col-md-4 ftco-animate">
+                <div class="package bg-white shadow p-4 d-flex flex-column position-relative" style="height: 100%;">
+                    <h3 class="text-primary">Monthly Rental Package</h3>
+                    <ul class="list-unstyled flex-grow-1">
+                        <li><i class="icon-check text-success"></i> Comprehensive Insurance</li>
+                        <li><i class="icon-check text-success"></i> 24/7 Roadside Assistance</li>
+                        <li><i class="icon-check text-success"></i> Towing Assurance</li>
+                        <li><i class="icon-check text-success"></i> Discounted Rates</li>
+                        <li><i class="icon-check text-success"></i> Free Cancellation</li>
+                        <li><i class="icon-check text-success"></i> Priority Support</li>
+                    </ul>
+                    <div class="save-label save-label-monthly">70% Save</div>
+                    <p class="mt-auto btn-custom"><a href="/Car/Index/" class="btn btn-primary py-2 px-4">Book Now</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .ftco-section {
+        padding: 7em 0;
+    }
+
+    .ftco-packages {
+        background: #f8f9fa;
+    }
+
+    .package {
+        border-radius: 10px;
+        transition: transform 0.3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        position: relative;
+    }
+
+        .package:hover {
+            transform: translateY(-10px);
+        }
+
+        .package h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .package ul {
+            padding-left: 0;
+        }
+
+            .package ul li {
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
+            }
+
+    .icon-check {
+        margin-right: 0.5rem;
+    }
+
+    .btn-custom a {
+        text-decoration: none;
+    }
+
+    .btn-primary {
+        background: #007bff;
+        border: none;
+        border-radius: 50px;
+        transition: background 0.3s ease-in-out;
+    }
+
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+
+    .save-label {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background: #ff6347;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        display: none;
+    }
+
+    .package:hover .save-label {
+        display: block;
+    }
+
+    .save-label-weekly {
+        display: none;
+    }
+
+    .save-label-monthly {
+        display: none;
+    }
+
+    .package:hover .save-label-weekly {
+        display: block;
+    }
+
+    .package:hover .save-label-monthly {
+        display: block;
+    }
+</style>

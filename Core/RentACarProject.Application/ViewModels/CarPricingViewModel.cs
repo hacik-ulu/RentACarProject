@@ -12,7 +12,7 @@ namespace RentACarProject.Application.ViewModels
 		{
 			Amounts = new List<decimal>();
 		}
-		public string Model { get; set; }
+        public string Model { get; set; }
 		public List<Decimal> Amounts { get; set; }
 		public string CoverImagerUrl { get; set; }
 		public string Brand { get; set; }

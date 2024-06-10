@@ -61,7 +61,7 @@ namespace RentACarProject.Persistence.Repositories.CarPricingRepositories
 						{
 							CarPricingViewModel carPricingViewModel = new CarPricingViewModel
 							{
-								Brand = reader["Name"].ToString(),
+                                Brand = reader["Name"].ToString(),
 								Model = reader["Model"].ToString(),
 								CoverImagerUrl = reader["CoverImagerUrl"].ToString(),
 								Amounts = new List<decimal>

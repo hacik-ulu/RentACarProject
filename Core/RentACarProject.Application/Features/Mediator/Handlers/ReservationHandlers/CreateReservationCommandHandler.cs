@@ -7,8 +7,11 @@ using RentACarProject.Application.Interfaces.CarInterfaces;
 using RentACarProject.Domain.Entities;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace RentACarProject.Application.Features.Mediator.Handlers.ReservationHandlers
 {
@@ -18,11 +21,12 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.ReservationHand
         private readonly IRepository<Location> _locationRepository;
         private readonly IRepository<Car> _carRepository;
         private readonly IRepository<Brand> _brandRepository;
+        private readonly IRepository<CarPricing> _carPricingRepository;
         private readonly IEmailRepository _emailRepository;
 
         private readonly ILogger<CreateReservationHandler> _logger;
 
-        public CreateReservationHandler(IRepository<Reservation> reservationRepository, IRepository<Car> carRepository, IRepository<Brand> brandRepository, ILogger<CreateReservationHandler> logger, IEmailRepository emailRepository, IRepository<Location> locationRepository)
+        public CreateReservationHandler(IRepository<Reservation> reservationRepository, IRepository<Car> carRepository, IRepository<Brand> brandRepository, ILogger<CreateReservationHandler> logger, IEmailRepository emailRepository, IRepository<Location> locationRepository, IRepository<CarPricing> carPricingRepository)
         {
             _reservationRepository = reservationRepository;
             _locationRepository = locationRepository;
@@ -30,6 +34,7 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.ReservationHand
             _brandRepository = brandRepository;
             _logger = logger;
             _emailRepository = emailRepository;
+            _carPricingRepository = carPricingRepository;
         }
 
         public async Task Handle(CreateReservationCommand request, CancellationToken cancellationToken)
@@ -70,10 +75,12 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.ReservationHand
                 // Retrieve the dropoff location details
                 var dropOffLocation = await _locationRepository.GetByIdAsync(request.DropOffLocationID);
 
+                var pricingDetails = await _carPricingRepository.GetAllAsync();
+                var carPricings = pricingDetails.Where(p => p.CarID == request.CarID && (p.PricingID == 1 || p.PricingID == 3 || p.PricingID == 4)).ToList();
 
                 _logger.LogInformation("Reservation created successfully. Sending confirmation email...");
 
-                string confirmationEmailBody = GenerateReservationConfirmationEmail(createdReservation, car, brand, pickupLocation, dropOffLocation);
+                string confirmationEmailBody = GenerateReservationConfirmationEmail(createdReservation, car, brand, pickupLocation, dropOffLocation, carPricings);
 
                 await _emailRepository.SendEmailAsync(request.Email, "Reservation Accepted", confirmationEmailBody);
 
@@ -86,8 +93,20 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.ReservationHand
             }
         }
 
-        public static string GenerateReservationConfirmationEmail(Reservation reservation, Car car, Brand brand, Location pickupLocation, Location dropOffLocation)
+        public static string GenerateReservationConfirmationEmail(Reservation reservation, Car car, Brand brand, Location pickupLocation, Location dropOffLocation, List<CarPricing> carPricings)
         {
+            var pricingDetails = string.Join("<br>", carPricings.Select(p =>
+            {
+                string type = p.PricingID switch
+                {
+                    1 => "Daily",
+                    3 => "Weekly",
+                    4 => "Monthly",
+                    _ => "Unknown"
+                };
+                return $"{type}: {p.Amount}";
+            }));
+
             string body = @"
                 <!DOCTYPE html>
                 <html>
@@ -178,8 +197,12 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.ReservationHand
                                 <td>Drop Off Location</td>
                                 <td>" + dropOffLocation.Name + @"</td>
                             </tr>
+                            <tr>
+                                <td>Pricing Details</td>
+                                <td>" + pricingDetails + @"</td>
+                            </tr>
                         </table>
-                        Rapid Rent Team</p>
+                        <p>Rapid Rent Team</p>
                         <p>You can contact us for any questions or details you may have. Have fun driving.</p><br>
                         <p>Best Regards</p>
                     </div>
@@ -190,4 +213,3 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.ReservationHand
         }
     }
 }
-
