@@ -13,7 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace RentACarProject.Application.Features.Mediator.Handlers.ReservationHandlers
+namespace RentACarProject.Application.Features.Mediator.Handlers.ReservationHandlers.WriteOperations
 {
     public class CreateReservationHandler : IRequestHandler<CreateReservationCommand>
     {

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RentACarProject.Application.Features.Mediator.Commands.ReservationCommands;
+using RentACarProject.Application.Features.Mediator.Queries.ReservationQueries;
 
 namespace RentACarProject.WebApi.Controllers
 {
@@ -13,6 +14,13 @@ namespace RentACarProject.WebApi.Controllers
         public ReservationsController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet("GetReservationList")]
+        public async Task<IActionResult> GetReservationList()
+        {
+            var values = await _mediator.Send(new GetReservationQuery());
+            return Ok(values);
         }
 
         [HttpPost]

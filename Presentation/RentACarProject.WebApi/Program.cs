@@ -1,4 +1,4 @@
-using FluentValidation.AspNetCore;
+ï»¿using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
@@ -30,6 +30,7 @@ using RentACarProject.Application.Interfaces.CategoryInterfaces;
 using RentACarProject.Application.Interfaces.EmailInterfaces;
 using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Application.Interfaces.RentCarInterfaces;
+using RentACarProject.Application.Interfaces.ReservationInterfaces;
 using RentACarProject.Application.Interfaces.ReviewInterfaces;
 using RentACarProject.Application.Interfaces.StatisticsInterfaces;
 using RentACarProject.Application.Interfaces.TagCloudInterfaces;
@@ -84,7 +85,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidIssuer = JwtTokenDefaults.ValidIssuer,
         ValidAudience = JwtTokenDefaults.ValidAudience,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtTokenDefaults.Key)),
-        ClockSkew = TimeSpan.Zero // Token süresini tam olarak belirlemek için
+        ClockSkew = TimeSpan.Zero // Token sï¿½resini tam olarak belirlemek iï¿½in
     };
 });
 
@@ -105,6 +106,7 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(CommentRepositor
 builder.Services.AddScoped(typeof(ICarDescriptionRepository), typeof(CarDescriptionRepository));
 builder.Services.AddScoped(typeof(IReviewRepository), typeof(ReviewRepository));
 builder.Services.AddScoped(typeof(IEmailRepository), typeof(EmailRepository));
+builder.Services.AddScoped(typeof(IReservationRepository), typeof(ReservationRepository));
 
 
 //- These are using for CQRS -
@@ -163,7 +165,7 @@ builder.Services.AddMailKit(config =>
     {
         Server = builder.Configuration["Smtp:Host"],
         Port = int.Parse(builder.Configuration["Smtp:Port"]),
-        //SenderName = "RAPÝD RENT",
+        //SenderName = "RAPï¿½D RENT",
         SenderEmail = builder.Configuration["Smtp:UserName"],
         Account = builder.Configuration["Smtp:UserName"],
         Password = builder.Configuration["Smtp:Password"],

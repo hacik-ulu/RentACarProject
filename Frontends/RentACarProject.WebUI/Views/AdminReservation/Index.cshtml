@@ -1,0 +1,67 @@
+﻿@model List<ResultReservationDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            Reservation List
+                        </h4>
+                        <p class="card-subtitle mb-4">
+                            You can see all reservations from the table.
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Surname</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>PickUp</th>
+                                        <th>DropOff</th>
+                                        <th>Age</th>
+                                        <th>Experience</th>
+                                        <th>Description</th>
+                                        <th>Status</th>
+                                        <th>Brand</th>
+                                        <th>Model</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        count++;
+                                        <tr>
+                                            <td>@count</td>
+                                            <td>@item.Name</td>
+                                            <td>@item.Surname</td>
+                                            <td>@item.Email</td>
+                                            <td>@item.Phone</td>
+                                            <td style="width: 120px;">@item.PickUpLocationName</td>
+                                            <td style="width: 120px;">@item.DropOffLocationName</td>
+                                            <td>@item.Age</td>
+                                            <td>@item.DriverLicenseYear</td>
+                                            <td style="max-width: 150px; overflow: hidden; text-overflow: ellipsis;">@item.Description</td>
+                                            <td style="max-width: 100px; overflow: hidden; text-overflow: ellipsis;">@item.Status</td>
+                                            <td>@item.BrandName</td>
+                                            <td>@item.CarModel</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
