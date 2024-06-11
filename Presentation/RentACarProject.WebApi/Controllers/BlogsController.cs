@@ -74,6 +74,13 @@ namespace RentACarProject.WebApi.Controllers
             return Ok(paginatedBlogs);
         }
 
+        [HttpGet("GetAllBlogsWithAuthorListForAdminPanel")]
+        public async Task<IActionResult> GetAllBlogsWithAuthorList()
+        {
+            var values = await _mediator.Send(new GetAllBlogsWithAuthorQuery());
+            return Ok(values);
+        }
+
         //BlogID numaraya göre ilgili bloğun bilgileri geliyor
         [HttpGet("GetBlogByAuthorId")]
         public async Task<IActionResult> GetBlogByAuthorId(int id)

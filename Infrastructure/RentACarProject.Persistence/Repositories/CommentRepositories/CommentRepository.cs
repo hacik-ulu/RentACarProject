@@ -56,7 +56,7 @@ namespace RentACarProject.Persistence.Repositories.CommentRepositories
         public List<Comment> GetCommentsByBlogId(int id)
         {
             return _context.Set<Comment>()
-                    .Include(c => c.Blog) // Blog referansını dahil ediyoruz
+                    .Include(c => c.Blog) 
                     .Where(x => x.BlogID == id)
                     .Select(c => new Comment
                     {
@@ -67,7 +67,7 @@ namespace RentACarProject.Persistence.Repositories.CommentRepositories
                         BlogID = c.BlogID,
                         Blog = new Blog
                         {
-                            Title = c.Blog.Title // Sadece Title'ı alıyoruz
+                            Title = c.Blog.Title 
                         }
                     })
                     .ToList();

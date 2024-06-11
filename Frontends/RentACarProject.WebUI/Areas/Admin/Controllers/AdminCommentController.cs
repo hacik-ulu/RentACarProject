@@ -18,9 +18,11 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        [Route("Index")]
-        public async Task<IActionResult> Index()
+        [Route("Index/{id}")]
+        public async Task<IActionResult> Index(int id)
         {
+            ViewBag.v = id;
+
             var token = User.Claims.FirstOrDefault(x => x.Type == "accessToken")?.Value;
             if (token == null)
             {
@@ -33,7 +35,8 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                 {
                     var client = _httpClientFactory.CreateClient();
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                    var responseMessage = await client.GetAsync("https://localhost:7262/api/Comments");
+                    //var responseMessage = await client.GetAsync("https://localhost:7262/api/Comments");
+                    var responseMessage = await client.GetAsync("https://localhost:7262/api/Comments/CommentListByBlog?id=" + id);
                     if (responseMessage.IsSuccessStatusCode)
                     {
                         var jsonData = await responseMessage.Content.ReadAsStringAsync();

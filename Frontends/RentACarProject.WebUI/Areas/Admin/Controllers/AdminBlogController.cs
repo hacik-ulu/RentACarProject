@@ -37,7 +37,7 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                     // Admin ise işlemleri yap ve AdminLocation/Index sayfasına yönlendir
                     var client = _httpClientFactory.CreateClient();
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                    var responseMessage = await client.GetAsync("https://localhost:7262/api/Blogs/GetAllBlogsWithAuthorsList");
+                    var responseMessage = await client.GetAsync("https://localhost:7262/api/Blogs/GetAllBlogsWithAuthorListForAdminPanel");
                     if (responseMessage.IsSuccessStatusCode)
                     {
                         var jsonData = await responseMessage.Content.ReadAsStringAsync();

@@ -1,5 +1,4 @@
 
-Contactde harita ve viewbag kýsmýna bak		
 Admin paneli düzenlemye basla (UIdan sonra)
 
 BELKÝ:
