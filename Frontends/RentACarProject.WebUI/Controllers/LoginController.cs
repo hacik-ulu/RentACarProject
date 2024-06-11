@@ -82,5 +82,7 @@ namespace RentACarProject.WebUI.Controllers
             await HttpContext.SignOutAsync(JwtBearerDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Login");
         }
+
+
     }
 }
