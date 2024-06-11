@@ -1,3 +1,6 @@
 
+Contactde harita ve viewbag kýsmýna bak		
+Admin paneli düzenlemye basla (UIdan sonra)
 
-Pricinge bak oradan see the zorrt kýsmý
+BELKÝ:
+CarPricingedeki rental packetleri düzenle ayrý bþr sayfada güzelce bilgilendir madde madde gibi.
