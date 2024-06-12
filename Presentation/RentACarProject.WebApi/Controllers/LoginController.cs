@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RentACarProject.Application.Features.Mediator.Commands.AppUserCommands;
 using RentACarProject.Application.Features.Mediator.Queries.AppUserQueries;
 using RentACarProject.Application.Tools;
 
@@ -31,5 +32,13 @@ namespace RentACarProject.WebApi.Controllers
                 return BadRequest("Username or Password is false!");
             }
         }
+
+        [HttpPost("ChangePassword")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok("Password updated sucessfully!");
+        }
+
     }
 }

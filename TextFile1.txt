@@ -1,5 +1,6 @@
 
 Admin paneli düzenlemye basla (UIdan sonra)
+Commentleri ve script/navbar headerlara baq.
 
 BELKÝ:
 CarPricingedeki rental packetleri düzenle ayrý bþr sayfada güzelce bilgilendir madde madde gibi.

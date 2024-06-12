@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using RentACarProject.Dto.LoginDtos;
 using RentACarProject.WebUI.Models;
 using System.IdentityModel.Tokens.Jwt;
@@ -31,13 +32,13 @@ namespace RentACarProject.WebUI.Controllers
         public async Task<IActionResult> Index(CreateLoginDto createLoginDto)
         {
             var client = _httpClientFactory.CreateClient();
-            var content = new StringContent(JsonSerializer.Serialize(createLoginDto), Encoding.UTF8, "application/json");
+            var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(createLoginDto), Encoding.UTF8, "application/json");
             var response = await client.PostAsync("https://localhost:7262/api/Login", content);
 
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
-                var tokenModel = JsonSerializer.Deserialize<JwtResponseModel>(jsonData, new JsonSerializerOptions
+                var tokenModel = System.Text.Json.JsonSerializer.Deserialize<JwtResponseModel>(jsonData, new JsonSerializerOptions
                 {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                 });
@@ -83,6 +84,25 @@ namespace RentACarProject.WebUI.Controllers
             return RedirectToAction("Index", "Login");
         }
 
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordDto changePasswordDto)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(changePasswordDto);
+            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync("https://localhost:7262/api/Login/ChangePassword", stringContent);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            return View();
+        }
 
     }
 }
