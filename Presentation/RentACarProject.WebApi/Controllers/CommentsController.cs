@@ -24,8 +24,18 @@ namespace RentACarProject.WebApi.Controllers
         [HttpGet]
         public IActionResult CommentList()
         {
-            var values = _commentsRepository.GetAll();
-            return Ok(values);
+            var comments = _commentsRepository.GetAll();
+            var commentDtos = comments.Select(c => new ResultCommentDto
+            {
+                CommentID = c.CommentID,
+                Name = c.Name,
+                CreatedDate = c.CreatedDate,
+                Description = c.Description,
+                BlogID = c.BlogID,
+                Title = c.Blog.Title
+            }).ToList();
+
+            return Ok(commentDtos);
         }
 
         [HttpPost]

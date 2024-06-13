@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RentACarProject.Application.Features.RepositoryPattern;
+using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Domain.Entities;
 using RentACarProject.Dto.CommentDtos;
 using RentACarProject.Persistence.Context;
@@ -14,10 +15,11 @@ namespace RentACarProject.Persistence.Repositories.CommentRepositories
     public class CommentRepository<T> : IGenericRepository<Comment>
     {
         private readonly RentACarContext _context;
-
-        public CommentRepository(RentACarContext context)
+        private readonly IRepository<Blog> _blogRepository;
+        public CommentRepository(RentACarContext context, IRepository<Blog> blogRepository)
         {
             _context = context;
+            _blogRepository = blogRepository;
         }
 
         public void Create(Comment entity)
@@ -28,23 +30,27 @@ namespace RentACarProject.Persistence.Repositories.CommentRepositories
 
         public List<Comment> GetAll()
         {
-            // Select comments with desired properties and include Blog data
-            var comments = _context.Comments
-                .Include(comment => comment.Blog) // Include Blog navigation property
-                .Select(comment => new Comment
-                {
-                    CommentID = comment.CommentID,
-                    BlogID = comment.BlogID,
-                    CreatedDate = comment.CreatedDate,
-                    Description = comment.Description,
-                    Name = comment.Name,
-                    // Access Blog properties directly through navigation property
-                    Blog = comment.Blog // Access Blog object with properties like Title
-                })
-                .ToList();
+            var comments = (from comment in _context.Comments
+                            join blog in _context.Blogs
+                            on comment.BlogID equals blog.BlogID
+                            select new Comment
+                            {
+                                CommentID = comment.CommentID,
+                                BlogID = comment.BlogID,
+                                CreatedDate = comment.CreatedDate,
+                                Description = comment.Description,
+                                Name = comment.Name,
+                                Blog = new Blog
+                                {
+                                    BlogID = blog.BlogID,
+                                    Title = blog.Title // Access Blog title from the joined Blog entity
+                                }
+                            }).ToList();
 
             return comments;
         }
+
+
 
 
 
