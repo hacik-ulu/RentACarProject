@@ -1,7 +1,6 @@
 
 AdminCommentControlera bak.
 ------------------------------------------
-Commentleri ada göre getir
 Commentlere silme yap
 
 

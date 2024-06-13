@@ -27,8 +27,9 @@
                                     <div class="card-body">
                                         <h4 class="card-title">@item.Name -  @item.CreatedDate.ToShortDateString()</h4>
                                         <p class="card-text">
-                                            @item.Description.
+                                            @item.Description
                                         </p>
+                                        <p><a href="/Admin/AdminComment/RemoveCommentByBlogName/@item.CommentID" class="btn btn-outline-danger">Remove</a></p>
                                     </div>
                                 </div>
                             </div>

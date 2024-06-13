@@ -80,5 +80,29 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
             }
             return View();
         }
+
+        [Route("RemoveCommentByAllCommentList/{id}")]
+        public async Task<IActionResult> RemoveCommentByAllCommentList(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.DeleteAsync("https://localhost:7262/api/Comments?id=" + id);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index", "AdminComment", new { area = "Admin" });
+            }
+            return View();
+        }
+
+        [Route("RemoveCommentByBlogName/{id}")]
+        public async Task<IActionResult> RemoveCommentByBlogName(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.DeleteAsync("https://localhost:7262/api/Comments?id=" + id);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index", "AdminComment", new { area = "Admin" });
+            }
+            return View();
+        }
     }
 }
