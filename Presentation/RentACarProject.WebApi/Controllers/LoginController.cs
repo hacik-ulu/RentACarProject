@@ -40,5 +40,43 @@ namespace RentACarProject.WebApi.Controllers
             return Ok("Password updated sucessfully!");
         }
 
+        [HttpGet("GetAdminDetailsById")]
+        public async Task<IActionResult> GetAdminDetailsById(int appUserId)
+        {
+            var query = new GetAdminAccountDetailsByIDQuery { AppUserID = appUserId };
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
+        }
+
+        [HttpPut("UpdateAdminUsername")]
+        public async Task<IActionResult> UpdateAdminUsername(UpdateAdminUsernameCommand command)
+        {
+            try
+            {
+                await _mediator.Send(command);
+                return Ok("Username updated successfully");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("UpdateAdminEmail")]
+        public async Task<IActionResult> UpdateAdminEmail(UpdateAdminEmailCommand command)
+        {
+            try
+            {
+                await _mediator.Send(command);
+                return Ok("Email updated successfully");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
     }
 }

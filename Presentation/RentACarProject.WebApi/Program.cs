@@ -1,10 +1,6 @@
 ﻿using FluentValidation.AspNetCore;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using NETCore.MailKit;
-using NETCore.MailKit.Core;
 using NETCore.MailKit.Extensions;
 using NETCore.MailKit.Infrastructure.Internal;
 using RentACarProject.Application.Features.CQRS.Handlers.AboutHandlers.ReadOperations;
@@ -36,7 +32,6 @@ using RentACarProject.Application.Interfaces.StatisticsInterfaces;
 using RentACarProject.Application.Interfaces.TagCloudInterfaces;
 using RentACarProject.Application.Services;
 using RentACarProject.Application.Tools;
-using RentACarProject.Domain.Entities;
 using RentACarProject.Persistence.Context;
 using RentACarProject.Persistence.Repositories.BlogRepositories;
 using RentACarProject.Persistence.Repositories.CarDescriptionRepositories;
