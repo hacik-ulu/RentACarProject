@@ -1,12 +1,1 @@
 
-AdminCommentControlera bak.
-------------------------------------------
-Commentlere silme yap
-
-
-
-
-
-Admin paneli düzenlemye basla (UIdan sonra)
-Commentleri ve script/navbar headerlara baq.
-
