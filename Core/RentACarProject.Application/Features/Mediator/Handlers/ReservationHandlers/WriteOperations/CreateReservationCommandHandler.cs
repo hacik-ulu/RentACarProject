@@ -60,19 +60,14 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.ReservationHand
 
                 await _reservationRepository.CreateAsync(newReservation);
 
-                // Retrieve the created reservation from the database
                 var createdReservation = await _reservationRepository.GetByIdAsync(newReservation.ReservationID);
 
-                // Retrieve the car details from the Cars table
                 var car = await _carRepository.GetByIdAsync(request.CarID);
 
-                // Retrieve the brand details from the Brands table using the BrandID from the car
                 var brand = await _brandRepository.GetByIdAsync(car.BrandID);
 
-                // Retrieve the pickup location details
                 var pickupLocation = await _locationRepository.GetByIdAsync(request.PickUpLocationID);
 
-                // Retrieve the dropoff location details
                 var dropOffLocation = await _locationRepository.GetByIdAsync(request.DropOffLocationID);
 
                 var pricingDetails = await _carPricingRepository.GetAllAsync();
@@ -104,7 +99,7 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.ReservationHand
                     4 => "Monthly",
                     _ => "Unknown"
                 };
-                return $"{type}: {p.Amount}";
+                return $"{type}: {p.Amount}₺";
             }));
 
             string body = @"

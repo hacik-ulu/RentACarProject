@@ -41,14 +41,13 @@ namespace RentACarProject.Persistence.Repositories.EmailRepositories
                     IsBodyHtml = true,
                 };
 
-                // HTML gövdesini AlternateView olarak ekleme
 
                 mailMessage.To.Add(toEmail);
                 await client.SendMailAsync(mailMessage);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Email gönderme hatası: {ex.Message}");
+                Console.WriteLine($"Erroe: {ex.Message}");
                 throw;
             }
         }
