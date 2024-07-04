@@ -165,6 +165,45 @@ namespace RentACarProject.WebUI.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult UpdateAdminEmail(int id)
+        {
+            var model = new UpdateAdminEmailDto { AppUserID = id };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateAdminEmail(UpdateAdminEmailDto updateModel)
+        {
+            try
+            {
+                var client = _httpClientFactory.CreateClient();
+                var jsonData = JsonConvert.SerializeObject(updateModel);
+                StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+                var response = await client.PutAsync("https://localhost:7262/api/Login/UpdateAdminEmail", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("GetAdminDetailsById", "Login", new { id = updateModel.AppUserID });
+                }
+                else
+                {
+                    // Read error response details
+                    var errorResponse = await response.Content.ReadAsStringAsync();
+                    // Log or handle the error response
+                    ModelState.AddModelError(string.Empty, $"Failed to update email. Server response: {errorResponse}");
+                    return View(updateModel);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
+                return View(updateModel);
+            }
+        }
+
+
 
 
 

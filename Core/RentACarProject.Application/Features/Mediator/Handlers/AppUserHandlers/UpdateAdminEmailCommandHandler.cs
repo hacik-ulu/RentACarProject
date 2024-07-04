@@ -28,7 +28,7 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.AppUserHandlers
                 throw new ApplicationException("Admin not found.");
             }
 
-            admin.Email = request.NewEmail;
+            admin.Email = request.Email;
             await _appUserRepository.UpdateAsync(admin);
         }
     }
