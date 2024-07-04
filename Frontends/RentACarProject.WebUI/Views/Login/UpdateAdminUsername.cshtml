@@ -1,0 +1,21 @@
+﻿@model RentACarProject.Dto.LoginDtos.UpdateAdminUsernameDto
+
+@{
+    ViewData["Title"] = "UpdateAdminUsername";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="comment-form-wrap pt-5">
+    <h3 class="mb-12">Edit Username</h3>
+    <form method="post" asp-action="UpdateAdminUsername" asp-controller="Login" class="p-5 bg-light">
+        <input type="hidden" asp-for="AppUserID" />
+        <div class="form-group">
+            <label for="Username">Username</label>
+            <input type="text" asp-for="NewUsername" class="form-control" id="Username">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</div>
+

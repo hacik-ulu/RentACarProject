@@ -1,0 +1,53 @@
+﻿@model RentACarProject.Dto.LoginDtos.ResultAdminDetailsByIDDto
+
+@{
+    ViewData["Title"] = "GetAdminDetailsById";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Admin Details</h4>
+                        <p class="card-subtitle mb-4">
+                            You can see your information detail and if you want you can update it also.
+                        </p>
+                        <input type="hidden" name="AppUserID" value="@ViewBag.id" />
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Surname</th>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Password</th>
+                                        <th>Update Username</th>
+                                        <th>Update Email Address</th>
+                                        <th>Update Password</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>@Model.Name</td>
+                                        <td>@Model.Surname</td>
+                                        <td>@Model.Username</td>
+                                        <td>@Model.Email</td>
+                                        <td>@Model.Password</td>
+                                        <td><a class="btn btn-primary" href="/Login/UpdateAdminUsername/@Model.AppUserID">Edit Username</a></td>
+                                        <td><a class="btn btn-primary" href="/Login/ChangeEmail/@Model.AppUserID">Edit Email</a></td>
+                                        <td><a class="btn btn-primary" href="/Login/ChangePassword/@Model.AppUserID">Edit Password</a></td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

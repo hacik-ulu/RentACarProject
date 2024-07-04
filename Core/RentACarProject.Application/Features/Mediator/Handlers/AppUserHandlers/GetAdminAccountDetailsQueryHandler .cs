@@ -32,6 +32,8 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.AppUserHandlers
             return new AdminAccountDetailsQueryResult
             {
                 AppUserID = admin.AppUserID,
+                Name = admin.Name,
+                Surname = admin.Surname,
                 Username = admin.Username,
                 Password = admin.Password,
                 Email = admin.Email,

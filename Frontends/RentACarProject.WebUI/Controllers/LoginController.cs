@@ -3,9 +3,12 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using RentACarProject.Domain.Entities;
+using RentACarProject.Dto.CarPricingDtos;
 using RentACarProject.Dto.LoginDtos;
 using RentACarProject.WebUI.Models;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
@@ -103,6 +106,68 @@ namespace RentACarProject.WebUI.Controllers
             }
             return View();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAdminDetailsById(int id)
+        {
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+            {
+                return Unauthorized(); // Kullanıcı giriş yapmamışsa veya kimlik bulunamazsa
+            }
+
+            var appUserId = int.Parse(userIdClaim.Value);
+            ViewBag.id = appUserId;
+
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.GetAsync($"https://localhost:7262/api/Login/GetAdminDetailsById?id={id}");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<ResultAdminDetailsByIDDto>(jsonData);
+                return View(values);
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult UpdateAdminUsername(int id)
+        {
+            var model = new UpdateAdminUsernameDto { AppUserID = id };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateAdminUsername(UpdateAdminUsernameDto updateModel)
+        {
+            try
+            {
+                var client = _httpClientFactory.CreateClient();
+                var jsonData = JsonConvert.SerializeObject(updateModel);
+                StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+                var response = await client.PutAsync("https://localhost:7262/api/Login/UpdateAdminUsername", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("GetAdminDetailsById", "Login", new { id = updateModel.AppUserID });
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Failed to update username.");
+                    return View(updateModel);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
+                return View(updateModel);
+            }
+        }
+
+
+
+
 
     }
 }

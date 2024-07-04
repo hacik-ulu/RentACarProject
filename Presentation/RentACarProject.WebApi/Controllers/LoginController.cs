@@ -41,9 +41,9 @@ namespace RentACarProject.WebApi.Controllers
         }
 
         [HttpGet("GetAdminDetailsById")]
-        public async Task<IActionResult> GetAdminDetailsById(int appUserId)
+        public async Task<IActionResult> GetAdminDetailsById(int id)
         {
-            var query = new GetAdminAccountDetailsByIDQuery { AppUserID = appUserId };
+            var query = new GetAdminAccountDetailsByIDQuery { AppUserID = id };
             var result = await _mediator.Send(query);
 
             return Ok(result);
