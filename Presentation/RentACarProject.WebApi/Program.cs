@@ -80,7 +80,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidIssuer = JwtTokenDefaults.ValidIssuer,
         ValidAudience = JwtTokenDefaults.ValidAudience,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtTokenDefaults.Key)),
-        ClockSkew = TimeSpan.Zero // Token s�resini tam olarak belirlemek i�in
+        ClockSkew = TimeSpan.Zero 
     };
 });
 
@@ -160,7 +160,6 @@ builder.Services.AddMailKit(config =>
     {
         Server = builder.Configuration["Smtp:Host"],
         Port = int.Parse(builder.Configuration["Smtp:Port"]),
-        //SenderName = "RAP�D RENT",
         SenderEmail = builder.Configuration["Smtp:UserName"],
         Account = builder.Configuration["Smtp:UserName"],
         Password = builder.Configuration["Smtp:Password"],
