@@ -65,11 +65,16 @@ namespace RentACarProject.WebUI.Controllers
             var jsonData = JsonConvert.SerializeObject(createCommentDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync("https://localhost:7262/api/Comments/CreateCommentWithMediator", stringContent);
+
             if (responseMessage.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index", "Default");
+                return RedirectToAction("BlogDetail", "Blog", new { id = createCommentDto.BlogID });
             }
-            return View();
+
+            ViewBag.Error = "Error occured, please try again!";
+            return View(createCommentDto);
         }
+
+
     }
 }
