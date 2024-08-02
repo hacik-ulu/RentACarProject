@@ -119,7 +119,6 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                     }
                     #endregion
 
-                    #region S8
                     var responseMessage8 = await client.GetAsync("https://localhost:7262/api/Statistics/GetAvgRentPriceForHourly");
                     if (responseMessage8.IsSuccessStatusCode)
                     {
@@ -129,7 +128,7 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                         ViewBag.avgRentPriceHourlyCount = values8.AvgRentPriceForHourly;
                         ViewBag.avgRentPriceHourlyCountRandom = avgRentPriceHourlyCountRandom;
                     }
-                    #endregion
+
 
                     #region S9
                     var responseMessage9 = await client.GetAsync("https://localhost:7262/api/Statistics/GetCarCountByTranmissionIsAuto");
