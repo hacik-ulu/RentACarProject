@@ -22,7 +22,5 @@ public class Car
     public List<Reservation> Reservations { get; set; }
     public List<Review> Reviews { get; set; }
 
-
-
 }
 
