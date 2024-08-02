@@ -32,7 +32,6 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                 return View(values);
             }
 
-            // Hata durumunda bir hata mesajı dönebilirsiniz veya uygun bir view gösterebilirsiniz
             return View("Error");
         }
     }
