@@ -96,7 +96,7 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                     #endregion
 
                     #region S6
-                    var responseMessage6 = await client.GetAsync("https://localhost:7262/api/Statistics/GetAvgRentPriceForPerDay");
+                    var responseMessage6 = await client.GetAsync("https://localhost:7262/api/Statistics/GetAvgRentPriceForDaily");
                     if (responseMessage6.IsSuccessStatusCode)
                     {
                         int avgRentPriceDailyCountRandom = random.Next(0, 101);
@@ -119,14 +119,14 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                     }
                     #endregion
 
-                    var responseMessage8 = await client.GetAsync("https://localhost:7262/api/Statistics/GetAvgRentPriceForHourly");
+                    var responseMessage8 = await client.GetAsync("https://localhost:7262/api/Statistics/GetAvgRentPriceForMonthly");
                     if (responseMessage8.IsSuccessStatusCode)
                     {
-                        int avgRentPriceHourlyCountRandom = random.Next(0, 101);
+                        int avgRentPriceMonthlyCountRandom = random.Next(0, 101);
                         var jsonData8 = await responseMessage8.Content.ReadAsStringAsync();
                         var values8 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData8);
-                        ViewBag.avgRentPriceHourlyCount = values8.AvgRentPriceForHourly;
-                        ViewBag.avgRentPriceHourlyCountRandom = avgRentPriceHourlyCountRandom;
+                        ViewBag.avgRentPriceMonthlyCount = values8.AvgRentPriceForMonthly;
+                        ViewBag.avgRentPriceMonthlyCountRandom = avgRentPriceMonthlyCountRandom;
                     }
 
 

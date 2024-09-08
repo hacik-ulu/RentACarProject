@@ -15,7 +15,7 @@ namespace RentACarProject.Dto.StatisticsDtos
         public int BrandCount { get; set; }
         public decimal AvgPriceForDaily { get; set; }
         public decimal AvgRentPriceForWeekly { get; set; }
-        public decimal AvgRentPriceForHourly { get; set; }
+        public decimal AvgRentPriceForMonthly { get; set; }
         public int CarCountByTransmissionIsAuto { get; set; }
         public int CarCountByKmSmallerThen10000 { get; set; }
         public int CarCountByFuelGasolineOrDiesel { get; set; }

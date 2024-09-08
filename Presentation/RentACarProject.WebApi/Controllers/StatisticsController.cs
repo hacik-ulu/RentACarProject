@@ -49,15 +49,8 @@ namespace RentACarProject.WebApi.Controllers
             return Ok(values);
         }
 
-        [HttpGet("GetAvgRentPriceForHourly")]
-        public async Task<IActionResult> GetAvgRentPriceForHourly()
-        {
-            var values = await _mediator.Send(new GetAvgRentPriceForMonthlyQuery());
-            return Ok(values);
-        }
-
-        [HttpGet("GetAvgRentPriceForPerDay")]
-        public async Task<IActionResult> GetAvgRentPriceForPerDay()
+        [HttpGet("GetAvgRentPriceForDaily")]
+        public async Task<IActionResult> GetAvgRentPriceForDaily()
         {
             var values = await _mediator.Send(new GetAvgRentPriceForDailyQuery());
             return Ok(values);
@@ -67,6 +60,13 @@ namespace RentACarProject.WebApi.Controllers
         public async Task<IActionResult> GetAvgRentPriceForWeekly()
         {
             var values = await _mediator.Send(new GetAvgRentPriceForWeeklyQuery());
+            return Ok(values);
+        }
+
+        [HttpGet("GetAvgRentPriceForMonthly")]
+        public async Task<IActionResult> GetAvgRentPriceForMonthly()
+        {
+            var values = await _mediator.Send(new GetAvgRentPriceForMonthlyQuery());
             return Ok(values);
         }
 
