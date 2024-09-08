@@ -45,7 +45,7 @@ This project is a Car Rental System designed to facilitate online vehicle rental
 
 ![16](https://github.com/user-attachments/assets/0acc703b-7ac0-417d-9a9c-c7e2b9de7f61)
 
-![23](https://github.com/user-attachments/assets/72c551b5-bc20-4ae9-95ff-50c3a6c1db1c)
+![24](https://github.com/user-attachments/assets/a13346d1-9235-412a-b9ab-aa793fbee3fb)
 
 ![17](https://github.com/user-attachments/assets/c040143d-5e9e-4ed9-8c92-3874629e57dc)
 
