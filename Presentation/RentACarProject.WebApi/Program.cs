@@ -50,6 +50,8 @@ using RentACarProject.WebApi.Hubs;
 using System.Reflection;
 using System.Text;
 
+// deneme
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpClient();
 
