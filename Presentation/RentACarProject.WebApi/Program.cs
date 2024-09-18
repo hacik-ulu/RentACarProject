@@ -206,3 +206,5 @@ app.MapControllers();
 app.MapHub<CarHub>("/carhub");
 
 app.Run();
+
+// project configurations updated.
