@@ -9,7 +9,6 @@ using System.Text;
 
 namespace RentACarProject.WebUI.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/AdminAbout")]
     public class AdminAboutController : Controller
@@ -52,7 +51,6 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                 }
             }
 
-            // Default olarak Abouts API'sinden veri alarak göster
             var aboutsClient = _httpClientFactory.CreateClient();
             var aboutsResponseMessage = await aboutsClient.GetAsync("https://localhost:7262/api/Abouts");
             if (aboutsResponseMessage.IsSuccessStatusCode)

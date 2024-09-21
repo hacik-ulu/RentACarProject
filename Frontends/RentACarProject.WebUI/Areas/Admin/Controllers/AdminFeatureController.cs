@@ -12,17 +12,18 @@ using System.Text;
 
 namespace RentACarProject.WebUI.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Area("Admin")]
+    [Route("Admin/AdminFeature")]
     public class AdminFeatureController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
-
         public AdminFeatureController(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
 
         [HttpGet]
+        [Route("Index")]
         public async Task<IActionResult> Index()
         {
             var token = User.Claims.FirstOrDefault(x => x.Type == "accessToken")?.Value;
@@ -55,12 +56,14 @@ namespace RentACarProject.WebUI.Controllers
         }
 
         [HttpGet]
+        [Route("CreateFeature")]
         public IActionResult CreateFeature()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("CreateFeature")]
         public async Task<IActionResult> CreateFeature(CreateFeatureDto createFeatureDto)
         {
             var client = _httpClientFactory.CreateClient();
@@ -74,6 +77,7 @@ namespace RentACarProject.WebUI.Controllers
             return View();
         }
 
+        [Route("RemoveFeature/{id}")]
         public async Task<IActionResult> RemoveFeature(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -87,6 +91,7 @@ namespace RentACarProject.WebUI.Controllers
 
 
         [HttpGet]
+        [Route("UpdateFeature/{id}")]
         public async Task<IActionResult> UpdateFeature(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -99,7 +104,9 @@ namespace RentACarProject.WebUI.Controllers
             }
             return View();
         }
+
         [HttpPost]
+        [Route("UpdateFeature/{id}")]
         public async Task<IActionResult> UpdateFeature(UpdateFeatureDto updateFeatureDto)
         {
             var client = _httpClientFactory.CreateClient();
@@ -116,4 +123,3 @@ namespace RentACarProject.WebUI.Controllers
     }
 }
 
-// HİÇBİR ÖZELLİK YOKSA ALERT AÇILSIN HERHANGİ BİR VERİ GİRİŞİ BULUNAMADI.
