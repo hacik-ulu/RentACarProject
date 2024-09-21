@@ -50,6 +50,7 @@ using RentACarProject.WebApi.Hubs;
 using System.Reflection;
 using System.Text;
 
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpClient();
 
@@ -205,3 +206,5 @@ app.MapControllers();
 app.MapHub<CarHub>("/carhub");
 
 app.Run();
+
+// project configurations updated.
