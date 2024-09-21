@@ -42,11 +42,11 @@ namespace RentACarProject.WebUI.Controllers
                         var values = JsonConvert.DeserializeObject<List<ResultReservationDto>>(jsonData);
 
                         // Pagination settings
-                        int pageSize = 5; // Her sayfada gösterilecek kayıt sayısı
-                        int totalRecords = values.Count; // Toplam kayıt sayısı
-                        int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize); // Toplam sayfa sayısı
+                        int pageSize = 5; // 
+                        int totalRecords = values.Count;
+                        int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize); 
 
-                        var paginatedItems = values.Skip((page - 1) * pageSize).Take(pageSize).ToList(); // Geçerli sayfaya ait verileri al
+                        var paginatedItems = values.Skip((page - 1) * pageSize).Take(pageSize).ToList(); 
 
                         ViewBag.CurrentPage = page;
                         ViewBag.TotalPages = totalPages;
