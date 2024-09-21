@@ -11,7 +11,8 @@ using System.Text;
 
 namespace RentACarProject.WebUI.Controllers
 {
-    //[Authorize(Roles ="Admin")]
+    [Area("Admin")]
+    [Route("Admin/AdminCar")]
     public class AdminCarController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -21,6 +22,7 @@ namespace RentACarProject.WebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
+        [Route("Index")]
         public async Task<IActionResult> Index()
         {
 
@@ -54,6 +56,7 @@ namespace RentACarProject.WebUI.Controllers
         }
 
         [HttpGet]
+        [Route("CreateCar")]
         public async Task<IActionResult> CreateCar()
         {
             var client = _httpClientFactory.CreateClient();
@@ -71,6 +74,7 @@ namespace RentACarProject.WebUI.Controllers
         }
 
         [HttpPost]
+        [Route("CreateCar")]
         public async Task<IActionResult> CreateCar(CreateCarDto createCarDto)
         {
             var client = _httpClientFactory.CreateClient();
@@ -84,6 +88,7 @@ namespace RentACarProject.WebUI.Controllers
             return View();
         }
 
+        [Route("RemoveCar/{id}")]
         public async Task<IActionResult> RemoveCar(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -97,6 +102,7 @@ namespace RentACarProject.WebUI.Controllers
 
 
         [HttpGet]
+        [Route("UpdateCar/{id}")]
         public async Task<IActionResult> UpdateCar(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -124,6 +130,7 @@ namespace RentACarProject.WebUI.Controllers
         }
 
         [HttpPost]
+        [Route("UpdateCar/{id}")]
         public async Task<IActionResult> UpdateCar(UpdateCarDto updateCarDto)
         {
             var client = _httpClientFactory.CreateClient();
