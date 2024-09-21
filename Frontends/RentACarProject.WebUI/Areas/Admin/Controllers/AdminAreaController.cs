@@ -8,14 +8,17 @@ using RentACarProject.Dto.ReservationDtos;
 
 namespace RentACarProject.WebUI.Controllers
 {
+    [Area("Admin")]
+    [Route("Admin/AdminReservation")]
     public class AdminReservationController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
-
         public AdminReservationController(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
+
+        [Route("Index")]
         public async Task<IActionResult> Index()
         {
             var token = User.Claims.FirstOrDefault(x => x.Type == "accessToken")?.Value;
