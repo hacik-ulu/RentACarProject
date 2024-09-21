@@ -9,7 +9,8 @@ using System.Text;
 
 namespace RentACarProject.WebUI.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Area("Admin")]
+    [Route("Admin/AdminBrand")]
     public class AdminBrandController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -18,6 +19,7 @@ namespace RentACarProject.WebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
+        [Route("Index")]
         public async Task<IActionResult> Index()
         {
             var token = User.Claims.FirstOrDefault(x => x.Type == "accessToken")?.Value;
@@ -51,12 +53,14 @@ namespace RentACarProject.WebUI.Controllers
         }
 
         [HttpGet]
+        [Route("CreateBrand")]
         public IActionResult CreateBrand()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("CreateBrand")]
         public async Task<IActionResult> CreateBrand(CreateBrandDto createBrandDto)
         {
             var client = _httpClientFactory.CreateClient();
@@ -70,6 +74,7 @@ namespace RentACarProject.WebUI.Controllers
             return View();
         }
 
+        [Route("RemoveBrand/{id}")]
         public async Task<IActionResult> RemoveBrand(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -83,6 +88,7 @@ namespace RentACarProject.WebUI.Controllers
 
 
         [HttpGet]
+        [Route("UpdateBrand/{id}")]
         public async Task<IActionResult> UpdateBrand(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -96,6 +102,7 @@ namespace RentACarProject.WebUI.Controllers
             return View();
         }
         [HttpPost]
+        [Route("UpdateBrand/{id}")]
         public async Task<IActionResult> UpdateBrand(UpdateBrandDto updateBrandDto)
         {
             var client = _httpClientFactory.CreateClient();
@@ -110,4 +117,3 @@ namespace RentACarProject.WebUI.Controllers
         }
     }
 }
-
