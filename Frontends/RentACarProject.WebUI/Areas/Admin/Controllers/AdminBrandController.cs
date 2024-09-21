@@ -20,7 +20,7 @@ namespace RentACarProject.WebUI.Controllers
         }
 
         [Route("Index")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
             var token = User.Claims.FirstOrDefault(x => x.Type == "accessToken")?.Value;
             if (token == null)
@@ -40,7 +40,19 @@ namespace RentACarProject.WebUI.Controllers
                     {
                         var jsonData = await responseMessage.Content.ReadAsStringAsync();
                         var values = JsonConvert.DeserializeObject<List<ResultBrandDto>>(jsonData);
-                        return View(values);
+
+                        // Pagination settings
+                        int pageSize = 5;
+                        int totalRecords = values.Count;
+                        int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+
+                        var paginatedItems = values.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+                        ViewBag.CurrentPage = page;
+                        ViewBag.TotalPages = totalPages;
+
+                        return View(paginatedItems);
+
                     }
                 }
                 else if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Member"))
@@ -49,7 +61,7 @@ namespace RentACarProject.WebUI.Controllers
                     return RedirectToAction("Index", "Default");
                 }
             }
-            return View();
+            return View(new List<ResultBrandDto>());
         }
 
         [HttpGet]
