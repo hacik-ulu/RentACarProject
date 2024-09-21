@@ -23,28 +23,39 @@ namespace RentACarProject.WebUI.Controllers
         }
 
         [Route("Index")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-
             var token = User.Claims.FirstOrDefault(x => x.Type == "accessToken")?.Value;
             if (token == null)
             {
                 return RedirectToAction("Index", "Login");
             }
+
             if (token != null)
             {
                 var claims = User.Claims;
                 if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Admin"))
                 {
-                    // Admin ise işlemleri yap ve AdminLocation/Index sayfasına yönlendir
                     var client = _httpClientFactory.CreateClient();
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                     var responseMessage = await client.GetAsync("https://localhost:7262/api/Cars/GetCarWithBrand");
+
                     if (responseMessage.IsSuccessStatusCode)
                     {
                         var jsonData = await responseMessage.Content.ReadAsStringAsync();
                         var values = JsonConvert.DeserializeObject<List<ResultCarWithBrandsDto>>(jsonData);
-                        return View(values);
+
+                        // Pagination settings
+                        int pageSize = 5; 
+                        int totalRecords = values.Count; 
+                        int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize); 
+
+                        var paginatedItems = values.Skip((page - 1) * pageSize).Take(pageSize).ToList(); 
+
+                        ViewBag.CurrentPage = page;
+                        ViewBag.TotalPages = totalPages;
+
+                        return View(paginatedItems);
                     }
                 }
                 else if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Member"))
@@ -52,8 +63,10 @@ namespace RentACarProject.WebUI.Controllers
                     return RedirectToAction("Index", "Default");
                 }
             }
-            return View();
+
+            return View(new List<ResultCarWithBrandsDto>()); 
         }
+
 
         [HttpGet]
         [Route("CreateCar")]
