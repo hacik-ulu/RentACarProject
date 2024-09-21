@@ -22,7 +22,7 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
         }
 
         [Route("Index")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
             var token = User.Claims.FirstOrDefault(x => x.Type == "accessToken")?.Value;
             if (token == null)
@@ -35,17 +35,28 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
             if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Admin"))
             {
                 var client = _httpClientFactory.CreateClient();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token); 
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 var responseMessage = await client.GetAsync("https://localhost:7262/api/Contacts");
 
                 if (responseMessage.IsSuccessStatusCode)
                 {
                     var jsonData = await responseMessage.Content.ReadAsStringAsync();
                     var values = JsonConvert.DeserializeObject<List<ResultContactDto>>(jsonData);
-                    return View(values);
+
+                    // Pagination settings
+                    int pageSize = 5;
+                    int totalRecords = values.Count;
+                    int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+
+                    var paginatedItems = values.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+                    ViewBag.CurrentPage = page;
+                    ViewBag.TotalPages = totalPages;
+
+                    return View(paginatedItems);
                 }
 
-                return View("Error"); 
+                return View("Error");
             }
             else if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Member"))
             {
