@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using NuGet.Common;
 using RentACarProject.Dto.AuthorDtos;
 using RentACarProject.Dto.LocationDtos;
 using System.Net.Http.Headers;
@@ -60,6 +61,26 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                 }
             }
             return View(new List<ResultAuthorDto>());
+        }
+
+
+        [HttpGet]
+        [Route("GetBlogListByAuthorId/{id}")]
+        public async Task<IActionResult> GetBlogListByAuthorId(int id)
+        {
+            // Admin ise işlemleri yap ve AdminLocation/Index sayfasına yönlendir
+            var client = _httpClientFactory.CreateClient();
+            // 'id' parametresini URL'ye ekliyoruz
+            var responseMessage = await client.GetAsync($"https://localhost:7262/api/Authors/GetBlogListByAuthorId/{id}");
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<GetBlogListByAuthorIdDto>>(jsonData);
+                return View(values);
+            }
+
+            return View("Error");
         }
 
         [HttpGet]

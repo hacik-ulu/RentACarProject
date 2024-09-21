@@ -31,6 +31,14 @@ namespace RentACarProject.WebApi.Controllers
             return Ok(value);
         }
 
+        [HttpGet("GetBlogListByAuthorId/{id}")]
+        public async Task<IActionResult> GetBlogListByAuthorId(int id)
+        {
+            var value = await _mediator.Send(new GetBlogsByAuthorIdQuery(id));
+            return Ok(value);
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> CreateAuthor(CreateAuthorCommand command)
         {
