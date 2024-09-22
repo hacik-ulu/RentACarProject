@@ -1,9 +1,4 @@
-using FluentValidation;
-using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using RentACarProject.Application.Features.CQRS.Commands.BrandCommands;
-using RentACarProject.Domain.Entities;
-using RentACarProject.WebUI.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 

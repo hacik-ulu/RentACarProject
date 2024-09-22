@@ -52,7 +52,6 @@ using RentACarProject.Persistence.Repositories.ReviewsRepositories;
 using RentACarProject.Persistence.Repositories.StatisticsRepositories;
 using RentACarProject.Persistence.Repositories.TagCloudRepositories;
 using RentACarProject.WebApi.Hubs;
-using RentACarProject.WebApi.Validators.BrandValidator;
 using System.Text;
 #endregion 
 
@@ -60,13 +59,6 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpClient();
 #endregion
-
-# region Fluent Validation
-builder.Services.AddFluentValidationAutoValidation();
-builder.Services.AddFluentValidationClientsideAdapters();
-builder.Services.AddTransient<IValidator<CreateBrandCommand>, CreateBrandCommandValidator>();
-#endregion
-
 
 # region CORS And SignalR
 builder.Services.AddCors(opt =>

@@ -1,18 +1,10 @@
 ﻿@model CreateBrandDto
-
-<script src="~/jquery/jquery.min.js"></script>
-<script src="~/jquery-validate/jquery.validate.min.js"></script>
-<script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-
 @{
     ViewData["Title"] = "CreateBrand";
     Layout = "~/Views/AdminLayout/Index.cshtml";
 }
+<div asp-validation-summary="All" class="text-danger"></div>
 
-
-<div asp-validation-summary="All">
-
-</div>
 
 <div class="page-content">
     <div class="container-fluid">
