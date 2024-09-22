@@ -10,7 +10,6 @@ using System.Text;
 
 namespace RentACarProject.WebUI.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/AdminAuthor")]
     public class AdminAuthorController : Controller

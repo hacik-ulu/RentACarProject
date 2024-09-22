@@ -42,16 +42,8 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateBrand(CreateBrandCommand command)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState); // Validasyon hatalarını geri döndür
-            }
-            else
-            {
-                await _createBrandCommandHandler.Handle(command);
-                return Ok("Brand Created!");
-            }
-
+            await _createBrandCommandHandler.Handle(command);
+            return Ok("Brand Created!");
         }
 
         [HttpDelete("{id}")]
