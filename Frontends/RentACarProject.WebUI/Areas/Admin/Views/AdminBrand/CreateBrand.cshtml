@@ -1,8 +1,18 @@
 ﻿@model CreateBrandDto
+
+<script src="~/jquery/jquery.min.js"></script>
+<script src="~/jquery-validate/jquery.validate.min.js"></script>
+<script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
 @{
     ViewData["Title"] = "CreateBrand";
     Layout = "~/Views/AdminLayout/Index.cshtml";
 }
+
+
+<div asp-validation-summary="All">
+
+</div>
 
 <div class="page-content">
     <div class="container-fluid">
@@ -16,6 +26,7 @@
                             <div class="form-group">
                                 <label for="exampleInputName">Brand Name</label>
                                 <input type="text" class="form-control" id="exampleInputName" asp-for="Name">
+                                <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
                             <button type="submit" class="btn btn-primary waves-effect waves-light">Create Brand</button>
                         </form>

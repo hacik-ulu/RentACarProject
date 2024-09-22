@@ -82,7 +82,6 @@ builder.Services.AddCors(opt =>
 builder.Services.AddSignalR();
 #endregion
 
-
 # region JWT 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
 {
@@ -120,7 +119,6 @@ builder.Services.AddScoped(typeof(IReviewRepository), typeof(ReviewRepository));
 builder.Services.AddScoped(typeof(IEmailRepository), typeof(EmailRepository));
 builder.Services.AddScoped(typeof(IReservationRepository), typeof(ReservationRepository));
 #endregion
-
 
 # region CQRS Registrations
 
