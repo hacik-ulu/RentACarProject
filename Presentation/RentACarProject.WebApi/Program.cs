@@ -1,8 +1,11 @@
-﻿using FluentValidation.AspNetCore;
+﻿#region Using 
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using NETCore.MailKit.Extensions;
 using NETCore.MailKit.Infrastructure.Internal;
+using RentACarProject.Application.Features.CQRS.Commands.BrandCommands;
 using RentACarProject.Application.Features.CQRS.Handlers.AboutHandlers.ReadOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.AboutHandlers.WriteOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.BannerHandlers.ReadOperations;
@@ -49,14 +52,23 @@ using RentACarProject.Persistence.Repositories.ReviewsRepositories;
 using RentACarProject.Persistence.Repositories.StatisticsRepositories;
 using RentACarProject.Persistence.Repositories.TagCloudRepositories;
 using RentACarProject.WebApi.Hubs;
-using System.Reflection;
+using RentACarProject.WebApi.Validators.BrandValidator;
 using System.Text;
+#endregion 
 
-
+#region builder
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpClient();
+#endregion
 
-// CORS and SignalR
+# region Fluent Validation
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddTransient<IValidator<CreateBrandCommand>, CreateBrandCommandValidator>();
+#endregion
+
+
+# region CORS And SignalR
 builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("CorsPolicy", builder =>
@@ -68,9 +80,10 @@ builder.Services.AddCors(opt =>
     });
 });
 builder.Services.AddSignalR();
+#endregion
 
 
-// JWT Configuration
+# region JWT 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
 {
     opt.RequireHttpsMetadata = false;
@@ -83,12 +96,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidIssuer = JwtTokenDefaults.ValidIssuer,
         ValidAudience = JwtTokenDefaults.ValidAudience,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtTokenDefaults.Key)),
-        ClockSkew = TimeSpan.Zero 
+        ClockSkew = TimeSpan.Zero
     };
 });
+#endregion
 
-
-# region Registrations
+# region MediatR Registrations
 // Add Services to the container. - These are using for Mediator - 
 builder.Services.AddScoped<RentACarContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -106,9 +119,10 @@ builder.Services.AddScoped(typeof(ICarDescriptionRepository), typeof(CarDescript
 builder.Services.AddScoped(typeof(IReviewRepository), typeof(ReviewRepository));
 builder.Services.AddScoped(typeof(IEmailRepository), typeof(EmailRepository));
 builder.Services.AddScoped(typeof(IReservationRepository), typeof(ReservationRepository));
+#endregion
 
 
-//- These are using for CQRS -
+# region CQRS Registrations
 
 // About Service
 builder.Services.AddScoped<GetAboutQueryHandler>();
@@ -173,15 +187,11 @@ builder.Services.AddMailKit(config =>
 
 #endregion
 
-// Mediator
+#region Mediator Service Config
 builder.Services.AddApplicationService(builder.Configuration);
+#endregion
 
-// Fluent Validation
-builder.Services.AddControllers().AddFluentValidation(x =>
-{
-    x.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-});
-
+#region Other Config
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -210,4 +220,4 @@ app.MapHub<CarHub>("/carhub");
 
 app.Run();
 
-// project configurations updated.
+#endregion
