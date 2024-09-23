@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Data.SqlClient;
+using RentACarProject.Application.ValidationAttributes.BrandAttributes;
 namespace RentACarProject.Application.Features.CQRS.Commands.BrandCommands
 {
     public class CreateBrandCommand
@@ -13,7 +14,6 @@ namespace RentACarProject.Application.Features.CQRS.Commands.BrandCommands
 
         public bool IsExist(string brandName)
         {
-            // Connection string'i buraya ekleyin
             string connectionString = "Server=HACIKULU\\SQLEXPRESS;initial Catalog=RentACarDb;integrated security=true;Encrypt=True;TrustServerCertificate=True;";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -28,22 +28,6 @@ namespace RentACarProject.Application.Features.CQRS.Commands.BrandCommands
                     return count > 0;
                 }
             }
-        }
-    }
-
-    public class CustomBrandExistAttribute : ValidationAttribute
-    {
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            var command = (CreateBrandCommand)validationContext.ObjectInstance;
-
-            // Markanın veritabanında olup olmadığını kontrol ediyoruz
-            if (command.IsExist(value.ToString()))
-            {
-                return new ValidationResult(ErrorMessage);
-            }
-
-            return ValidationResult.Success;
         }
     }
 }
