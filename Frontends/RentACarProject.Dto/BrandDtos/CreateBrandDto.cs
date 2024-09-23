@@ -1,21 +1,36 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ServiceStack.DataAnnotations;
-using System;
-using System.Collections.Generic;
+using Microsoft.Data.SqlClient;
+using RentACarProject.WebUI.ValidationAttributes.BrandAttributes;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RentACarProject.Dto.BrandDtos
 {
     public class CreateBrandDto
     {
         [BindProperty]
-        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Brand name is required.")]
-        [System.ComponentModel.DataAnnotations.StringLength(25, MinimumLength = 2, ErrorMessage = "Brand name must be between 2 and 25 characters long.")]
-        [Unique]
+        [Required(ErrorMessage = "Brand name is required.")]
+        [StringLength(25, MinimumLength = 2, ErrorMessage = "Brand name must be between 2 and 25 characters long.")]
+        [CustomBrandExist(ErrorMessage = "Brand name already exists.")]
+
         public string Name { get; set; }
+
+        public bool IsExist(string brandName)
+        {
+            string connectionString = "Server=HACIKULU\\SQLEXPRESS;initial Catalog=RentACarDb;integrated security=true;Encrypt=True;TrustServerCertificate=True;";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT COUNT(1) FROM Brands WHERE Name = @BrandName";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@BrandName", brandName);
+                    int count = (int)command.ExecuteScalar();
+                    return count > 0;
+                }
+            }
+        }
 
     }
 }
