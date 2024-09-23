@@ -1,11 +1,9 @@
 ﻿#region Using 
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using NETCore.MailKit.Extensions;
 using NETCore.MailKit.Infrastructure.Internal;
-using RentACarProject.Application.Features.CQRS.Commands.BrandCommands;
 using RentACarProject.Application.Features.CQRS.Handlers.AboutHandlers.ReadOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.AboutHandlers.WriteOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.BannerHandlers.ReadOperations;
@@ -52,6 +50,7 @@ using RentACarProject.Persistence.Repositories.ReviewsRepositories;
 using RentACarProject.Persistence.Repositories.StatisticsRepositories;
 using RentACarProject.Persistence.Repositories.TagCloudRepositories;
 using RentACarProject.WebApi.Hubs;
+using System.Reflection;
 using System.Text;
 #endregion 
 
@@ -180,6 +179,12 @@ builder.Services.AddMailKit(config =>
 #region Mediator Service Config
 builder.Services.AddApplicationService(builder.Configuration);
 #endregion
+
+builder.Services.AddControllers().AddFluentValidation(x =>
+{
+    x.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+});
+
 
 #region Other Config
 builder.Services.AddControllers();

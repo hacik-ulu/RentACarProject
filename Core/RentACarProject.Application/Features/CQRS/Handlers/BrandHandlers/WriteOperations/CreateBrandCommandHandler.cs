@@ -16,12 +16,6 @@ public class CreateBrandCommandHandler
 
     public async Task Handle(CreateBrandCommand command)
     {
-        var existingBrand = await _repository.GetByFilterAsync(b => b.Name.ToLower() == command.Name.ToLower());
-        if (existingBrand != null)
-        {
-            throw new Exception("Brand name already exists.");
-        }
-
         await _repository.CreateAsync(new Brand
         {
             Name = command.Name

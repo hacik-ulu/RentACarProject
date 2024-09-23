@@ -55,7 +55,6 @@ namespace RentACarProject.WebApi.Controllers
         }
 
 
-
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveBrand(int id)
         {
