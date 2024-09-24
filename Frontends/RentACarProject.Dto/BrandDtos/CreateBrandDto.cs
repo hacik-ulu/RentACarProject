@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
-using RentACarProject.WebUI.ValidationAttributes.BrandAttributes;
+using RentACarProject.Dto.ValidationAttributes.BrandAttributes.CreateBrandAttributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace RentACarProject.Dto.BrandDtos

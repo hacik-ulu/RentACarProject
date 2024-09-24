@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Data.SqlClient;
 using RentACarProject.Application.ValidationAttributes.BrandAttributes;
+using RentACarProject.Application.ValidationAttributes.BrandAttributes.CreateBrandAttributes;
 
 namespace RentACarProject.Application.Features.CQRS.Commands.BrandCommands
 {
@@ -13,7 +14,7 @@ namespace RentACarProject.Application.Features.CQRS.Commands.BrandCommands
         [CustomBrandExist(ErrorMessage = "Brand name already exists.")]
         public string Name { get; set; }
 
-        // Türkçe karakterleri İngilizce karşılıklarıyla değiştiren bir metot
+        // Türkçe karakterleri İngilizce karşılıklarıyla değiştiren bir metot.
         public string NormalizeBrandName(string brandName)
         {
             return brandName.Replace('ı', 'i')

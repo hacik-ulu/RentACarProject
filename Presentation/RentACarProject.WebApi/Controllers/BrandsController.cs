@@ -65,8 +65,15 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateBrand(UpdateBrandCommand command)
         {
-            await _updateBrandCommandHandler.Handle(command);
-            return Ok("Brand Updated!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _updateBrandCommandHandler.Handle(command);
+                return Ok("Brand Updated!");
+            }
         }
     }
 }

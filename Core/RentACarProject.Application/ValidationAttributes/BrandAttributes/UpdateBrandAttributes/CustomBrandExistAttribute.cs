@@ -1,7 +1,12 @@
-﻿using RentACarProject.Dto.BrandDtos;
+﻿using RentACarProject.Application.Features.CQRS.Commands.BrandCommands;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace RentACarProject.WebUI.ValidationAttributes.BrandAttributes
+namespace RentACarProject.Application.ValidationAttributes.BrandAttributes.UpdateBrandAttributes
 {
     public class CustomBrandExistAttribute : ValidationAttribute
     {
@@ -10,12 +15,11 @@ namespace RentACarProject.WebUI.ValidationAttributes.BrandAttributes
             // Eğer değer null ise, diğer validasyonların çalışmasını sağlamak için doğrulama yapmıyoruz
             if (value == null)
             {
-                return ValidationResult.Success; // Null ise hata mesajı döndürme (Required attribute dönecek)
+                return ValidationResult.Success; // Null ise hata mesajı döndürme -- Required mesajı döndürecek null için
             }
 
-            var command = (CreateBrandDto)validationContext.ObjectInstance;
+            var command = (UpdateBrandCommand)validationContext.ObjectInstance;
 
-            // Eğer marka zaten var ise, hata mesajı döndür
             if (command.IsExist(value.ToString()))
             {
                 return new ValidationResult(ErrorMessage);
