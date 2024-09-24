@@ -54,7 +54,7 @@ namespace RentACarProject.Application.Features.Mediator.Commands.FeatureCommands
                 {
                     string input = value.ToString();
                     // Yalnızca harflerin bulunduğunu kontrol eden regex
-                    if (!Regex.IsMatch(input, @"^[A-Za-z]+$"))
+                    if (!Regex.IsMatch(input, @"^[A-Za-z]+(?:\s[A-Za-z]+)*$"))
                     {
                         return new ValidationResult(ErrorMessage ?? "Only letters are allowed.");
                     }
