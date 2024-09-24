@@ -2,9 +2,10 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
-    int count = 0;
+    int itemsPerPage = 5; // Her sayfada gösterilecek araç sayısı
     int currentPage = ViewBag.CurrentPage ?? 1;
     int totalPages = ViewBag.TotalPages ?? 1;
+    int count = (currentPage - 1) * itemsPerPage; // Sayfa başına gösterilecek araç sayısı -- güncellenen araç indeks sayısı
 }
 
 <div class="page-content">
@@ -50,7 +51,7 @@
                                                 <td><a href="/Admin/AdminCar/RemoveCar/@item.CarID" class="btn btn-outline-danger">Remove</a></td>
                                                 <td><a href="/Admin/AdminCar/UpdateCar/@item.CarID" class="btn btn-outline-success">Update</a></td>
                                                 <td><a href="/Admin/AdminCarFeatureDetail/Index/@item.CarID" class="btn btn-outline-dark">Edit Car Features</a></td>
-                                                <td><a href="/Admin/Car/CarDetail/@item.CarID" class="btn btn-outline-warning" target="_blank">See in Website</a></td>
+                                                <td><a href="/Car/CarDetail/@item.CarID" class="btn btn-outline-warning" target="_blank">Sitede Gör</a></td>
                                                 <td><a href="/Admin/CarPricing/Index/" class="btn btn-outline-secondary" target="_blank">Pricing Informations</a></td>
                                             </tr>
                                         }
