@@ -5,6 +5,7 @@ namespace RentACarProject.Application.Features.CQRS.Commands.CarCommands;
 
 public class CreateCarCommand
 {
+    [Required(ErrorMessage = "Brand is required.")]
     public int BrandID { get; set; }
 
     [Required(ErrorMessage = "Model is required.")]

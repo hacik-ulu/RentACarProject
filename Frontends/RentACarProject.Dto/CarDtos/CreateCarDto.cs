@@ -9,6 +9,7 @@ namespace RentACarProject.Dto.CarDtos
 {
     public class CreateCarDto
     {
+        [Required(ErrorMessage = "Brand is required.")]
         public int BrandID { get; set; }
 
         [Required(ErrorMessage = "Model is required.")]
@@ -46,5 +47,6 @@ namespace RentACarProject.Dto.CarDtos
         [Required(ErrorMessage = "Big image URL is required.")]
         [Url(ErrorMessage = "Invalid URL format.")]
         public string BigImageUrl { get; set; }
+
     }
 }

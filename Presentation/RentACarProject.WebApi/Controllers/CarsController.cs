@@ -47,9 +47,18 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCar(CreateCarCommand command)
         {
-            await _createCarCommandHandler.Handle(command);
-            return Ok("Car Added");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+
+            }
+            else
+            {
+                await _createCarCommandHandler.Handle(command);
+                return Ok("Car Added.");
+            }
         }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveCar(int id)
