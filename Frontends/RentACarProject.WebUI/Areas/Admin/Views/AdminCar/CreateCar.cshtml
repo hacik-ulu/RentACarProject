@@ -3,7 +3,6 @@
     ViewData["Title"] = "CreateCar";
     Layout = "~/Views/AdminLayout/Index.cshtml";
 }
-<div asp-validation-summary="All" class="text-danger"></div> 
 
 <div class="page-content">
     <div class="container-fluid">
@@ -17,53 +16,43 @@
                             <div class="form-group">
                                 <label for="exampleInputBrand">Brand</label>
                                 @Html.DropDownListFor(x => x.BrandID, (List<SelectListItem>)ViewBag.BrandValues, new { @class = "form-control" })
-                                <span asp-validation-for="BrandID" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputModel">Model</label>
                                 <input type="text" class="form-control" id="exampleInputModel" asp-for="Model">
-                                <span asp-validation-for="Model" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputCoverImageUrl">Cover Image Url</label>
                                 <input type="text" class="form-control" id="exampleInputCoverImageUrl" asp-for="CoverImagerUrl">
-                                <span asp-validation-for="CoverImagerUrl" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputMileage">Mileage</label>
                                 <input type="text" class="form-control" id="exampleInputMileage" asp-for="Mileage">
-                                <span asp-validation-for="Mileage" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputYear">Year</label>
                                 <input type="text" class="form-control" id="exampleInputYear" asp-for="Year">
-                                <span asp-validation-for="Year" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="exampleInputTransmission">Transmission Type</label>
                                 <input type="text" class="form-control" id="exampleInputTransmission" asp-for="Transmission">
-                                <span asp-validation-for="Transmission" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputSeat">Seat Number</label>
                                 <input type="number" class="form-control" id="exampleInputSeat" asp-for="Seat">
-                                <span asp-validation-for="Seat" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputLuggage">Luggage Number</label>
                                 <input type="number" class="form-control" id="exampleInputLuggage" asp-for="Luggage">
-                                <span asp-validation-for="Luggage" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputFuel">Fuel Type</label>
                                 <input type="text" class="form-control" id="exampleInputFuel" asp-for="Fuel">
-                                <span asp-validation-for="Fuel" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputBigCoverImage">Big Cover Image </label>
                                 <input type="text" class="form-control" id="exampleInputBigCoverImage" asp-for="BigImageUrl">
-                                <span asp-validation-for="BigImageUrl" class="text-danger"></span>
                             </div>
                             <button type="submit" class="btn btn-primary waves-effect waves-light">Create Car</button>
                         </form>
