@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.Data.SqlClient;
 using RentACarProject.Application.ValidationAttributes.BrandAttributes;
 using RentACarProject.Application.ValidationAttributes.BrandAttributes.CreateBrandAttributes;
+using System.Text.RegularExpressions;
 
 namespace RentACarProject.Application.Features.CQRS.Commands.BrandCommands
 {
@@ -11,8 +12,9 @@ namespace RentACarProject.Application.Features.CQRS.Commands.BrandCommands
         [BindProperty]
         [Required(ErrorMessage = "Brand name is required.")]
         [StringLength(25, MinimumLength = 2, ErrorMessage = "Brand name must be between 2 and 25 characters long.")]
-        [RegularExpression(@"^[A-Za-z]+$", ErrorMessage = "Only letters allowed!")]
         [CustomBrandExist(ErrorMessage = "Brand name already exists.")]
+        [IsOnlyLetters(ErrorMessage = "Only letters can be used.")] // Custom validation attribute
+
         public string Name { get; set; }
 
         // Türkçe karakterleri İngilizce karşılıklarıyla değiştiren bir metot.
@@ -44,6 +46,23 @@ namespace RentACarProject.Application.Features.CQRS.Commands.BrandCommands
                     int count = (int)command.ExecuteScalar();
                     return count > 0;
                 }
+            }
+        }
+
+        public class IsOnlyLettersAttribute : ValidationAttribute
+        {
+            protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+            {
+                if (value != null)
+                {
+                    string input = value.ToString();
+                    // Yalnızca harflerin bulunduğunu kontrol eden regex
+                    if (!Regex.IsMatch(input, @"^[A-Za-z]+$"))
+                    {
+                        return new ValidationResult(ErrorMessage ?? "Only letters are allowed.");
+                    }
+                }
+                return ValidationResult.Success;
             }
         }
     }

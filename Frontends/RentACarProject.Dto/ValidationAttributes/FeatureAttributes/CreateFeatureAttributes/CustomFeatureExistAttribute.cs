@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RentACarProject.Dto.ValidationAttributes.FeatureAttributes
+namespace RentACarProject.Dto.ValidationAttributes.FeatureAttributes.CreateFeatureAttributes
 {
     public class CustomFeatureExistAttribute : ValidationAttribute
     {

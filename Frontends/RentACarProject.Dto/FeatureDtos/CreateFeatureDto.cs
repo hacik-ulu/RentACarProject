@@ -1,25 +1,29 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using RentACarProject.Dto.ValidationAttributes.FeatureAttributes;
+using RentACarProject.Dto.ValidationAttributes.FeatureAttributes.CreateFeatureAttributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace RentACarProject.Dto.FeatureDtos
 {
     public class CreateFeatureDto
     {
+        [BindProperty]
         [Required(ErrorMessage = ("Feature Name is required."))]
+        [IsOnlyLetters(ErrorMessage = "Only letters can be used.")] // Custom validation attribute
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Name must be between 3 and 50 characters.")]
-        [RegularExpression(@"^[A-Za-z]+$", ErrorMessage = "Only letters allowed!")]
         [CustomFeatureExist(ErrorMessage = "Feature name already exists.")]
         public string Name { get; set; }
 
-        public string NormalizeBrandName(string brandName)
+        public string NormalizeFeatureName(string featureName)
         {
-            return brandName.Replace('ı', 'i')
+            return featureName.Replace('ı', 'i')
                             .Replace('ç', 'c')
                             .Replace('ş', 's')
                             .Replace('ğ', 'g')
@@ -28,7 +32,7 @@ namespace RentACarProject.Dto.FeatureDtos
         }
         public bool IsExist(string featureName)
         {
-            string connectionString = "Server=HACIKULU\\SQLEXPRESS;initial Catalog=RentACarDb;integrated security=true;Encrypt=True;TrustServerCertificate=True;";
+            string connectionString = "Server=HACIKULU\\SQLEXPRESS;Initial Catalog=RentACarDb;Integrated Security=true;Encrypt=True;TrustServerCertificate=True;";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -37,8 +41,8 @@ namespace RentACarProject.Dto.FeatureDtos
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    // Girdiyi normalize ediyoruz
-                    string normalizedFeatureName = NormalizeBrandName(featureName.ToLowerInvariant());
+                    // Girdiyi normalize ediyoruz: boşlukları kaldır ve küçük harfe çevir
+                    string normalizedFeatureName = NormalizeFeatureName(featureName.Trim().Replace(" ", "").ToLowerInvariant());
                     command.Parameters.AddWithValue("@FeatureName", normalizedFeatureName);
 
                     int count = (int)command.ExecuteScalar();
@@ -46,5 +50,23 @@ namespace RentACarProject.Dto.FeatureDtos
                 }
             }
         }
+
+        public class IsOnlyLettersAttribute : ValidationAttribute
+        {
+            protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+            {
+                if (value != null)
+                {
+                    string input = value.ToString();
+                    // Yalnızca harflerin bulunduğunu kontrol eden regex
+                    if (!Regex.IsMatch(input, @"^[A-Za-z]+$"))
+                    {
+                        return new ValidationResult(ErrorMessage ?? "Only letters are allowed.");
+                    }
+                }
+                return ValidationResult.Success;
+            }
+        }
+
     }
 }
