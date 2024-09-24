@@ -14,6 +14,16 @@ namespace RentACarProject.Dto.BrandDtos
 
         public string Name { get; set; }
 
+        public string NormalizeBrandName(string brandName)
+        {
+            return brandName.Replace('ı', 'i')
+                            .Replace('ç', 'c')
+                            .Replace('ş', 's')
+                            .Replace('ğ', 'g')
+                            .Replace('ü', 'u')
+                            .Replace('ö', 'o');
+        }
+
         public bool IsExist(string brandName)
         {
             string connectionString = "Server=HACIKULU\\SQLEXPRESS;initial Catalog=RentACarDb;integrated security=true;Encrypt=True;TrustServerCertificate=True;";
@@ -25,7 +35,10 @@ namespace RentACarProject.Dto.BrandDtos
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@BrandName", brandName);
+                    // Girdiyi normalize ediyoruz
+                    string normalizedBrandName = NormalizeBrandName(brandName.ToLowerInvariant());
+                    command.Parameters.AddWithValue("@BrandName", normalizedBrandName);
+
                     int count = (int)command.ExecuteScalar();
                     return count > 0;
                 }

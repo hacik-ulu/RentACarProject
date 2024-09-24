@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Data.SqlClient;
 using RentACarProject.Application.ValidationAttributes.BrandAttributes;
+
 namespace RentACarProject.Application.Features.CQRS.Commands.BrandCommands
 {
     public class CreateBrandCommand
@@ -11,6 +12,17 @@ namespace RentACarProject.Application.Features.CQRS.Commands.BrandCommands
         [StringLength(25, MinimumLength = 2, ErrorMessage = "Brand name must be between 2 and 25 characters long.")]
         [CustomBrandExist(ErrorMessage = "Brand name already exists.")]
         public string Name { get; set; }
+
+        // Türkçe karakterleri İngilizce karşılıklarıyla değiştiren bir metot
+        public string NormalizeBrandName(string brandName)
+        {
+            return brandName.Replace('ı', 'i')
+                            .Replace('ç', 'c')
+                            .Replace('ş', 's')
+                            .Replace('ğ', 'g')
+                            .Replace('ü', 'u')
+                            .Replace('ö', 'o');
+        }
 
         public bool IsExist(string brandName)
         {
@@ -23,7 +35,10 @@ namespace RentACarProject.Application.Features.CQRS.Commands.BrandCommands
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@BrandName", brandName);
+                    // Girdiyi normalize ediyoruz
+                    string normalizedBrandName = NormalizeBrandName(brandName.ToLowerInvariant());
+                    command.Parameters.AddWithValue("@BrandName", normalizedBrandName);
+
                     int count = (int)command.ExecuteScalar();
                     return count > 0;
                 }
