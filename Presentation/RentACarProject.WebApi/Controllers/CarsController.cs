@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RentACarProject.Application.Features.CQRS.Commands.CarCommands;
+using RentACarProject.Application.Features.CQRS.Handlers.BrandHandlers.WriteOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.CarHandlers.ReadOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.CarHandlers.WriteOperations;
 using RentACarProject.Application.Features.CQRS.Queries.CarQueries;
@@ -47,7 +48,7 @@ namespace RentACarProject.WebApi.Controllers
         public async Task<IActionResult> CreateCar(CreateCarCommand command)
         {
             await _createCarCommandHandler.Handle(command);
-            return Ok("Car Added!");
+            return Ok("Car Added");
         }
 
         [HttpDelete("{id}")]
