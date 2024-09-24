@@ -10,6 +10,7 @@ namespace RentACarProject.Dto.BrandDtos
         [BindProperty]
         [Required(ErrorMessage = "Brand name is required.")]
         [StringLength(25, MinimumLength = 2, ErrorMessage = "Brand name must be between 2 and 25 characters long.")]
+        [RegularExpression(@"^[A-Za-z]+$", ErrorMessage = "Only letters allowed!")]
         [CustomBrandExist(ErrorMessage = "Brand name already exists.")]
 
         public string Name { get; set; }

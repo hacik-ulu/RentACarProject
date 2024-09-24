@@ -2,9 +2,10 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
-    int count = 0;
     int currentPage = ViewBag.CurrentPage ?? 1;
     int totalPages = ViewBag.TotalPages ?? 1;
+    int itemsPerPage = 5; 
+    int count = (currentPage - 1) * itemsPerPage; 
 }
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -35,7 +36,7 @@
                                     {
                                         @foreach (var item in Model)
                                         {
-                                            count++;
+                                            count++; // İndeksi sayfa başına göre arttır
                                             <tr>
                                                 <th scope="row">@count</th>
                                                 <td>@item.Name</td>

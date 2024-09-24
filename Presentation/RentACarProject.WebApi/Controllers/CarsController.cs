@@ -50,7 +50,6 @@ namespace RentACarProject.WebApi.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-
             }
             else
             {
