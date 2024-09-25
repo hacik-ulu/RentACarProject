@@ -15,7 +15,6 @@ public class UpdateBrandCommand
     [BindProperty]
     [Required(ErrorMessage = "Brand name is required.")]
     [StringLength(25, MinimumLength = 2, ErrorMessage = "Brand name must be between 2 and 25 characters long.")]
-    [IsOnlyLetters(ErrorMessage = "Only letters can be used.")] // Custom validation attribute
     [CustomBrandExist(ErrorMessage = "Brand name already exists.")]
     public string Name { get; set; }
     public string NormalizeBrandName(string brandName)
@@ -48,21 +47,4 @@ public class UpdateBrandCommand
         }
     }
 
-    // Custom validation attribute for checking only letters
-    public class IsOnlyLettersAttribute : ValidationAttribute
-    {
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            if (value != null)
-            {
-                string input = value.ToString();
-                // Yalnızca harflerin bulunduğunu kontrol eden regex
-                if (!Regex.IsMatch(input, @"^[A-Za-z]+$"))
-                {
-                    return new ValidationResult(ErrorMessage ?? "Only letters are allowed.");
-                }
-            }
-            return ValidationResult.Success;
-        }
-    }
 }

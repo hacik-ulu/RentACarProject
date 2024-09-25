@@ -11,7 +11,6 @@ namespace RentACarProject.Application.Features.Mediator.Commands.FeatureCommands
     {
         [BindProperty]
         [Required(ErrorMessage = ("Name is required."))]
-        [IsOnlyLetters(ErrorMessage = "Only letters can be used.")] // Custom validation attribute
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Name must be between 3 and 50 characters.")]
         [CustomFeatureExist(ErrorMessage = "Feature name already exists.")]
 
@@ -46,22 +45,7 @@ namespace RentACarProject.Application.Features.Mediator.Commands.FeatureCommands
                 }
             }
         }
-        public class IsOnlyLettersAttribute : ValidationAttribute
-        {
-            protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-            {
-                if (value != null)
-                {
-                    string input = value.ToString();
-                    // Yalnızca harflerin bulunduğunu kontrol eden regex
-                    if (!Regex.IsMatch(input, @"^[A-Za-z]+(?:\s[A-Za-z]+)*$"))
-                    {
-                        return new ValidationResult(ErrorMessage ?? "Only letters are allowed.");
-                    }
-                }
-                return ValidationResult.Success;
-            }
-        }
+       
 
 
     }
