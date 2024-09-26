@@ -42,8 +42,16 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateBanner(CreateBannerCommand command)
         {
-            await _createBannerCommandHandler.Handle(command);
-            return Ok("Banner Created!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _createBannerCommandHandler.Handle(command);
+                return Ok("Banner Created!");
+            }
+
         }
 
         [HttpDelete]
@@ -56,8 +64,16 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateBanner(UpdateBannerCommand command)
         {
-            await _updateBannerCommandHandler.Handle(command);
-            return Ok("Banner Updated!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _updateBannerCommandHandler.Handle(command);
+                return Ok("Banner Updated!");
+            }
+
         }
     }
 }
