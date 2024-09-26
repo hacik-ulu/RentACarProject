@@ -37,7 +37,9 @@ namespace RentACarProject.Application.Features.Mediator.Commands.FeatureCommands
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     // Girdiyi normalize ediyoruz: boşlukları kaldır ve küçük harfe çevir
-                    string normalizedFeatureName = NormalizeFeatureName(featureName.Trim().Replace(" ", "").ToLowerInvariant());
+                    //string normalizedFeatureName = NormalizeFeatureName(featureName.Trim().Replace(" ", "").ToLowerInvariant());
+
+                    string normalizedFeatureName = NormalizeFeatureName(featureName.Trim().ToLowerInvariant());
                     command.Parameters.AddWithValue("@FeatureName", normalizedFeatureName);
 
                     int count = (int)command.ExecuteScalar();
