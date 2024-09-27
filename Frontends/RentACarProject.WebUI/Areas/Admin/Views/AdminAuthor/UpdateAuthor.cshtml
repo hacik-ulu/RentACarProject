@@ -15,15 +15,15 @@
                             You can enter the data you want to update in the Author field from the panel below.
                         </p>
                         <form method="post">
-                            <input type="hidden" asp-for="AuthorID"/>
+                            <input type="hidden" asp-for="AuthorID" />
                             <div class="form-group">
                                 <label for="exampleInputName">Name</label>
-                                <input type="text" class="form-control" id="exampleInputName" asp-for="Name" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
+                                <input type="text" class="form-control" id="exampleInputName" asp-for="Name" oninput="this.value = this.value.replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ\s]/g, '')">
                                 <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputDescription">Description</label>
-                                <input type="text" class="form-control" id="exampleInputDescription" asp-for="Description" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
+                                <input type="text" class="form-control" id="exampleInputDescription" asp-for="Description" oninput="this.value = this.value.replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ\s]/g, '')">
                                 <span asp-validation-for="Description" class="text-danger"></span>
                             </div>
                             <div class="form-group">

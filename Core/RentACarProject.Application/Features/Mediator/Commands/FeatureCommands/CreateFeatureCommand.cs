@@ -16,12 +16,8 @@ namespace RentACarProject.Application.Features.Mediator.Commands.FeatureCommands
         public string Name { get; set; }
         public string NormalizeFeatureName(string featureName)
         {
-            return featureName.Replace('ı', 'i')
-                            .Replace('ç', 'c')
-                            .Replace('ş', 's')
-                            .Replace('ğ', 'g')
-                            .Replace('ü', 'u')
-                            .Replace('ö', 'o');
+            return featureName.Trim(); // Yalnızca baştaki ve sondaki boşlukları sil, başka bir işleme gerek yok
+
         }
         public bool IsExist(string featureName)
         {
@@ -30,14 +26,12 @@ namespace RentACarProject.Application.Features.Mediator.Commands.FeatureCommands
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                string query = "SELECT COUNT(1) FROM Features WHERE Name = @FeatureName";
+                // COLLATE ile büyük/küçük harf ve Türkçe karakter duyarlılığını kaldırıyoruz
+                string query = "SELECT COUNT(1) FROM Features WHERE Name COLLATE Latin1_General_CI_AI = @FeatureName";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    // Girdiyi normalize ediyoruz: boşlukları kaldır ve küçük harfe çevir
-                    //string normalizedFeatureName = NormalizeFeatureName(featureName.Trim().Replace(" ", "").ToLowerInvariant());
-
-                    string normalizedFeatureName = NormalizeFeatureName(featureName.Trim().ToLowerInvariant());
+                    string normalizedFeatureName = NormalizeFeatureName(featureName.Trim());
                     command.Parameters.AddWithValue("@FeatureName", normalizedFeatureName);
 
                     int count = (int)command.ExecuteScalar();
@@ -45,8 +39,5 @@ namespace RentACarProject.Application.Features.Mediator.Commands.FeatureCommands
                 }
             }
         }
-       
-
-
     }
 }

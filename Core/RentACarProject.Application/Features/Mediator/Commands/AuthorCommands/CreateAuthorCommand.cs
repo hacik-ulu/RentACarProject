@@ -27,13 +27,9 @@ namespace RentACarProject.Application.Features.Mediator.Commands.AuthorCommands
 
         public string NormalizeFeatureName(string authorName)
         {
-            return authorName.Replace('ı', 'i')
-                            .Replace('ç', 'c')
-                            .Replace('ş', 's')
-                            .Replace('ğ', 'g')
-                            .Replace('ü', 'u')
-                            .Replace('ö', 'o');
+            return authorName.Trim(); // Yalnızca baştaki ve sondaki boşlukları sil, başka bir işleme gerek yok
         }
+
         public bool IsExist(string featureName)
         {
             string connectionString = "Server=HACIKULU\\SQLEXPRESS;Initial Catalog=RentACarDb;Integrated Security=true;Encrypt=True;TrustServerCertificate=True;";
@@ -41,14 +37,12 @@ namespace RentACarProject.Application.Features.Mediator.Commands.AuthorCommands
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                string query = "SELECT COUNT(1) FROM Authors WHERE Name = @AuthorName";
+                // COLLATE ile büyük/küçük harf ve Türkçe karakter duyarlılığını kaldırıyoruz
+                string query = "SELECT COUNT(1) FROM Authors WHERE Name COLLATE Latin1_General_CI_AI = @AuthorName";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    // Girdiyi normalize ediyoruz: boşlukları kaldır ve küçük harfe çevir
-                    //string normalizedFeatureName = NormalizeFeatureName(featureName.Trim().Replace(" ", "").ToLowerInvariant());
-
-                    string normalizedFeatureName = NormalizeFeatureName(featureName.Trim().ToLowerInvariant());
+                    string normalizedFeatureName = NormalizeFeatureName(featureName.Trim());
                     command.Parameters.AddWithValue("@AuthorName", normalizedFeatureName);
 
                     int count = (int)command.ExecuteScalar();
