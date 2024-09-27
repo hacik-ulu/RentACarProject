@@ -45,8 +45,16 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCategory(CreateCategoryCommand command)
         {
-            await _createCategoryCommandHandler.Handle(command);
-            return Ok("Category added!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _createCategoryCommandHandler.Handle(command);
+                return Ok("Category added!");
+            }
+           
         }
 
         [HttpDelete]
@@ -59,8 +67,15 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateCategory(UpdateCategoryCommand command)
         {
-            await _updateCategoryCommandHandler.Handle(command);
-            return Ok("Category Updated!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _updateCategoryCommandHandler.Handle(command);
+                return Ok("Category added!");
+            }
         }
 
         [HttpGet("GetCategoryWithBlogCount")]
