@@ -19,18 +19,22 @@
                             <input type="hidden" asp-for="AboutId" />
                             <div class="form-group">
                                 <label for="exampleInputTitle">Title</label>
-                                <input type="text" class="form-control" id="exampleInputTitle" asp-for="Title">
+                                <input type="text" class="form-control" id="exampleInputTitle" asp-for="Title" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
+                                <span asp-validation-for="Title" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputDescription">Description</label>
-                                <textarea rows="5" asp-for="Description" class="form-control"></textarea>
+                                <label for="description">Description</label>
+                                <textarea rows="5" asp-for="Description" class="form-control" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputimageUrl">Video Description</label>
-                                <input type="text" class="form-control" id="exampleInputimageUrl" asp-for="ImageUrl">
+                                <label for="exampleInputimageUrl">Image Url</label>
+                                <input type="text" class="form-control" id="exampleInputVideoUrl" asp-for="ImageUrl">
+                                <span asp-validation-for="ImageUrl" class="text-danger"></span>
                             </div>
-                            <button type="submit" class="btn btn-success waves-effect waves-light">Save About</button>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Save About</button>
                         </form>
+
                     </div>
                 </div>
             </div>
