@@ -2,9 +2,10 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
-    int count = 0;
+    int pageSize = 5; // Her sayfada gösterilecek kategori sayısı
     int currentPage = ViewBag.CurrentPage ?? 1;
     int totalPages = ViewBag.TotalPages ?? 1;
+    int count = (currentPage - 1) * pageSize; // Sayfaya göre başlangıç sayısı
 }
 
 <div class="page-content">
@@ -32,7 +33,7 @@
                                     {
                                         count++;
                                         <tr>
-                                            <td>@count</td>
+                                            <td>@count</td> <!-- Güncellenmiş sayım -->
                                             <td>@item.Name</td>
                                             <td><a href="/Admin/AdminCategory/RemoveCategory/@item.CategoryID" class="btn btn-outline-danger">Remove</a></td>
                                             <td><a href="/Admin/AdminCategory/UpdateCategory/@item.CategoryID" class="btn btn-outline-success">Update</a></td>
@@ -61,4 +62,3 @@
         </div>
     </div>
 </div>
-
