@@ -13,9 +13,7 @@ namespace RentACarProject.Application.Features.Mediator.Commands.FeatureCommands
         [Required(ErrorMessage = ("Name is required."))]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Name must be between 3 and 50 characters.")]
         [CustomFeatureExist(ErrorMessage = "Feature name already exists.")]
-
         public string Name { get; set; }
-
         public string NormalizeFeatureName(string featureName)
         {
             return featureName.Replace('ı', 'i')

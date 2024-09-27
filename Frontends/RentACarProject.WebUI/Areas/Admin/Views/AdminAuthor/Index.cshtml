@@ -2,9 +2,10 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
-    int count = 0;
+    int itemsPerPage = 5; // Her sayfadaki öğe sayısı
     int currentPage = ViewBag.CurrentPage ?? 1;
     int totalPages = ViewBag.TotalPages ?? 1;
+    int count = (currentPage - 1) * itemsPerPage; // Sayfaya göre başlama numarasını hesapla
 }
 
 <div class="page-content">
@@ -31,7 +32,7 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                        count++;
+                                        count++; // Her bir öğe için sayacı artır
                                         <tr>
                                             <td>@count</td>
                                             <td><img src="@item.ImageUrl" width="50" height="50" style="margin-right:10px" /> @item.Name</td>
@@ -64,4 +65,3 @@
         </div>
     </div>
 </div>
-

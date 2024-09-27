@@ -158,8 +158,7 @@ builder.Services.AddScoped<CreateContactCommandHandler>();
 builder.Services.AddScoped<UpdateContactCommandHandler>();
 builder.Services.AddScoped<RemoveContactCommandHandler>();
 
-// Email Service
-// Email Service
+
 // Email Service
 builder.Services.AddMailKit(config =>
 {
