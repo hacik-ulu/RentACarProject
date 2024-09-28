@@ -34,8 +34,16 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateLocation(CreateLocationCommand command)
         {
-            await _mediator.Send(command);
-            return Ok("Location Added!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _mediator.Send(command);
+                return Ok("Location Added!");
+            }
+
         }
 
         [HttpDelete]
@@ -48,8 +56,15 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateLocation(UpdateLocationCommand command)
         {
-            await _mediator.Send(command);
-            return Ok("Location Updated!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _mediator.Send(command);
+                return Ok("Location Updated!");
+            }
 
         }
     }
