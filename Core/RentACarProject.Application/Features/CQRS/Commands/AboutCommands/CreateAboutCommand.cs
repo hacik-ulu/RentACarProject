@@ -9,7 +9,7 @@ public class CreateAboutCommand
     public string Title { get; set; }
 
     [Required(ErrorMessage = ("Description is required."))]
-    [StringLength(130, MinimumLength = 10, ErrorMessage = "Description must be between 100 and 500 characters.")]
+    [StringLength(1000, MinimumLength = 10, ErrorMessage = "Description must be between 100 and 1000 characters.")]
     public string Description { get; set; }
 
     [Required(ErrorMessage = ("Url is required."))]

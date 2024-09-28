@@ -16,7 +16,6 @@ namespace RentACarProject.Dto.AuthorDtos
 
         [Required(ErrorMessage = "Name is required.")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Name must be between 3 and 50 characters.")]
-        [CustomAuthorExist(ErrorMessage = "Author name already exists.")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Url is required.")]
@@ -24,7 +23,7 @@ namespace RentACarProject.Dto.AuthorDtos
         public string ImageUrl { get; set; }
 
         [Required(ErrorMessage = "Description is required.")]
-        [StringLength(500, MinimumLength = 10, ErrorMessage = "Description must be between 10 and 500 characters.")]
+        [StringLength(1000, MinimumLength = 10, ErrorMessage = "Description must be between 10 and 1000 characters.")]
         public string Description { get; set; } // Description property was missing a type definition
 
         public string NormalizeFeatureName(string authorName)
