@@ -34,7 +34,7 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                 {
                     // Admin ise işlemleri yap ve AdminLocation/Index sayfasına yönlendir
                     var client = _httpClientFactory.CreateClient();
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token); // istemciden sunucuya gönderilen isteğin kimliğini doğrulamak için kullanılır.
                     var responseMessage = await client.GetAsync("https://localhost:7262/api/Categories");
                     if (responseMessage.IsSuccessStatusCode)
                     {
