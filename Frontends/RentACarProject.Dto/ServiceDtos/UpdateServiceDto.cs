@@ -16,7 +16,6 @@ namespace RentACarProject.Dto.ServiceDtos
 
         [Required(ErrorMessage = "Title is required.")]
         [StringLength(50, MinimumLength = 5, ErrorMessage = "Name must be between 5 and 50 characters.")]
-        [CustomServiceExist(ErrorMessage = "Service name already exists.")]
         public string Title { get; set; }
 
         [Required(ErrorMessage = "Description is required.")]

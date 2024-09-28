@@ -21,12 +21,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputDescription">Description</label>
-                                <input type="text" class="form-control" id="exampleInputDescription" asp-for="Description" oninput="this.value = this.value.replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ\s]/g, '')">
+                                <input type="text" class="form-control" id="exampleInputDescription" asp-for="Description">
                                 <span asp-validation-for="Description" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputVideoDescription">Video Description</label>
-                                <input type="text" class="form-control" id="exampleInputVideoDescription" asp-for="VideoDescription" oninput="this.value = this.value.replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ\s]/g, '')">
+                                <input type="text" class="form-control" id="exampleInputVideoDescription" asp-for="VideoDescription">
                                 <span asp-validation-for="VideoDescription" class="text-danger"></span>
                             </div>
                             <div class="form-group">

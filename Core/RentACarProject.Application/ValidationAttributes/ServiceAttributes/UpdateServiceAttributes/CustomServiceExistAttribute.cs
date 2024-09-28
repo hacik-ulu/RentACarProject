@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RentACarProject.Application.ValidationAttributes.ServiceAttributes.UpdateServiceAttributes
 {
-    public class CustomServiceExistAttribute :ValidationAttribute
+    public class CustomServiceExistAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {

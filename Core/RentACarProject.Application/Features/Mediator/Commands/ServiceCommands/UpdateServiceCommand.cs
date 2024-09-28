@@ -12,12 +12,12 @@ namespace RentACarProject.Application.Features.Mediator.Commands.ServiceCommands
 {
     public class UpdateServiceCommand : IRequest
     {
-        [Required(ErrorMessage ="ServiceId is required.")]
+        [Required(ErrorMessage = "ServiceId is required.")]
         public int ServiceId { get; set; }
 
         [Required(ErrorMessage = "Title is required.")]
         [StringLength(50, MinimumLength = 5, ErrorMessage = "Name must be between 5 and 50 characters.")]
-        [CustomServiceExist(ErrorMessage = "Service name already exists.")]
+        //[CustomServiceExist(ErrorMessage = "Service name already exists.")]
         public string Title { get; set; }
 
         [Required(ErrorMessage = "Description is required.")]
