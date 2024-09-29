@@ -9,7 +9,6 @@ using System.Text;
 
 namespace RentACarProject.WebUI.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/AdminTestimonial")]
     public class AdminTestimonialController : Controller
@@ -42,7 +41,6 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                         var jsonData = await responseMessage.Content.ReadAsStringAsync();
                         var values = JsonConvert.DeserializeObject<List<ResultTestimonialDto>>(jsonData);
 
-                        // Pagination settings
                         int pageSize = 5;
                         int totalRecords = values.Count;
                         int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);

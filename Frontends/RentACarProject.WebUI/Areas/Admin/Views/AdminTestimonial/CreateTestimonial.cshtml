@@ -18,19 +18,23 @@
                         <form method="post">
                             <div class="form-group">
                                 <label for="exampleInputName">Testimonial Name</label>
-                                <input type="text" class="form-control" id="exampleInputName" asp-for="Name" placeholder="Enter Testimonial Name">
+                                <input type="text" class="form-control" id="exampleInputTitle" asp-for="Name" oninput="this.value = this.value.replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ\s]/g, '')">
+                                <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputTitle">Testimonial Title</label>
-                                <input type="text" class="form-control" id="exampleInputTitle" asp-for="Title" placeholder="Enter Testimonial Title">
+                                <input type="text" class="form-control" id="exampleInputTitle" asp-for="Title" oninput="this.value = this.value.replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ\s]/g, '')">
+                                <span asp-validation-for="Title" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputImageUrl">Testimonial Image URL</label>
-                                <input type="text" class="form-control" id="exampleInputImageUrl" asp-for="ImageUrl" placeholder="Select Image">
+                                <input type="text" class="form-control" id="exampleInputVideoUrl" asp-for="ImageUrl">
+                                <span asp-validation-for="ImageUrl" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputComment">Testimonial Comment</label>
                                 <textarea rows="5" asp-for="Comment" class="form-control" placeholder="Write your comment here."></textarea>
+                                <span asp-validation-for="Comment" class="text-danger"></span>
                             </div>
                             <button type="submit" class="btn btn-primary waves-effect waves-light">Save Testimonial Information</button>
                         </form>
