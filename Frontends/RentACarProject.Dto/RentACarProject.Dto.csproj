@@ -12,4 +12,8 @@
     <PackageReference Include="ServiceStack.Interfaces" Version="8.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ValidationAttributes\PricingTypesAttributes\UpdatePricingTypeAttributes\" />
+  </ItemGroup>
+
 </Project>

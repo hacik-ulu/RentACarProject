@@ -34,8 +34,16 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreatePricing(CreatePricingCommand command)
         {
-            await _mediator.Send(command);
-            return Ok("Pricing Added!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _mediator.Send(command);
+                return Ok("Pricing Added!");
+            }
+           
         }
 
         [HttpDelete]
@@ -48,8 +56,15 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdatePricing(UpdatePricingCommand command)
         {
-            await _mediator.Send(command);
-            return Ok("Pricing Updated!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _mediator.Send(command);
+                return Ok("Pricing Updated!");
+            }
 
         }
     }
