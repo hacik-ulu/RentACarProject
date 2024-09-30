@@ -1,5 +1,4 @@
-﻿using RentACarProject.Application.Features.Mediator.Commands.LocationCommands;
-using RentACarProject.Application.Features.Mediator.Commands.PricingCommands;
+﻿using RentACarProject.Application.Features.Mediator.Commands.PricingCommands;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RentACarProject.Application.ValidationAttributes.PricingTypeAttributes.CreatePricingTypeAttributes
+namespace RentACarProject.Application.ValidationAttributes.PricingTypeAttributes.UpdatePricingTypeAttributes
 {
     public class CustomPricingTypeExistAttribute : ValidationAttribute
     {
@@ -19,7 +18,7 @@ namespace RentACarProject.Application.ValidationAttributes.PricingTypeAttributes
                 return ValidationResult.Success; // Null ise hata mesajı döndürme -- Required mesajı döndürecek null için
             }
 
-            var command = (CreatePricingCommand)validationContext.ObjectInstance;
+            var command = (UpdatePricingCommand)validationContext.ObjectInstance;
 
             if (command.IsExist(value.ToString()))
             {
