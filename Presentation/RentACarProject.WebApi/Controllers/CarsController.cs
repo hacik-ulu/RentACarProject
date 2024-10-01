@@ -52,7 +52,6 @@ namespace RentACarProject.WebApi.Controllers
            
         }
 
-
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveCar(int id)
         {

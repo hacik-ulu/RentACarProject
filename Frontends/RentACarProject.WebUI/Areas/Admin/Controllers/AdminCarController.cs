@@ -183,18 +183,37 @@ namespace RentACarProject.WebUI.Controllers
         [Route("UpdateCar/{id}")]
         public async Task<IActionResult> UpdateCar(UpdateCarDto updateCarDto)
         {
+            if (!ModelState.IsValid) // Model validasyon kontrolü
+            {
+                var client1 = _httpClientFactory.CreateClient();
+                var responseMessage1 = await client1.GetAsync("https://localhost:7262/api/Brands");
+                var jsonData1 = await responseMessage1.Content.ReadAsStringAsync();
+                var brands = JsonConvert.DeserializeObject<List<ResultBrandDto>>(jsonData1);
+
+                // Dropdown için marka listesini doldur
+                List<SelectListItem> brandValues = brands.Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.BrandID.ToString()
+                }).ToList();
+                ViewBag.BrandValues = brandValues;
+
+                return View(updateCarDto); // Hatalı model ile birlikte view'a döner
+            }
+
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(updateCarDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PutAsync("https://localhost:7262/api/Cars/", stringContent);
+            var responseMessage = await client.PutAsync($"https://localhost:7262/api/Cars/", stringContent);
 
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
             }
 
-            return View();
+            return View(updateCarDto); // API'den hata alındığında model ile view'a döner
         }
+
 
 
 
