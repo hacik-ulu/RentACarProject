@@ -12,49 +12,58 @@
                     <div class="card-body">
                         <h4 class="card-title">New Car Entry</h4>
                         <p class="card-subtitle mb-4">You are kindly requested to fill in the following fields completely. Please be sure to press the "Save Car" button to register the new car.</p>
-                        <form method="post">
+                        <form method="post" asp-action="CreateCar">
                             <div class="form-group">
-                                <label for="exampleInputBrand">Brand</label>
-                                @Html.DropDownListFor(x => x.BrandID, (List<SelectListItem>)ViewBag.BrandValues, new { @class = "form-control" })
+                                <label asp-for="BrandID"></label>
+                                @Html.DropDownListFor(x => x.BrandID, (List<SelectListItem>)ViewBag.BrandValues, "Select Brand", new { @class = "form-control" })
+                                <span asp-validation-for="BrandID" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputModel">Model</label>
-                                <input type="text" class="form-control" id="exampleInputModel" asp-for="Model">
+                                <label asp-for="Model"></label>
+                                <input type="text" class="form-control" asp-for="Model" oninput="this.value = this.value.replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ\s]/g, '')">
+                                <span asp-validation-for="Model" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputCoverImageUrl">Cover Image Url</label>
-                                <input type="text" class="form-control" id="exampleInputCoverImageUrl" asp-for="CoverImagerUrl">
+                                <label asp-for="CoverImagerUrl"></label>
+                                <input type="text" class="form-control" asp-for="CoverImagerUrl">
+                                <span asp-validation-for="CoverImagerUrl" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputMileage">Mileage</label>
-                                <input type="text" class="form-control" id="exampleInputMileage" asp-for="Mileage">
+                                <label asp-for="Mileage"></label>
+                                <input type="number" class="form-control" asp-for="Mileage" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                <span asp-validation-for="Mileage" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputYear">Year</label>
-                                <input type="text" class="form-control" id="exampleInputYear" asp-for="Year">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleInputTransmission">Transmission Type</label>
-                                <input type="text" class="form-control" id="exampleInputTransmission" asp-for="Transmission">
+                                <label asp-for="Year"></label>
+                                <input type="number" class="form-control" asp-for="Year" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                <span asp-validation-for="Year" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputSeat">Seat Number</label>
-                                <input type="number" class="form-control" id="exampleInputSeat" asp-for="Seat">
+                                <label asp-for="Transmission"></label>
+                                <input type="text" class="form-control" asp-for="Transmission" oninput="this.value = this.value.replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ\s]/g, '')">
+                                <span asp-validation-for="Transmission" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputLuggage">Luggage Number</label>
-                                <input type="number" class="form-control" id="exampleInputLuggage" asp-for="Luggage">
+                                <label asp-for="Seat"></label>
+                                <input type="number" class="form-control" asp-for="Seat" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                <span asp-validation-for="Seat" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputFuel">Fuel Type</label>
-                                <input type="text" class="form-control" id="exampleInputFuel" asp-for="Fuel">
+                                <label asp-for="Luggage"></label>
+                                <input type="number" class="form-control" asp-for="Luggage" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                <span asp-validation-for="Luggage" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputBigCoverImage">Big Cover Image </label>
-                                <input type="text" class="form-control" id="exampleInputBigCoverImage" asp-for="BigImageUrl">
+                                <label asp-for="Fuel"></label>
+                                <input type="text" class="form-control" asp-for="Fuel">
+                                <span asp-validation-for="Fuel" class="text-danger"></span>
                             </div>
-                            <button type="submit" class="btn btn-primary waves-effect waves-light">Create Car</button>
+                            <div class="form-group">
+                                <label asp-for="BigImageUrl"></label>
+                                <input type="text" class="form-control" asp-for="BigImageUrl">
+                                <span asp-validation-for="BigImageUrl" class="text-danger"></span>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Create Car</button>
                         </form>
                     </div>
                 </div>
@@ -62,4 +71,3 @@
         </div>
     </div>
 </div>
-

@@ -86,21 +86,57 @@ namespace RentACarProject.WebUI.Controllers
             return View();
         }
 
+        //[HttpPost]
+        //[Route("CreateCar")]
+        //public async Task<IActionResult> CreateCar(CreateCarDto createCarDto)
+        //{
+
+        //    var client = _httpClientFactory.CreateClient();
+        //    var jsonData = JsonConvert.SerializeObject(createCarDto);
+        //    StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+        //    var responseMessage = await client.PostAsync("https://localhost:7262/api/Cars", stringContent);
+        //    if (responseMessage.IsSuccessStatusCode)
+        //    {
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View();
+        //}
+
         [HttpPost]
         [Route("CreateCar")]
         public async Task<IActionResult> CreateCar(CreateCarDto createCarDto)
         {
+            if (!ModelState.IsValid) // Model validation check
+            {
+                var client1 = _httpClientFactory.CreateClient();
+                var responseMessage1 = await client1.GetAsync("https://localhost:7262/api/Brands");
+                var jsonData1 = await responseMessage1.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultBrandDto>>(jsonData1);
+
+                List<SelectListItem> brandValues = values.Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.BrandID.ToString()
+                }).ToList();
+
+                ViewBag.BrandValues = brandValues;
+                return View(createCarDto); // Return the model back to view to show validation messages
+            }
 
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createCarDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync("https://localhost:7262/api/Cars", stringContent);
+
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
             }
-            return View();
+
+            return View(createCarDto); // Return model again to show any errors from the API
         }
+
+
 
         [Route("RemoveCar/{id}")]
         public async Task<IActionResult> RemoveCar(int id)

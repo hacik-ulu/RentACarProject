@@ -47,15 +47,9 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCar(CreateCarCommand command)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            else
-            {
-                await _createCarCommandHandler.Handle(command);
-                return Ok("Car Added.");
-            }
+            await _createCarCommandHandler.Handle(command);
+            return Ok("Car Added.");
+           
         }
 
 
