@@ -9,11 +9,11 @@ namespace RentACarProject.Dto.CarPricingDtos
 {
     public class CreateCarPricingDto
     {
-        [Required(ErrorMessage = ("CarID is required."))]
-        public int CarID { get; set; }
+        [Required(ErrorMessage = ("Car Model is required."))]
+        public int? CarID { get; set; }
 
-        [Required(ErrorMessage = ("PricingID is required."))]
-        public int PricingID { get; set; }
+        [Required(ErrorMessage = ("Pricing Type is required."))]
+        public int? PricingID { get; set; }
 
         [Required(ErrorMessage = ("Amount is required."))]
         [Range(0, 50000, ErrorMessage = "Amount must be between 0 and 50,000.")]
