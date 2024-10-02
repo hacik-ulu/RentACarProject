@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RentACarProject.Dto.AboutDtos;
+using RentACarProject.Dto.BrandDtos;
 using RentACarProject.Dto.CarDtos;
 using RentACarProject.Dto.CarPricingDtos;
 using System.Net.Http.Headers;
 using System.Security.Claims;
+using System.Text;
 
 namespace RentACarProject.WebUI.Areas.Admin.Controllers
 {
@@ -61,6 +63,28 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                 }
             }
             return View(new List<ResultCarPricingListWithModelDto>());
+        }
+
+        [HttpGet]
+        [Route("CreateCarPricing")]
+        public IActionResult CreateCarPricing()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Route("CreateCarPricing")]
+        public async Task<IActionResult> CreateCarPricing(CreateCarPricingDto createCarPricingDto)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(createCarPricingDto);
+            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync("https://localhost:7262/api/CarPricings", stringContent);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
         }
 
     }
