@@ -1,8 +1,54 @@
-﻿
+﻿@model RentACarProject.Dto.CarPricingDtos.CreateCarPricingDto
+
 @{
-    ViewData["Title"] = "CreateCarPricing";
+    ViewData["Title"] = "Create Car Pricing";
     Layout = "~/Views/AdminLayout/Index.cshtml";
 }
 
-<h1>CreateCarPricing</h1>
+<!-- jQuery ve jQuery Validation Script'lerini Buraya Ekleyin -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">New Car Pricing Entry</h4>
+                        <p class="card-subtitle mb-4">You are kindly requested to fill in the following fields completely. Please be sure to press the "Save Car Pricing" button to register the new Car Pricing.</p>
+                        <form method="post">
+                            <!-- Araç ID Girişi -->
+                            <div class="form-group">
+                                <label for="carID">Car Model</label>
+                                <select asp-for="CarID" asp-items="ViewBag.CarValues" class="form-control" id="carModel">
+                                    <option value="">Select Car Model</option>
+                                </select>
+                                <span asp-validation-for="CarID" class="text-danger"></span> <!-- Doğrulama mesajı -->
+                            </div>
+
+                            <!-- Kiralama Türü Seçimi -->
+                            <div class="form-group">
+                                <label for="pricingType">Pricing Type</label>
+                                <select asp-for="PricingID" asp-items="ViewBag.PricingValues" class="form-control" id="pricingType">
+                                    <option value="">Select Pricing Type</option>
+                                </select>
+                                <span asp-validation-for="PricingID" class="text-danger"></span> <!-- Doğrulama mesajı -->
+                            </div>
+
+                            <!-- Kiralama Bedeli -->
+                            <div class="form-group">
+                                <label for="amount">Amount</label>
+                                <input type="number" class="form-control" asp-for="Amount" id="amount" name="Amount" />
+                                <span asp-validation-for="Amount" class="text-danger"></span> <!-- Doğrulama mesajı -->
+                            </div>
+
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Create Amount</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
