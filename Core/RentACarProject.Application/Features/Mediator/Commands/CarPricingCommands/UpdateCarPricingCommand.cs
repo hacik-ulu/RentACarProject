@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RentACarProject.Application.Features.Mediator.Commands.CarPricingCommands
 {
-    public class CreateCarPricingCommand : IRequest
+    public class UpdateCarPricingCommand :IRequest
     {
         [Required(ErrorMessage = "CarPricingID is required.")]
         public int CarPricingID { get; set; }
@@ -22,6 +22,5 @@ namespace RentACarProject.Application.Features.Mediator.Commands.CarPricingComma
         [Required(ErrorMessage = "Amount is required.")]
         [Range(0, 50000, ErrorMessage = "Amount must be between 0 and 50,000.")]
         public decimal Amount { get; set; }
-
     }
 }

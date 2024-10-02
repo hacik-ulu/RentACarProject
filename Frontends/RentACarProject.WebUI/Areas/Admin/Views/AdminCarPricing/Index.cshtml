@@ -1,4 +1,6 @@
-﻿@model List<ResultCarPricingListWithModelDto>
+﻿@using Microsoft.Data.SqlClient
+@model List<ResultCarPricingListWithModelDto>
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
@@ -29,7 +31,6 @@
                                         <th>Weekly Price</th>
                                         <th>Monthly Price</th>
                                         <th>Remove</th>
-                                        <th>Update</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,8 +46,7 @@
                                                 <td>@item.DailyAmount</td>
                                                 <td>@item.WeeklyAmount</td>
                                                 <td>@item.MonthlyAmount</td>
-                                                <td><a href="#" class="btn btn-outline-danger">Remove</a></td>
-                                                <td><a href="#" class="btn btn-outline-success">Update</a></td>
+                                                <td><a href="/Admin/AdminCarPricing/RemoveCarPricing/@ViewBag.CarPricingID" class="btn btn-outline-danger">Remove</a></td>
                                             </tr>
                                         }
                                     }

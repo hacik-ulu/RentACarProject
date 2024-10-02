@@ -39,6 +39,13 @@ namespace RentACarProject.WebApi.Controllers
 
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> RemoveCarPricing(int id)
+        {
+            await _mediator.Send(new RemoveCarPricingCommand(id));
+            return Ok("Car Pricing Deleted!");
+        }
+
         [HttpGet("GetCarPricingWithTimePeriodList")]
         public async Task<IActionResult> GetCarPricingWithTimePeriodList()
         {

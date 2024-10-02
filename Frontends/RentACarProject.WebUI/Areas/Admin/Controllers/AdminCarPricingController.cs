@@ -7,7 +7,8 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using RentACarProject.Dto.CarDtos; // SelectListItem için gerekli
+using RentACarProject.Dto.CarDtos;
+using Microsoft.Data.SqlClient; // SelectListItem için gerekli
 
 namespace RentACarProject.WebUI.Areas.Admin.Controllers
 {
@@ -21,6 +22,52 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
         {
             _httpClientFactory = httpClientFactory;
         }
+
+        #region MethodEski
+        //[Route("Index")]
+        //public async Task<IActionResult> Index(int page = 1)
+        //{
+        //    var token = User.Claims.FirstOrDefault(x => x.Type == "accessToken")?.Value;
+        //    if (token == null)
+        //    {
+        //        return RedirectToAction("Index", "Login");
+        //    }
+
+        //    var claims = User.Claims;
+        //    if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Admin"))
+        //    {
+        //        var client = _httpClientFactory.CreateClient();
+        //        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+        //        var responseMessage = await client.GetAsync("https://localhost:7262/api/CarPricings/GetCarPricingWithTimePeriodList");
+
+        //        if (responseMessage.IsSuccessStatusCode)
+        //        {
+        //            var jsonData = await responseMessage.Content.ReadAsStringAsync();
+        //            var values = JsonConvert.DeserializeObject<List<ResultCarPricingListWithModelDto>>(jsonData);
+
+        //            // Pagination settings
+        //            int pageSize = 5;
+        //            int totalRecords = values.Count;
+        //            int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+
+        //            var paginatedItems = values.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+        //            ViewBag.CurrentPage = page;
+        //            ViewBag.TotalPages = totalPages;
+
+        //            return View(paginatedItems);
+        //        }
+        //    }
+        //    else if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Member"))
+        //    {
+        //        return RedirectToAction("Index", "Default");
+        //    }
+
+        //    return View(new List<ResultCarPricingListWithModelDto>());
+        //}
+        #endregion
+
 
         [Route("Index")]
         public async Task<IActionResult> Index(int page = 1)
@@ -43,6 +90,25 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                 {
                     var jsonData = await responseMessage.Content.ReadAsStringAsync();
                     var values = JsonConvert.DeserializeObject<List<ResultCarPricingListWithModelDto>>(jsonData);
+
+                    // CarPricingID'yi almak için veritabanı sorgusu
+                    using (var connection = new SqlConnection("Server=HACIKULU\\SQLEXPRESS;initial Catalog=RentACarDb;integrated security=true;Encrypt=True;TrustServerCertificate=True;"))
+                    {
+                        connection.Open();
+
+                        foreach (var item in values)
+                        {
+                            var command = new SqlCommand("SELECT CarPricingID FROM CarPricings WHERE CarID = @CarID", connection);
+                            command.Parameters.AddWithValue("@CarID", item.CarID);
+
+                            var carPricingId = command.ExecuteScalar();
+                            if (carPricingId != null)
+                            {
+                                // CarPricingID'yi bir değişkene atayabiliriz
+                                ViewBag.CarPricingID = (int)carPricingId;
+                            }
+                        }
+                    }
 
                     // Pagination settings
                     int pageSize = 5;
@@ -112,7 +178,6 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
             return View();
         }
 
-
         [HttpPost]
         [Route("CreateCarPricing")]
         public async Task<IActionResult> CreateCarPricing(CreateCarPricingDto createCarPricingDto)
@@ -171,6 +236,21 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
             // Hata durumu
             return View(createCarPricingDto); // Hata durumunda formu tekrar göster
         }
+
+        [Route("RemoveCarPricing/{id}")]
+        public async Task<IActionResult> RemoveCarPricing(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.DeleteAsync($"https://localhost:7262/api/CarPricings/{id}");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+
+
 
     }
 }

@@ -1,0 +1,51 @@
+﻿@model RentACarProject.Dto.CarPricingDtos.UpdateCarPricingDto
+
+@{
+    ViewData["Title"] = "UpdateCarPricing";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Update Car Pricing Page</h4>
+                        <p class="card-subtitle mb-4">You are kindly requested to fill in the following fields completely. Please be sure to press the "Save Car Pricing" button to register the update Car Pricing.</p>
+                        <form method="post">
+                            <input type="hidden" asp-for="CarPricingID"/>
+                            <!-- Araç ID Girişi -->
+                            <div class="form-group">
+                                <label asp-for="CarID" class="form-label">Car Model</label>
+                                <select asp-for="CarID" asp-items="ViewBag.CarValues" class="form-control" id="carModel">
+                                    <option value="">Select Car Model</option>
+                                </select>
+                                <span asp-validation-for="CarID" class="text-danger"></span> <!-- Doğrulama mesajı -->
+                            </div>
+
+                            <!-- Kiralama Türü Seçimi -->
+                            <div class="form-group">
+                                <label asp-for="PricingID" class="form-label">Pricing Type</label>
+                                <select asp-for="PricingID" asp-items="ViewBag.PricingValues" class="form-control" id="pricingType">
+                                    <option value="">Select Pricing Type</option>
+                                </select>
+                                <span asp-validation-for="PricingID" class="text-danger"></span> <!-- Doğrulama mesajı -->
+                            </div>
+
+                            <!-- Kiralama Bedeli -->
+                            <div class="form-group">
+                                <label asp-for="Amount" class="form-label">Amount</label>
+                                <input type="text" class="form-control" asp-for="Amount" id="amount" name="Amount"
+                                       oninput="this.value = this.value.replace(/[^0-9.]/g, '');" /> <!-- Sadece sayısal giriş için RegEx -->
+                                <span asp-validation-for="Amount" class="text-danger"></span> <!-- Doğrulama mesajı -->
+                            </div>
+
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Create Amount</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

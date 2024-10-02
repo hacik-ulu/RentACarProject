@@ -97,7 +97,6 @@ namespace RentACarProject.WebUI.Controllers
             return View();
         }
 
-
         [HttpGet]
         [Route("UpdateBrand/{id}")]
         public async Task<IActionResult> UpdateBrand(int id)
@@ -112,6 +111,7 @@ namespace RentACarProject.WebUI.Controllers
             }
             return View();
         }
+
         [HttpPost]
         [Route("UpdateBrand/{id}")]
         public async Task<IActionResult> UpdateBrand(UpdateBrandDto updateBrandDto)
@@ -126,5 +126,6 @@ namespace RentACarProject.WebUI.Controllers
             }
             return View();
         }
+
     }
 }
