@@ -1,15 +1,12 @@
-﻿@model List<ResultBrandDto>
+﻿@model List<ResultCarPricingListWithModelDto>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
-    int itemsPerPage = 5; // Her sayfada gösterilecek kiralama ücreti sayısı
+    int itemsPerPage = 5; // Her sayfada gösterilecek marka sayısı
     int currentPage = ViewBag.CurrentPage ?? 1;
     int totalPages = ViewBag.TotalPages ?? 1;
-    int count = (currentPage - 1) * itemsPerPage; // Sayfa başına gösterilecek kiralama ücreti sayısı
+    int count = (currentPage - 1) * itemsPerPage; // Sayfa başına gösterilecek araç sayısı
 }
-
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <div class="page-content">
     <div class="container-fluid">
@@ -17,9 +14,9 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Brand Features List</h4>
+                        <h4 class="card-title">Car Pricing List</h4>
                         <p class="card-subtitle mb-4">
-                            You can add new brands, edit existing brands, and remove a brand from here. To ensure data consistency in the theme, enter data in multiples of three.
+                            You can add new car price, edit existing price, and remove a price from here. To ensure data consistency in the theme, enter data in multiples of three.
                         </p>
                         <div class="table-responsive">
                             <table class="table mb-0">
@@ -27,6 +24,10 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Brand</th>
+                                        <th>Model</th>
+                                        <th>Daily Price</th>
+                                        <th>Weekly Price</th>
+                                        <th>Monthly Price</th>
                                         <th>Remove</th>
                                         <th>Update</th>
                                     </tr>
@@ -39,28 +40,26 @@
                                             count++;
                                             <tr>
                                                 <th scope="row">@count</th>
-                                                <td>@item.Name</td>
-                                                <td><a href="/Admin/AdminBrand/RemoveBrand/@item.BrandID" class="btn btn-outline-danger">Remove</a></td>
-                                                <td><a href="/Admin/AdminBrand/UpdateBrand/@item.BrandID" class="btn btn-outline-success">Update</a></td>
+                                                <td>@item.Brand</td>
+                                                <td>@item.Model</td>
+                                                <td>@item.DailyAmount</td>
+                                                <td>@item.WeeklyAmount</td>
+                                                <td>@item.MonthlyAmount</td>
+                                                <td><a href="#" class="btn btn-outline-danger">Remove</a></td>
+                                                <td><a href="#" class="btn btn-outline-success">Update</a></td>
                                             </tr>
                                         }
                                     }
                                     else
                                     {
-                                        <script>
-                                            $(document).ready(function () {
-                                                Swal.fire({
-                                                    icon: "error",
-                                                    title: "Oops...",
-                                                    text: "No Brand found!",
-                                                });
-                                            });
-                                        </script>
+                                        <tr>
+                                            <td colspan="4">No Car Price found!</td>
+                                        </tr>
                                     }
                                 </tbody>
                             </table>
                             <br />
-                            <a href="/Admin/AdminBrand/CreateBrand/" class="btn btn-outline-dark">Create New Brand</a>
+                            <a href="/Admin/AdminCarPricing/CreateCarPricing/" class="btn btn-outline-dark">Create New Car Pricing</a>
                         </div>
                         @if (Model != null && Model.Count > 0)
                         {
@@ -81,3 +80,5 @@
         </div>
     </div>
 </div>
+
+

@@ -9,7 +9,7 @@ using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
 
-namespace RentACarProject.WebUI.Controllers
+namespace RentACarProject.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/AdminCar")]
