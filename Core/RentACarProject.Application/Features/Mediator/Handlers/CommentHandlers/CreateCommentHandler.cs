@@ -7,7 +7,6 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.CommentHandlers
 {
     public class CreateCommentHandler : IRequestHandler<CreateCommentCommand>
     {
-
         private readonly IRepository<Comment> _repository;
         public CreateCommentHandler(IRepository<Comment> repository)
         {
