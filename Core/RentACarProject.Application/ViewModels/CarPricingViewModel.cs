@@ -16,5 +16,6 @@ namespace RentACarProject.Application.ViewModels
 		public List<Decimal> Amounts { get; set; }
 		public string CoverImagerUrl { get; set; }
 		public string Brand { get; set; }
-	}
+        public int CarID { get; set; }
+    }
 }

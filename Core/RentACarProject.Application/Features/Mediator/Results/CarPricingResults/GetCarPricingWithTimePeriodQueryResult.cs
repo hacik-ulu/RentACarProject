@@ -8,6 +8,7 @@ namespace RentACarProject.Application.Features.Mediator.Results.CarPricingResult
 {
 	public class GetCarPricingWithTimePeriodQueryResult
 	{
+        public int CarID { get; set; }
         public string Model { get; set; }
 		public decimal DailyAmount { get; set; }
 		public decimal WeeklyAmount { get; set; }

@@ -52,7 +52,12 @@
                                                 <td><a href="/Admin/AdminCar/UpdateCar/@item.CarID" class="btn btn-outline-success">Update</a></td>
                                                 <td><a href="/Admin/AdminCarFeatureDetail/Index/@item.CarID" class="btn btn-outline-dark">Edit Car Features</a></td>
                                                 <td><a href="/Car/CarDetail/@item.CarID" class="btn btn-outline-warning" target="_blank">See in Website</a></td>
-                                                <td><a href="/Admin/CarPricing/Index/" class="btn btn-outline-secondary" target="_blank">Pricing Informations</a></td>
+                                                @* <td><a href="/Admin/AdminCarPricing/Index/" class="btn btn-outline-secondary" target="_blank">Pricing Informations</a></td> *@
+                                                <td>
+                                                    <a href="/Admin/AdminCarPricing/Index?page=@currentPage#car-@item.CarID" class="btn btn-outline-secondary" target="_blank">Pricing Informations</a>
+                                                </td>
+
+
                                             </tr>
                                         }
                                     }

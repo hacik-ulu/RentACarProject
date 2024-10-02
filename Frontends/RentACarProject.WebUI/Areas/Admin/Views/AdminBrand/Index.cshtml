@@ -2,10 +2,10 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
-    int itemsPerPage = 5; // Her sayfada gösterilecek kiralama ücreti sayısı
+    int itemsPerPage = 5; // Her sayfada gösterilecek marka sayısı
     int currentPage = ViewBag.CurrentPage ?? 1;
     int totalPages = ViewBag.TotalPages ?? 1;
-    int count = (currentPage - 1) * itemsPerPage; // Sayfa başına gösterilecek kiralama ücreti sayısı
+    int count = (currentPage - 1) * itemsPerPage; // Sayfa başına gösterilecek araç sayısı
 }
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>

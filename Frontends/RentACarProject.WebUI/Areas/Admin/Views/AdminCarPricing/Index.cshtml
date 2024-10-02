@@ -2,10 +2,10 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
-    int itemsPerPage = 5; // Her sayfada gösterilecek marka sayısı
+    int itemsPerPage = 5; // Her sayfada gösterilecek araç kiralama ücreti sayısı
     int currentPage = ViewBag.CurrentPage ?? 1;
     int totalPages = ViewBag.TotalPages ?? 1;
-    int count = (currentPage - 1) * itemsPerPage; // Sayfa başına gösterilecek araç sayısı
+    int count = (currentPage - 1) * itemsPerPage; // Sayfa başına gösterilecek araç kiralama ücreti sayısı
 }
 
 <div class="page-content">
@@ -38,7 +38,7 @@
                                         @foreach (var item in Model)
                                         {
                                             count++;
-                                            <tr>
+                                            <tr id="car-@item.CarID">
                                                 <th scope="row">@count</th>
                                                 <td>@item.Brand</td>
                                                 <td>@item.Model</td>
@@ -53,7 +53,7 @@
                                     else
                                     {
                                         <tr>
-                                            <td colspan="4">No Car Price found!</td>
+                                            <td colspan="8">No Car Price found!</td>
                                         </tr>
                                     }
                                 </tbody>
@@ -81,4 +81,34 @@
     </div>
 </div>
 
+<style>
+    .highlight {
+        background-color: yellow; /* Vurgu rengi */
+        transition: background-color 0.5s ease; /* Geçiş efekti */
+    }
+</style>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const params = new URLSearchParams(window.location.search);
+        const page = params.get('page'); // Sayfa numarasını al
+        const hash = window.location.hash; // URL'deki hash
+
+        if (hash && hash.startsWith("#car-")) {
+            const carElement = document.querySelector(hash);
+
+            if (carElement) {
+                // Sayfayı yüklerken, ilgili arabaya kaydırma yap
+                carElement.scrollIntoView({ behavior: "smooth", block: "center" });
+
+                // Vurgulama için kısa süreliğine bir CSS sınıfı ekle
+                carElement.classList.add("highlight");
+
+                // Belirli bir süre sonra vurgulamayı kaldır
+                setTimeout(() => {
+                    carElement.classList.remove("highlight");
+                }, 3000); // 3 saniye sonra vurguyu kaldır
+            }
+        }
+    });
+</script>
