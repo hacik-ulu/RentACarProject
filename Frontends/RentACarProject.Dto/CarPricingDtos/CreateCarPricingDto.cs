@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RentACarProject.Dto.CarPricingDtos
 {
     public class CreateCarPricingDto
     {
-        [Required(ErrorMessage = ("Car Model is required."))]
+        [Required(ErrorMessage = "Car Model is required.")]
         public int? CarID { get; set; }
 
-        [Required(ErrorMessage = ("Pricing Type is required."))]
-        public int? PricingID { get; set; }
+        [Required(ErrorMessage = "At least one pricing ID is required.")]
+        public List<int?> PricingIDs { get; set; } = new List<int?>();  // Burayı güncelledik.
 
-        [Required(ErrorMessage = ("Amount is required."))]
-        [Range(0, 50000, ErrorMessage = "Amount must be between 0 and 50,000.")]
-        public decimal? Amount { get; set; }
+        [Required(ErrorMessage = "At least one amount is required.")]
+        [MinLength(3, ErrorMessage = "You must provide amounts for Daily, Weekly, and Monthly.")]
+        [MaxLength(3, ErrorMessage = "You can enter a maximum of 3 amounts.")]
+        public List<decimal?> Amounts { get; set; } = new List<decimal?>();
     }
 }

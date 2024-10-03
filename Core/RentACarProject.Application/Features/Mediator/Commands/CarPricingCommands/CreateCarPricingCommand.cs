@@ -2,26 +2,21 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RentACarProject.Application.Features.Mediator.Commands.CarPricingCommands
 {
     public class CreateCarPricingCommand : IRequest
     {
-        [Required(ErrorMessage = "CarPricingID is required.")]
-        public int CarPricingID { get; set; }
-
         [Required(ErrorMessage = "CarID is required.")]
         public int CarID { get; set; }
 
-        [Required(ErrorMessage = "PricingID is required.")]
-        public int PricingID { get; set; }
+        [Required(ErrorMessage = "At least one PricingID is required.")]
+        [MinLength(1, ErrorMessage = "At least one PricingID is required.")]
+        public List<int> PricingIDs { get; set; } = new List<int>(); // Birden fazla pricing ID'si
 
-        [Required(ErrorMessage = "Amount is required.")]
-        [Range(0, 50000, ErrorMessage = "Amount must be between 0 and 50,000.")]
-        public decimal Amount { get; set; }
-
+        [Required(ErrorMessage = "At least one amount is required.")]
+        [MinLength(3, ErrorMessage = "You must provide amounts for Daily, Weekly, and Monthly.")]
+        [MaxLength(3, ErrorMessage = "You can enter a maximum of 3 amounts.")]
+        public List<decimal> Amounts { get; set; } = new List<decimal>();
     }
 }

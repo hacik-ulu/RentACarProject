@@ -1,12 +1,8 @@
 ﻿using MediatR;
 using RentACarProject.Application.Features.Mediator.Commands.CarPricingCommands;
-using RentACarProject.Application.Features.Mediator.Commands.FeatureCommands;
 using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RentACarProject.Application.Features.Mediator.Handlers.CarPricingHandlers.WriteOperations
@@ -14,18 +10,28 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.CarPricingHandl
     public class CreateCarPricingHandler : IRequestHandler<CreateCarPricingCommand>
     {
         private readonly IRepository<CarPricing> _repository;
+
         public CreateCarPricingHandler(IRepository<CarPricing> repository)
         {
             _repository = repository;
         }
+
         public async Task Handle(CreateCarPricingCommand request, CancellationToken cancellationToken)
         {
-            await _repository.CreateAsync(new CarPricing
+            // PricingIDs ve Amounts listelerinin aynı uzunlukta olduğunu varsayıyoruz
+            for (int i = 0; i < request.PricingIDs.Count; i++)
             {
-                CarID = request.CarID,
-                PricingID = request.PricingID,
-                Amount = request.Amount
-            });
+                var carPricing = new CarPricing
+                {
+                    CarID = request.CarID,
+                    PricingID = request.PricingIDs[i], // Her bir PricingID'yi alıyoruz
+                    Amount = request.Amounts[i] // Her bir bedeli ayrı ayrı ekliyoruz
+                };
+
+                await _repository.CreateAsync(carPricing); // Veritabanına ekliyoruz
+            }
+
+            // Burada herhangi bir dönüş değeri yok
         }
     }
 }

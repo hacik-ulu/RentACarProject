@@ -1,10 +1,8 @@
 ﻿@model RentACarProject.Dto.CarPricingDtos.CreateCarPricingDto
-
 @{
     ViewData["Title"] = "Create Car Pricing";
     Layout = "~/Views/AdminLayout/Index.cshtml";
 }
-
 <div class="page-content">
     <div class="container-fluid">
         <div class="row">
@@ -20,24 +18,44 @@
                                 <select asp-for="CarID" asp-items="ViewBag.CarValues" class="form-control" id="carModel">
                                     <option value="">Select Car Model</option>
                                 </select>
-                                <span asp-validation-for="CarID" class="text-danger"></span> <!-- Doğrulama mesajı -->
+                                <span asp-validation-for="CarID" class="text-danger"></span>
                             </div>
 
-                            <!-- Kiralama Türü Seçimi -->
-                            <div class="form-group">
-                                <label asp-for="PricingID" class="form-label">Pricing Type</label>
-                                <select asp-for="PricingID" asp-items="ViewBag.PricingValues" class="form-control" id="pricingType">
-                                    <option value="">Select Pricing Type</option>
-                                </select>
-                                <span asp-validation-for="PricingID" class="text-danger"></span> <!-- Doğrulama mesajı -->
-                            </div>
+                            <!-- Pricing IDs Hidden Inputs -->
+                            <input type="hidden" name="PricingIDs" value="1" />
+                            <input type="hidden" name="PricingIDs" value="3" />
+                            <input type="hidden" name="PricingIDs" value="4" />
 
-                            <!-- Kiralama Bedeli -->
+                            <!-- Kiralama Bedeli Girişi -->
                             <div class="form-group">
-                                <label asp-for="Amount" class="form-label">Amount</label>
-                                <input type="text" class="form-control" asp-for="Amount" id="amount" name="Amount"
-                                       oninput="this.value = this.value.replace(/[^0-9.]/g, '');" /> <!-- Sadece sayısal giriş için RegEx -->
-                                <span asp-validation-for="Amount" class="text-danger"></span> <!-- Doğrulama mesajı -->
+                                <label class="form-label">Pricing Amounts</label>
+
+                                <div class="amount-entry mb-3">
+                                    <label class="form-label">Daily</label>
+                                    <input type="text" class="form-control mb-2" asp-for="Amounts[0]"
+                                           id="amount_daily"
+                                           oninput="this.value = this.value.replace(/[^0-9.]/g, '');"
+                                           placeholder="Enter daily amount" required />
+                                    <span asp-validation-for="Amounts[0]" class="text-danger"></span>
+                                </div>
+
+                                <div class="amount-entry mb-3">
+                                    <label class="form-label">Weekly</label>
+                                    <input type="text" class="form-control mb-2" asp-for="Amounts[1]"
+                                           id="amount_weekly"
+                                           oninput="this.value = this.value.replace(/[^0-9.]/g, '');"
+                                           placeholder="Enter weekly amount" required />
+                                    <span asp-validation-for="Amounts[1]" class="text-danger"></span>
+                                </div>
+
+                                <div class="amount-entry mb-3">
+                                    <label class="form-label">Monthly</label>
+                                    <input type="text" class="form-control mb-2" asp-for="Amounts[2]"
+                                           id="amount_monthly"
+                                           oninput="this.value = this.value.replace(/[^0-9.]/g, '');"
+                                           placeholder="Enter monthly amount" required />
+                                    <span asp-validation-for="Amounts[2]" class="text-danger"></span>
+                                </div>
                             </div>
 
                             <button type="submit" class="btn btn-primary waves-effect waves-light">Create Amount</button>

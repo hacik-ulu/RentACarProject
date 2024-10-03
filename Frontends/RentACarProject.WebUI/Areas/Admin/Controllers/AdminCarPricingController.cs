@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
+using RentACarProject.Dto.CarDtos;
 using RentACarProject.Dto.CarPricingDtos;
 using RentACarProject.Dto.PricingDtos;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using RentACarProject.Dto.CarDtos;
-using Microsoft.Data.SqlClient; // SelectListItem için gerekli
 
 namespace RentACarProject.WebUI.Areas.Admin.Controllers
 {
@@ -236,6 +235,7 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
             // Hata durumu
             return View(createCarPricingDto); // Hata durumunda formu tekrar göster
         }
+
 
         [Route("RemoveCarPricing/{id}")]
         public async Task<IActionResult> RemoveCarPricing(int id)
