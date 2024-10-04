@@ -22,7 +22,7 @@
                                 <select asp-for="CarID" asp-items="ViewBag.CarValues" class="form-control" id="carModel" disabled>
                                     <option value="">Select Car Model</option>
                                 </select>
-                                <span asp-validation-for="CarID" class="text-danger"></span> <!-- Doğrulama mesajı -->
+                                <span asp-validation-for="CarID" class="text-danger"></span>
                             </div>
 
                             <!-- Pricing Type ve Amount Alanları -->
@@ -34,15 +34,15 @@
                                     <select asp-for="PricingAmounts[i].PricingID" asp-items="ViewBag.PricingValues" class="form-control" disabled>
                                         <option value="">Select Pricing Type</option>
                                     </select>
-                                    <input type="hidden" asp-for="PricingAmounts[i].PricingID" /> <!-- Gizli alan ekleyin -->
-                                    <span asp-validation-for="PricingAmounts[i].PricingID" class="text-danger"></span> <!-- Doğrulama mesajı -->
+                                    <input type="hidden" asp-for="PricingAmounts[i].PricingID" /> 
+                                    <span asp-validation-for="PricingAmounts[i].PricingID" class="text-danger"></span> 
                                 </div>
 
                                 <div class="form-group">
                                     <label asp-for="PricingAmounts[i].Amount" class="form-label">Amount</label>
                                     <input type="text" class="form-control" asp-for="PricingAmounts[i].Amount"
-                                           oninput="this.value = this.value.replace(/[^0-9.]/g, '');" /> <!-- Sadece sayısal giriş için RegEx -->
-                                    <span asp-validation-for="PricingAmounts[i].Amount" class="text-danger"></span> <!-- Doğrulama mesajı -->
+                                           oninput="this.value = this.value.replace(/[^0-9.]/g, '');" /> 
+                                    <span asp-validation-for="PricingAmounts[i].Amount" class="text-danger"></span> 
                                 </div>
                             }
 
