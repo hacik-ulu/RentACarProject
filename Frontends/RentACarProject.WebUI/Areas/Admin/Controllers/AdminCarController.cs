@@ -121,7 +121,6 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
         }
 
 
-
         [Route("RemoveCar/{id}")]
         public async Task<IActionResult> RemoveCar(int id)
         {

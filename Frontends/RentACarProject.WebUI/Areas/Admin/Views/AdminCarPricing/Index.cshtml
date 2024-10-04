@@ -4,10 +4,10 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
-    int itemsPerPage = 5; // Her sayfada gösterilecek araç kiralama ücreti sayısı
+    int itemsPerPage = 5; 
     int currentPage = ViewBag.CurrentPage ?? 1;
     int totalPages = ViewBag.TotalPages ?? 1;
-    int count = (currentPage - 1) * itemsPerPage; // Sayfa başına gösterilecek araç kiralama ücreti sayısı
+    int count = (currentPage - 1) * itemsPerPage; 
 }
 
 <div class="page-content">
