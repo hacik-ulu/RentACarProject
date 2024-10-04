@@ -30,6 +30,7 @@
                                         <th>Daily Price</th>
                                         <th>Weekly Price</th>
                                         <th>Monthly Price</th>
+                                        <th>Update</th>
                                         <th>Remove</th>
                                     </tr>
                                 </thead>
@@ -46,6 +47,7 @@
                                                 <td>@item.DailyAmount</td>
                                                 <td>@item.WeeklyAmount</td>
                                                 <td>@item.MonthlyAmount</td>
+                                                <td><a href="/Admin/AdminCarPricing/UpdateCarPricing/@item.CarID" class="btn btn-outline-success">Update</a></td>
                                                 <td><a href="/Admin/AdminCarPricing/RemoveCarPricing/@ViewBag.CarPricingID" class="btn btn-outline-danger">Remove</a></td>
                                             </tr>
                                         }

@@ -2,9 +2,12 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
+using RentACarProject.Application.Interfaces.GeneralInterfaces;
+using RentACarProject.Domain.Entities;
 using RentACarProject.Dto.CarDtos;
 using RentACarProject.Dto.CarPricingDtos;
 using RentACarProject.Dto.PricingDtos;
+using RentACarProject.Persistence.Repositories.CarPricingRepositories;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
@@ -243,16 +246,13 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
         [Route("CreateCarPricing")]
         public async Task<IActionResult> CreateCarPricing(CreateCarPricingDto createCarPricingDto)
         {
-            if (!ModelState.IsValid) // Model doğrulama
+            if (!ModelState.IsValid) 
             {
-                // Hatalı durumda dropdown'ları tekrar yükle
-                await LoadDropdowns(); // Bu methodu ekleyelim
+                await LoadDropdowns(); 
 
-                // Model doğrulama hatası durumunda aynı view ile geri dön
-                return View(createCarPricingDto); // Hata durumunda formu tekrar göster
+                return View(createCarPricingDto); 
             }
 
-            // İşlem başarılıysa veriyi kaydet
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createCarPricingDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
@@ -264,13 +264,123 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            // Hata durumu: veriyi kaydedemediysek dropdown'ları tekrar yükle ve formu göster
-            await LoadDropdowns(); // Dropdown'lar tekrar yüklensin
-            return View(createCarPricingDto); // Hata durumunda formu tekrar göster
+            await LoadDropdowns(); 
+            return View(createCarPricingDto);
         }
 
 
 
+        [HttpGet]
+        [Route("UpdateCarPricing/{carId}")]
+        public async Task<IActionResult> UpdateCarPricing(int carId)
+        {
+            var client = _httpClientFactory.CreateClient();
+
+            // Pricing verilerini alma
+            var pricingResponse = await client.GetAsync("https://localhost:7262/api/Pricings");
+            if (!pricingResponse.IsSuccessStatusCode)
+            {
+                return BadRequest("Failed to retrieve pricing data.");
+            }
+
+            var pricingJsonData = await pricingResponse.Content.ReadAsStringAsync();
+            var pricingValues = JsonConvert.DeserializeObject<List<ResultPricingDto>>(pricingJsonData);
+            List<SelectListItem> pricingSelectList = pricingValues.Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.PricingID.ToString()
+            }).ToList();
+
+            ViewBag.PricingValues = pricingSelectList;
+
+            // Araç modellerini alma
+            var carResponse = await client.GetAsync("https://localhost:7262/api/Cars");
+            if (!carResponse.IsSuccessStatusCode)
+            {
+                return BadRequest("Failed to retrieve car data.");
+            }
+
+            var carJsonData = await carResponse.Content.ReadAsStringAsync();
+            var carValues = JsonConvert.DeserializeObject<List<ResultCarWithBrandsDto>>(carJsonData);
+            List<SelectListItem> carSelectList = carValues.Select(x => new SelectListItem
+            {
+                Text = $"{x.Model} - {x.Year}", // Model ve Yılı birleştirerek göster
+                Value = x.CarID.ToString()  // CarID
+            }).ToList();
+
+            ViewBag.CarValues = carSelectList; // Araç modellerini ViewBag'e ekleyelim
+
+            // Veritabanı bağlantısı için connectionString
+            var connectionString = "Server=HACIKULU\\SQLEXPRESS;initial Catalog=RentACarDb;integrated security=true;Encrypt=True;TrustServerCertificate=True;"; // Burada kendi bilgilerinizi girin
+
+            // Belirli CarID'ye ait CarPricings verilerini alma
+            List<CarPricing> carPricings = new List<CarPricing>();
+            using (var connection = new SqlConnection(connectionString))
+            {
+                await connection.OpenAsync(); // Asenkron bağlantı açma
+
+                // SQL sorgusu
+                string query = "SELECT PricingID, Amount FROM CarPricings WHERE CarID = @CarID";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@CarID", carId);
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            var carPricing = new CarPricing
+                            {
+                                PricingID = reader.GetInt32(reader.GetOrdinal("PricingID")),
+                                Amount = reader.GetDecimal(reader.GetOrdinal("Amount"))
+                            };
+                            carPricings.Add(carPricing);
+                        }
+                    }
+                }
+            }
+
+            // CarID ve Amountları içeren model oluşturma
+            var updateDto = new UpdateCarPricingDto
+            {
+                CarID = carId,
+                PricingAmounts = carPricings.Select(x => new PricingAmountDto
+                {
+                    PricingID = x.PricingID,
+                    Amount = x.Amount
+                }).ToList()
+            };
+
+            return View(updateDto);
+        }
+
+
+
+        [HttpPost]
+        [Route("UpdateCarPricing/{id}")]
+        public async Task<IActionResult> UpdateCarPricing(UpdateCarPricingDto updateCarPricingDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                await LoadDropdowns();
+                return View(updateCarPricingDto);
+            }
+
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(updateCarPricingDto);
+            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+            var responseMessage = await client.PutAsync("https://localhost:7262/api/CarPricings", stringContent);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+
+            await LoadDropdowns();
+            return View(updateCarPricingDto);
+        }
 
 
 
@@ -285,8 +395,6 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
             }
             return View();
         }
-
-
 
         private async Task LoadDropdowns()
         {

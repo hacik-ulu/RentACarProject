@@ -46,6 +46,23 @@ namespace RentACarProject.WebApi.Controllers
             return Ok("Car Pricing Deleted!");
         }
 
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateCarPricing(UpdateCarPricingCommand command)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _mediator.Send(command);
+                return Ok("Car Pricing Updated!");
+            }
+
+        }
+
+
         [HttpGet("GetCarPricingWithTimePeriodList")]
         public async Task<IActionResult> GetCarPricingWithTimePeriodList()
         {

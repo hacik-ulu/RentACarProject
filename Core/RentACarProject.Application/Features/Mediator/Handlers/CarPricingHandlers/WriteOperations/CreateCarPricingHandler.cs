@@ -18,20 +18,18 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.CarPricingHandl
 
         public async Task Handle(CreateCarPricingCommand request, CancellationToken cancellationToken)
         {
-            // PricingIDs ve Amounts listelerinin aynı uzunlukta olduğunu varsayıyoruz
             for (int i = 0; i < request.PricingIDs.Count; i++)
             {
                 var carPricing = new CarPricing
                 {
                     CarID = request.CarID,
-                    PricingID = request.PricingIDs[i], // Her bir PricingID'yi alıyoruz
-                    Amount = request.Amounts[i] // Her bir bedeli ayrı ayrı ekliyoruz
+                    PricingID = request.PricingIDs[i], 
+                    Amount = request.Amounts[i] 
                 };
 
-                await _repository.CreateAsync(carPricing); // Veritabanına ekliyoruz
+                await _repository.CreateAsync(carPricing); 
             }
 
-            // Burada herhangi bir dönüş değeri yok
         }
     }
 }

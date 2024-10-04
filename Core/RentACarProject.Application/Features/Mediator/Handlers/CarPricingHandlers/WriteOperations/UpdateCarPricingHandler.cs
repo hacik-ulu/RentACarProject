@@ -1,12 +1,10 @@
 ﻿using MediatR;
-using RentACarProject.Application.Features.Mediator.Commands.BlogCommands;
 using RentACarProject.Application.Features.Mediator.Commands.CarPricingCommands;
 using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Domain.Entities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RentACarProject.Application.Features.Mediator.Handlers.CarPricingHandlers.WriteOperations
@@ -19,13 +17,31 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.CarPricingHandl
         {
             _repository = repository;
         }
+
         public async Task Handle(UpdateCarPricingCommand request, CancellationToken cancellationToken)
         {
-            var values = await _repository.GetByIdAsync(request.CarPricingID);
-            values.Amount = request.Amount;
-            values.CarID = request.CarID;
-            values.PricingID = request.PricingID;
-            await _repository.UpdateAsync(values);
+            // Belirtilen CarID için mevcut Pricing kayıtlarını al
+            var currentPricingList = await _repository.GetAllAsync(); // Tüm kayıtları alıyoruz
+            var carPricingList = currentPricingList
+                .Where(cp => cp.CarID == request.CarID) // Sadece belirli CarID'lere göre filtreleme
+                .ToList();
+
+            foreach (var pricingAmount in request.PricingAmounts)
+            {
+                var existingPricing = carPricingList.FirstOrDefault(cp => cp.PricingID == pricingAmount.PricingID); // Mevcut PricingID'yi bul
+
+                if (existingPricing != null)
+                {
+                    // Kayıtları güncelle
+                    existingPricing.Amount = pricingAmount.Amount; 
+
+                    await _repository.UpdateAsync(existingPricing); 
+                }
+                else
+                {
+                    throw new KeyNotFoundException($"PricingID {pricingAmount.PricingID} not found for CarID {request.CarID}.");
+                }
+            }
         }
     }
 }

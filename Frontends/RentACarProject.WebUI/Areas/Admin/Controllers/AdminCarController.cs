@@ -46,11 +46,11 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                         var values = JsonConvert.DeserializeObject<List<ResultCarWithBrandsDto>>(jsonData);
 
                         // Pagination settings
-                        int pageSize = 5; 
-                        int totalRecords = values.Count; 
-                        int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize); 
+                        int pageSize = 5;
+                        int totalRecords = values.Count;
+                        int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
 
-                        var paginatedItems = values.Skip((page - 1) * pageSize).Take(pageSize).ToList(); 
+                        var paginatedItems = values.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
                         ViewBag.CurrentPage = page;
                         ViewBag.TotalPages = totalPages;
@@ -64,7 +64,7 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                 }
             }
 
-            return View(new List<ResultCarWithBrandsDto>()); 
+            return View(new List<ResultCarWithBrandsDto>());
         }
 
 
@@ -85,22 +85,6 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
             ViewBag.BrandValues = brandValues;
             return View();
         }
-
-        //[HttpPost]
-        //[Route("CreateCar")]
-        //public async Task<IActionResult> CreateCar(CreateCarDto createCarDto)
-        //{
-
-        //    var client = _httpClientFactory.CreateClient();
-        //    var jsonData = JsonConvert.SerializeObject(createCarDto);
-        //    StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-        //    var responseMessage = await client.PostAsync("https://localhost:7262/api/Cars", stringContent);
-        //    if (responseMessage.IsSuccessStatusCode)
-        //    {
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View();
-        //}
 
         [HttpPost]
         [Route("CreateCar")]
