@@ -177,6 +177,68 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
             return View();
         }
 
+
+        #region Eski Post/CreateCarPricing Metod
+        //[HttpPost]
+        //[Route("CreateCarPricing")]
+        //public async Task<IActionResult> CreateCarPricing(CreateCarPricingDto createCarPricingDto)
+        //{
+        //    if (!ModelState.IsValid) // Model doğrulama
+        //    {
+        //        // Hatalı durumda dropdown'ları tekrar yükle
+        //        var client1 = _httpClientFactory.CreateClient();
+
+        //        // Pricing verilerini alma
+        //        var pricingResponse = await client1.GetAsync("https://localhost:7262/api/Pricings");
+        //        if (pricingResponse.IsSuccessStatusCode)
+        //        {
+        //            var pricingJsonData = await pricingResponse.Content.ReadAsStringAsync();
+        //            var pricingValues = JsonConvert.DeserializeObject<List<ResultPricingDto>>(pricingJsonData);
+        //            List<SelectListItem> pricingSelectList = pricingValues.Select(x => new SelectListItem
+        //            {
+        //                Text = x.Name,
+        //                Value = x.PricingID.ToString()
+        //            }).ToList();
+
+        //            ViewBag.PricingValues = pricingSelectList;
+        //        }
+
+        //        // CarPricings verilerini alma
+        //        var carPricingResponse = await client1.GetAsync("https://localhost:7262/api/Cars/");
+        //        if (carPricingResponse.IsSuccessStatusCode)
+        //        {
+        //            var carPricingJsonData = await carPricingResponse.Content.ReadAsStringAsync();
+        //            var carPricingValues = JsonConvert.DeserializeObject<List<ResultCarWithBrandsDto>>(carPricingJsonData);
+
+        //            var carSelectList = carPricingValues.Select(x => new SelectListItem
+        //            {
+        //                Text = $"{x.Model} - {x.Year}",
+        //                Value = x.CarID.ToString()
+        //            }).ToList();
+
+        //            ViewBag.CarValues = carSelectList;
+        //        }
+
+        //        // Model doğrulama hatası durumunda aynı view ile geri dön
+        //        return View(createCarPricingDto); // Hata durumunda formu tekrar göster
+        //    }
+
+        //    var client = _httpClientFactory.CreateClient();
+        //    var jsonData = JsonConvert.SerializeObject(createCarPricingDto);
+        //    StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+        //    var responseMessage = await client.PostAsync("https://localhost:7262/api/CarPricings", stringContent);
+
+        //    if (responseMessage.IsSuccessStatusCode)
+        //    {
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    // Hata durumu
+        //    return View(createCarPricingDto); // Hata durumunda formu tekrar göster
+        //}
+        #endregion
+
         [HttpPost]
         [Route("CreateCarPricing")]
         public async Task<IActionResult> CreateCarPricing(CreateCarPricingDto createCarPricingDto)
@@ -184,43 +246,13 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
             if (!ModelState.IsValid) // Model doğrulama
             {
                 // Hatalı durumda dropdown'ları tekrar yükle
-                var client1 = _httpClientFactory.CreateClient();
-
-                // Pricing verilerini alma
-                var pricingResponse = await client1.GetAsync("https://localhost:7262/api/Pricings");
-                if (pricingResponse.IsSuccessStatusCode)
-                {
-                    var pricingJsonData = await pricingResponse.Content.ReadAsStringAsync();
-                    var pricingValues = JsonConvert.DeserializeObject<List<ResultPricingDto>>(pricingJsonData);
-                    List<SelectListItem> pricingSelectList = pricingValues.Select(x => new SelectListItem
-                    {
-                        Text = x.Name,
-                        Value = x.PricingID.ToString()
-                    }).ToList();
-
-                    ViewBag.PricingValues = pricingSelectList;
-                }
-
-                // CarPricings verilerini alma
-                var carPricingResponse = await client1.GetAsync("https://localhost:7262/api/Cars/");
-                if (carPricingResponse.IsSuccessStatusCode)
-                {
-                    var carPricingJsonData = await carPricingResponse.Content.ReadAsStringAsync();
-                    var carPricingValues = JsonConvert.DeserializeObject<List<ResultCarWithBrandsDto>>(carPricingJsonData);
-
-                    var carSelectList = carPricingValues.Select(x => new SelectListItem
-                    {
-                        Text = $"{x.Model} - {x.Year}",
-                        Value = x.CarID.ToString()
-                    }).ToList();
-
-                    ViewBag.CarValues = carSelectList;
-                }
+                await LoadDropdowns(); // Bu methodu ekleyelim
 
                 // Model doğrulama hatası durumunda aynı view ile geri dön
                 return View(createCarPricingDto); // Hata durumunda formu tekrar göster
             }
 
+            // İşlem başarılıysa veriyi kaydet
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createCarPricingDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
@@ -232,9 +264,14 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            // Hata durumu
+            // Hata durumu: veriyi kaydedemediysek dropdown'ları tekrar yükle ve formu göster
+            await LoadDropdowns(); // Dropdown'lar tekrar yüklensin
             return View(createCarPricingDto); // Hata durumunda formu tekrar göster
         }
+
+
+
+
 
 
         [Route("RemoveCarPricing/{id}")]
@@ -248,6 +285,46 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
             }
             return View();
         }
+
+
+
+        private async Task LoadDropdowns()
+        {
+            var client = _httpClientFactory.CreateClient();
+
+            // Pricing verilerini alma
+            var pricingResponse = await client.GetAsync("https://localhost:7262/api/Pricings");
+            if (pricingResponse.IsSuccessStatusCode)
+            {
+                var pricingJsonData = await pricingResponse.Content.ReadAsStringAsync();
+                var pricingValues = JsonConvert.DeserializeObject<List<ResultPricingDto>>(pricingJsonData);
+                List<SelectListItem> pricingSelectList = pricingValues.Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.PricingID.ToString()
+                }).ToList();
+
+                ViewBag.PricingValues = pricingSelectList;
+            }
+
+            // CarPricings verilerini alma
+            var carPricingResponse = await client.GetAsync("https://localhost:7262/api/Cars/");
+            if (carPricingResponse.IsSuccessStatusCode)
+            {
+                var carPricingJsonData = await carPricingResponse.Content.ReadAsStringAsync();
+                var carPricingValues = JsonConvert.DeserializeObject<List<ResultCarWithBrandsDto>>(carPricingJsonData);
+
+                var carSelectList = carPricingValues.Select(x => new SelectListItem
+                {
+                    Text = $"{x.Model} - {x.Year}",
+                    Value = x.CarID.ToString()
+                }).ToList();
+
+                ViewBag.CarValues = carSelectList;
+            }
+        }
+
+
 
 
 
