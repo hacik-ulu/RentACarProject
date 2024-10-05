@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
+using Org.BouncyCastle.Bcpg.Sig;
 using RentACarProject.Application.Features.Mediator.Commands.CarFeaturesCommands;
 using RentACarProject.Dto.BlogDtos;
 using RentACarProject.Dto.CarDtos;
@@ -78,37 +80,185 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
             return RedirectToAction("Index", "AdminCar");
         }
 
+        #region Eski
+        //[HttpGet]
+        //[Route("CreateFeatureByCarId/{carId}")]
+        //public async Task<IActionResult> CreateFeatureByCarId(int carId, int page = 1)
+        //{
+        //    var client = _httpClientFactory.CreateClient();
+        //    // Fetch all features from the API
+        //    var responseMessage = await client.GetAsync("https://localhost:7262/api/Features");
 
-        [HttpGet("CreateFeatureByCarId/{carId}")]
-        public async Task<IActionResult> CreateFeatureByCarId(int carId, int page = 1)
+        //    if (responseMessage.IsSuccessStatusCode)
+        //    {
+        //        var jsonData = await responseMessage.Content.ReadAsStringAsync();
+        //        var values = JsonConvert.DeserializeObject<List<ResultFeatureDto>>(jsonData);
+
+        //        // Filter features for the specific carId
+
+        //        // Pagination settings
+        //        int pageSize = 5;
+        //        int totalRecords = values.Count;
+        //        int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+
+        //        var paginatedItems = values.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+        //        ViewBag.CurrentPage = page;
+        //        ViewBag.TotalPages = totalPages;
+        //        ViewBag.CarID = carId;
+        //        return View(paginatedItems); // Pass the paginated and filtered features to the view
+        //    }
+
+        //    // Optionally handle errors or return an empty view
+        //    return View(new List<ResultFeatureDto>()); // Return an empty list if the call fails
+        //}
+
+        //[HttpPost]
+        //[Route("CreateFeatureByCarId/{carId}")]
+        //public async Task<IActionResult> CreateFeatureByCarId(List<CreateFeatureByCarIdDto> selectedFeatures, int carId)
+        //{
+        //    // Bu noktada carId düzgün bir şekilde alınıyor olmalı
+        //    var client = _httpClientFactory.CreateClient();
+
+        //    foreach (var feature in selectedFeatures)
+        //    {
+        //        var createFeatureDto = new CreateFeatureByCarIdDto
+        //        {
+        //            CarID = carId, // Burada carId'yi atıyoruz
+        //            FeatureID = feature.FeatureID,
+        //            Availability = feature.Availability // Eğer Availability kullanıyorsan
+        //        };
+
+        //        var jsonData = JsonConvert.SerializeObject(createFeatureDto);
+        //        StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+        //        var responseMessage = await client.PostAsync("https://localhost:7262/api/CarFeatures/CreateCarFeatureByCarID", stringContent);
+
+        //        if (!responseMessage.IsSuccessStatusCode)
+        //        {
+        //            var errorMessage = await responseMessage.Content.ReadAsStringAsync();
+        //            return BadRequest($"Failed to create car feature: {errorMessage}");
+        //        }
+        //    }
+
+        //    return RedirectToAction("Index", "AdminCar");
+        //}
+        #endregion
+
+        [HttpGet]
+        [Route("CreateFeatureByCarId/{carId}")]
+        public async Task<IActionResult> CreateFeatureByCarId(int carId)
         {
             var client = _httpClientFactory.CreateClient();
-            // Fetch all features from the API
             var responseMessage = await client.GetAsync("https://localhost:7262/api/Features");
 
+            List<ResultFeatureDto> allFeatures = new List<ResultFeatureDto>();
+            List<int> assignedFeatureIds = new List<int>();
+
+            // Tüm özellikleri al
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultFeatureDto>>(jsonData);
-
-                // Filter features for the specific carId
-
-                // Pagination settings
-                int pageSize = 5;
-                int totalRecords = values.Count;
-                int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
-
-                var paginatedItems = values.Skip((page - 1) * pageSize).Take(pageSize).ToList();
-
-                ViewBag.CurrentPage = page;
-                ViewBag.TotalPages = totalPages;
-                ViewBag.CarID = carId;
-                return View(paginatedItems); // Pass the paginated and filtered features to the view
+                allFeatures = JsonConvert.DeserializeObject<List<ResultFeatureDto>>(jsonData);
             }
 
-            // Optionally handle errors or return an empty view
-            return View(new List<ResultFeatureDto>()); // Return an empty list if the call fails
+            string connectionString = "Server=HACIKULU\\SQLEXPRESS;initial Catalog=RentACarDb;integrated security=true;Encrypt=True;TrustServerCertificate=True;"; // Veritabanı bağlantı string'iniz
+
+            try
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    // SQL sorgusu
+                    string sqlQuery = @"
+                SELECT cf.FeatureID
+                FROM CarFeatures cf
+                WHERE cf.CarID = @CarID";
+
+                    using (var command = new SqlCommand(sqlQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@CarID", carId);
+
+                        // Sorguyu çalıştırıyoruz
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                assignedFeatureIds.Add(reader.GetInt32(0));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+
+            // Availability = 0 olanları ve henüz atanmadıkları özellikleri filtrele
+            var filteredFeatures = allFeatures
+                .Where(feature => !assignedFeatureIds.Contains(feature.FeatureID)) // Henüz atanmadığı özellikler
+                .ToList();
+
+            ViewBag.CarID = carId;
+
+            return View(filteredFeatures);
         }
+
+
+
+        [HttpPost]
+        [Route("CreateFeatureByCarId/{carId}")]
+        public async Task<IActionResult> CreateFeatureByCarId(int carId, List<int> selectedFeatureIds)
+        {
+            if (selectedFeatureIds == null || !selectedFeatureIds.Any())
+            {
+                return BadRequest("No features selected.");
+            }
+
+            var client = _httpClientFactory.CreateClient();
+
+            // DTO'yu oluştur
+            var createFeatureDto = new CreateFeatureByCarIdDto
+            {
+                CarID = carId,
+                FeatureIDs = selectedFeatureIds  // Seçilen FeatureID'leri liste olarak ata
+            };
+
+            var jsonContent = JsonConvert.SerializeObject(createFeatureDto);
+            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            // API'yi çağırıyoruz
+            var response = await client.PostAsync("https://localhost:7262/api/CarFeatures/CreateCarFeatureByCarID", content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                // Hata mesajını içeriğinden okuyalım
+                var errorMessage = await response.Content.ReadAsStringAsync();
+
+                // Yanıtın durum kodunu ve içeriğini loglayalım
+                Console.WriteLine($"Response Status Code: {response.StatusCode}");
+                Console.WriteLine($"Response Content: {errorMessage}");
+
+                return StatusCode((int)response.StatusCode, $"Failed to create feature for the car. Error: {errorMessage}");
+            }
+
+
+
+            return RedirectToAction("Index","AdminCar");
+        }
+
+
+
+
+
+
+
+
+
+
+
 
 
     }

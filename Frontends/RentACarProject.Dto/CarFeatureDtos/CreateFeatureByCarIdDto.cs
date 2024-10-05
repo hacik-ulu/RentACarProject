@@ -8,8 +8,7 @@ namespace RentACarProject.Dto.CarFeatureDtos
 {
     public class CreateFeatureByCarIdDto
     {
-        public int CarID { get; set; }       
-        public int FeatureID { get; set; }   
-        public bool Availability { get; set; } 
+        public int CarID { get; set; }
+        public List<int> FeatureIDs { get; set; }
     }
 }

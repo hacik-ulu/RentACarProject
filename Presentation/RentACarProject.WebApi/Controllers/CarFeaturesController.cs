@@ -38,7 +38,7 @@ namespace RentACarProject.WebApi.Controllers
             return Ok("Güncelleme Yapıldı");
         }
 
-        [HttpPost]
+        [HttpPost("CreateCarFeatureByCarID")]
         public async Task<IActionResult> CreateCarFeatureByCarID(CreateCarFeatureByCarCommand command)
         {
             await _mediator.Send(command);

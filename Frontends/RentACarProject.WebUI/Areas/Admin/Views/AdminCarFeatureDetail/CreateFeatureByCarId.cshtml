@@ -3,9 +3,7 @@
 @{
     ViewData["Title"] = "CreateFeatureByCarId";
     Layout = "~/Views/AdminLayout/Index.cshtml";
-    var currentPage = ViewBag.CurrentPage;
-    var totalPages = ViewBag.TotalPages;
-    var carId = ViewBag.CarID; // You can keep this if you need to use carId.
+    var carId = ViewBag.CarID;
 }
 
 <div class="page-content">
@@ -14,51 +12,24 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Add Features for the Vehicle</h4>
+                        <h4 class="card-title">Add Features to Car Page</h4>
                         <p class="card-subtitle mb-4">
-                            This page is for defining features related to the vehicle.
+                            This is the page where features will be assigned to a car.
                         </p>
-                        <form method="post" action="@Url.Action("AssignFeatures", "AdminCarFeatureDetail")">
+                        <form method="post">
                             @for (int i = 0; i < Model.Count; i++)
                             {
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="selectedFeatures" value="@Model[i].FeatureID" />
+                                    <input type="hidden" name="CarID" value="@carId" />
+                                    <input type="checkbox" class="form-check-input"
+                                           name="selectedFeatureIds"
+                                           value="@Model[i].FeatureID" /> <!-- Value değerini ekleyin -->
                                     <label class="form-check-label">@Model[i].Name</label>
                                 </div>
                             }
                             <br />
-                            <button class="btn btn-primary">Assign Features to Vehicle</button>
+                            <button class="btn btn-primary">Assign Features to Car</button>
                         </form>
-
-                        <!-- Pagination -->
-                        <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">
-                            <ul class="pagination">
-                                @if (currentPage > 1)
-                                {
-                                    <li class="page-item">
-                                        <a class="page-link" href="@Url.Action("CreateFeatureByCarId", new { carId = carId, page = currentPage - 1 })" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                }
-
-                                @for (var i = 1; i <= totalPages; i++)
-                                {
-                                    <li class="page-item @(i == currentPage ? "active" : "")">
-                                        <a class="page-link" href="@Url.Action("CreateFeatureByCarId", new { carId = carId, page = i })">@i</a>
-                                    </li>
-                                }
-
-                                @if (currentPage < totalPages)
-                                {
-                                    <li class="page-item">
-                                        <a class="page-link" href="@Url.Action("CreateFeatureByCarId", new { carId = carId, page = currentPage + 1 })" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                }
-                            </ul>
-                        </nav>
                     </div>
                 </div>
             </div>
