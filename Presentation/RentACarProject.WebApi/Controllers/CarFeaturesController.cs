@@ -27,21 +27,21 @@ namespace RentACarProject.WebApi.Controllers
         [HttpGet("CarFeatureChangeAvailableToFalse")]
         public async Task<IActionResult> CarFeatureChangeAvailableToFalse(int id)
         {
-            _mediator.Send(new UpdateCarFeatureAvailabilityChangeToFalseCommand(id));
+            await _mediator.Send(new UpdateCarFeatureAvailabilityChangeToFalseCommand(id));
             return Ok("Güncelleme Yapıldı");
         }
 
         [HttpGet("CarFeatureChangeAvailableToTrue")]
         public async Task<IActionResult> CarFeatureChangeAvailableToTrue(int id)
         {
-            _mediator.Send(new UpdateCarFeatureAvailabilityChangeToTrueCommand(id));
+            await _mediator.Send(new UpdateCarFeatureAvailabilityChangeToTrueCommand(id));
             return Ok("Güncelleme Yapıldı");
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateCarFeatureByCarID(CreateCarFeatureByCarCommand command)
         {
-            _mediator.Send(command);
+            await _mediator.Send(command);
             return Ok("Created Successfully");
         }
 

@@ -31,6 +31,7 @@
                                         <th>Delete</th>
                                         <th>Update</th>
                                         <th>Details</th>
+                                        <th>Assign Feature</th>
                                         <th>See in Website</th>
                                         <th>Pricing Informations</th>
                                     </tr>
@@ -51,6 +52,7 @@
                                                 <td><a href="/Admin/AdminCar/RemoveCar/@item.CarID" class="btn btn-outline-danger">Remove</a></td>
                                                 <td><a href="/Admin/AdminCar/UpdateCar/@item.CarID" class="btn btn-outline-success">Update</a></td>
                                                 <td><a href="/Admin/AdminCarFeatureDetail/Index/@item.CarID" class="btn btn-outline-dark">Edit Car Features</a></td>
+                                                <td><a href="/Admin/AdminCarFeatureDetail/CreateFeatureByCarID/@item.CarID" class="btn btn-outline-info">Assing Feature</a></td>
                                                 <td><a href="/Car/CarDetail/@item.CarID" class="btn btn-outline-warning" target="_blank">See in Website</a></td>
                                                 <td>
                                                     <a href="/Admin/AdminCarPricing/Index?page=@currentPage#car-@item.CarID" class="btn btn-outline-secondary" target="_blank">Pricing Informations</a>
