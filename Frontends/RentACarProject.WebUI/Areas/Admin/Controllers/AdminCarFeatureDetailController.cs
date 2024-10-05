@@ -80,73 +80,8 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
             return RedirectToAction("Index", "AdminCar");
         }
 
-        #region Eski
-        //[HttpGet]
-        //[Route("CreateFeatureByCarId/{carId}")]
-        //public async Task<IActionResult> CreateFeatureByCarId(int carId, int page = 1)
-        //{
-        //    var client = _httpClientFactory.CreateClient();
-        //    // Fetch all features from the API
-        //    var responseMessage = await client.GetAsync("https://localhost:7262/api/Features");
-
-        //    if (responseMessage.IsSuccessStatusCode)
-        //    {
-        //        var jsonData = await responseMessage.Content.ReadAsStringAsync();
-        //        var values = JsonConvert.DeserializeObject<List<ResultFeatureDto>>(jsonData);
-
-        //        // Filter features for the specific carId
-
-        //        // Pagination settings
-        //        int pageSize = 5;
-        //        int totalRecords = values.Count;
-        //        int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
-
-        //        var paginatedItems = values.Skip((page - 1) * pageSize).Take(pageSize).ToList();
-
-        //        ViewBag.CurrentPage = page;
-        //        ViewBag.TotalPages = totalPages;
-        //        ViewBag.CarID = carId;
-        //        return View(paginatedItems); // Pass the paginated and filtered features to the view
-        //    }
-
-        //    // Optionally handle errors or return an empty view
-        //    return View(new List<ResultFeatureDto>()); // Return an empty list if the call fails
-        //}
-
-        //[HttpPost]
-        //[Route("CreateFeatureByCarId/{carId}")]
-        //public async Task<IActionResult> CreateFeatureByCarId(List<CreateFeatureByCarIdDto> selectedFeatures, int carId)
-        //{
-        //    // Bu noktada carId düzgün bir şekilde alınıyor olmalı
-        //    var client = _httpClientFactory.CreateClient();
-
-        //    foreach (var feature in selectedFeatures)
-        //    {
-        //        var createFeatureDto = new CreateFeatureByCarIdDto
-        //        {
-        //            CarID = carId, // Burada carId'yi atıyoruz
-        //            FeatureID = feature.FeatureID,
-        //            Availability = feature.Availability // Eğer Availability kullanıyorsan
-        //        };
-
-        //        var jsonData = JsonConvert.SerializeObject(createFeatureDto);
-        //        StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-
-        //        var responseMessage = await client.PostAsync("https://localhost:7262/api/CarFeatures/CreateCarFeatureByCarID", stringContent);
-
-        //        if (!responseMessage.IsSuccessStatusCode)
-        //        {
-        //            var errorMessage = await responseMessage.Content.ReadAsStringAsync();
-        //            return BadRequest($"Failed to create car feature: {errorMessage}");
-        //        }
-        //    }
-
-        //    return RedirectToAction("Index", "AdminCar");
-        //}
-        #endregion
-
         [HttpGet]
-        [Route("CreateFeatureByCarId/{carId}")]
+        [Route("CreateFeatureByCarId/{carId}")] // Daha önceden hiç kaydı bulunmayan ve Availability özelliği 0 olanları getiriyor.
         public async Task<IActionResult> CreateFeatureByCarId(int carId)
         {
             var client = _httpClientFactory.CreateClient();
@@ -207,7 +142,6 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
         }
 
 
-
         [HttpPost]
         [Route("CreateFeatureByCarId/{carId}")]
         public async Task<IActionResult> CreateFeatureByCarId(int carId, List<int> selectedFeatureIds)
@@ -246,7 +180,7 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
 
 
 
-            return RedirectToAction("Index","AdminCar");
+            return RedirectToAction("Index", "AdminCar");
         }
 
 
