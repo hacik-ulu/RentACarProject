@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RentACarProject.Application.Features.Mediator.Commands.CarDescriptionCommands;
 using RentACarProject.Application.Features.Mediator.Queries.CarDescriptionQueries;
 
 namespace RentACarProject.WebApi.Controllers
@@ -29,5 +30,45 @@ namespace RentACarProject.WebApi.Controllers
             var values = await _mediator.Send(new GetCarDescriptionByCarIDQuery(id));
             return Ok(values);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCarDescription(CreateCarDescriptionCommand command)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+
+            }
+            else
+            {
+                await _mediator.Send(command);
+                return Ok("Car Description is created!");
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> RemoveCarDescription(int id)
+        {
+            await _mediator.Send(new RemoveCarDescriptionCommand(id));
+            return Ok("Car Description is deleted!");
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateCarDescription(UpdateCarDescriptionCommand command)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+
+            }
+            else
+            {
+                await _mediator.Send(command);
+                return Ok("Car Description is updated!");
+            }
+        }
+
+
+
     }
 }
