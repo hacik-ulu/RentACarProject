@@ -19,6 +19,13 @@ namespace RentACarProject.Persistence.Repositories.CarDescriptionRepositories
             _context = context;
         }
 
+        public async Task<List<CarDescription>> GetAllCarDescriptionAsync()
+        {
+            var values = await _context.CarDescriptions.ToListAsync();
+            return values;
+        }
+
+
         public async Task<CarDescription> GetCarDescriptionAsync(int carID)
         {
             var values = await _context.CarDescriptions.Where(x => x.CarID == carID).FirstOrDefaultAsync();
