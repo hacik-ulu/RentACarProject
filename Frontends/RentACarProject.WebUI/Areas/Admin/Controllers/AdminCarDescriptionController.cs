@@ -95,7 +95,7 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
         [Route("CreateCarDescription")]
         public IActionResult CreateCarDescription()
         {
-            ViewBag.Cars = GetCarList(); 
+            ViewBag.Cars = GetCarList();
             return View();
         }
 
@@ -122,6 +122,58 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
 
             return View(createCarDescriptionDto);
         }
+
+        [HttpGet]
+        [Route("UpdateCarDescription/{id}")]
+        public async Task<IActionResult> UpdateCarDescription(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+
+            var responseMessage = await client.GetAsync("https://localhost:7262/api/CarDescriptions/GetCarDescriptionsByCarID?id=" + id);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<UpdateCarDescriptionDto>(jsonData);
+                return View(values);
+            }
+            return View();
+        }
+
+        [HttpPost]
+        [Route("UpdateCarDescription/{id}")]
+        public async Task<IActionResult> UpdateCarDescription(UpdateCarDescriptionDto updateCarDescriptionDto)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(updateCarDescriptionDto);
+            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMessage = await client.PutAsync("https://localhost:7262/api/CarDescriptions/", stringContent);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index", "AdminCarDescription");
+            }
+            return View();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private List<SelectListItem> GetCarList()
         {

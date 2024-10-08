@@ -67,7 +67,6 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
             return View(new List<ResultCarWithBrandsDto>());
         }
 
-
         [HttpGet]
         [Route("CreateCar")]
         public async Task<IActionResult> CreateCar()

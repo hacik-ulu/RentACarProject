@@ -16,6 +16,5 @@ namespace RentACarProject.Application.Features.Mediator.Queries.CarDescriptionQu
         {
             Id = id;
         }
-
     }
 }
