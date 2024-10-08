@@ -18,7 +18,7 @@ namespace RentACarProject.Application.Features.Mediator.Commands.CarDescriptionC
         public int CarID { get; set; }
 
         [Required(ErrorMessage = "Details are required")]
-        [StringLength(1000, MinimumLength = 10, ErrorMessage = "Details must be between 10 and 1000 characters")]
+        [StringLength(1000, MinimumLength = 100, ErrorMessage = "Details must be between 100 and 1000 characters")]
         public string Details { get; set; }
     }
 }

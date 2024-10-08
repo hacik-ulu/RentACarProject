@@ -1,0 +1,46 @@
+﻿@model CreateCarDescriptionDto
+@{
+    ViewData["Title"] = "Create Car Description";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Create Car Description</h4>
+                        <p class="card-subtitle mb-4">
+                            Fill in the details below to create a new car description.
+                        </p>
+                        <form method="post">
+                            <div class="mb-3">
+                                <label for="CarID" class="form-label">Select Car</label><br />
+                                <select asp-for="CarID" class="form-select">
+                                    <option value="">Select a car</option>
+                                    @foreach (var car in ViewBag.Cars)
+                                    {
+                                        <option value="@car.Value">@car.Text</option>
+                                    }
+                                </select><br />
+                                <span asp-validation-for="CarID" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="Details" class="form-label">Details</label>
+                                <textarea asp-for="Details" class="form-control" rows="5" style="resize: none;" maxlength="1000" minlength="100"></textarea>
+                                <span asp-validation-for="Details" class="text-danger"></span>
+                                <small class="form-text text-muted">Minimum 100 characters, maximum 1000 characters.</small>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Create Car Description</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
