@@ -7,17 +7,17 @@ using RentACarProject.Domain.Entities;
 
 namespace UdemyCarBook.Application.Features.Mediator.Handlers.CarDescriptionHandlers
 {
-    public class GetCarDescriptionByCarIDQueryHandler : IRequestHandler<GetCarDescriptionByCarIDQuery, GetCarDescriptionQueryResult>
+    public class GetCarDescriptionByCarIdQueryHandler : IRequestHandler<GetCarDescriptionByCarIDQuery, GetCarDescriptionQueryResult>
     {
-        private readonly IRepository<CarDescription> _repository;
-        public GetCarDescriptionByCarIDQueryHandler(IRepository<CarDescription> repository)
+        private readonly ICarDescriptionRepository _repository;
+        public GetCarDescriptionByCarIdQueryHandler(ICarDescriptionRepository repository)
         {
             _repository = repository;
         }
 
         public async Task<GetCarDescriptionQueryResult> Handle(GetCarDescriptionByCarIDQuery request, CancellationToken cancellationToken)
         {
-            var values = await _repository.GetByIdAsync(request.Id);
+            var values = await _repository.GetCarDescriptionAsync(request.Id);
             return new GetCarDescriptionQueryResult
             {
                 CarDescriptionID = values.CarDescriptionID,
