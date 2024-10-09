@@ -1,8 +1,64 @@
-﻿
+﻿@model UpdateBlogDto
 @{
     ViewData["Title"] = "UpdateBlog";
     Layout = "~/Views/AdminLayout/Index.cshtml";
 }
 
-<h1>UpdateBlog</h1>
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Update Blog Pages</h4>
+                        <p class="card-subtitle mb-4">You are kindly requested to fill in the following fields completely. Please be sure to press the "Update Blog" button to register the new blog.</p>
+                        <form method="post">
+                            <input type="hidden" asp-for="BlogID"/>
+                            <input type="hidden" asp-for="AuthorID"/>
+                            <input type="hidden" asp-for="CategoryID"/>
+                            <input type="hidden" asp-for="CreatedDate"/>
+                            <div class="form-group">
+                                <label for="Title">Blog Title</label>
+                                <input type="text" class="form-control" id="Title" name="Title" asp-for="Title" oninput="this.value = this.value.replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ\s]/g, '')">
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Description">Description</label>
+                                <textarea class="form-control" id="Description" name="Description" asp-for="Description" style="resize: none; height: 100px;"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="AuthorID">Author Name</label>
+                                @Html.DropDownListFor(x => x.AuthorID, (List<SelectListItem>)ViewBag.AuthorValues, "Select Author", new { @class = "form-control", @disabled = "disabled" })
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="AuthorID">Blog Cover Image Url</label>
+                                <input type="text" class="form-control" id="Title" name="CoverImageUrl" asp-for="CoverImageUrl">
+                                <span asp-validation-for="CoverImageUrl" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="CategoryID">Category</label>
+                                @Html.DropDownListFor(x => x.CategoryID, (List<SelectListItem>)ViewBag.CategoryValues, "Select Category", new { @class = "form-control", @disabled = "disabled" })
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="CreatedDate">Created Date</label>
+                                <input type="date" class="form-control" id="CreatedDate" name="CreatedDate" asp-for="CreatedDate" disabled="disabled">
+                            </div>
+
+
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Update Blog</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 

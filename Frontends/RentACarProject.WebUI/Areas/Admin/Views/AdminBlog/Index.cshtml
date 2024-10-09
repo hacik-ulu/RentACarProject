@@ -33,6 +33,7 @@
                                         <th>Author</th>
                                         <th>Category</th>
                                         <th>Date</th>
+                                        <th>Update</th>
                                         <th>Remove</th>
                                         <th>Open Blog</th>
                                         <th>Comments</th>
@@ -50,6 +51,7 @@
                                                 <td>@item.AuthorName</td>
                                                 <td>@item.CategoryName</td>
                                                 <td>@item.CreatedDate.ToShortDateString()</td>
+                                                <td><a href="/Admin/AdminBlog/UpdateBlog/@item.BlogID" class="btn btn-outline-success">Update</a></td>
                                                 <td><a href="/Admin/AdminBlog/RemoveBlog/@item.BlogID" class="btn btn-outline-danger">Remove</a></td>
                                                 <td><a href="/Blog/BlogDetail/@item.BlogID" class="btn btn-outline-dark" target="_blank">Open Blog</a></td>
                                                 <td><a href="/Admin/AdminComment/CommentList/@item.BlogID" class="btn btn-outline-warning">Comments</a></td>

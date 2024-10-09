@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using RentACarProject.Dto.AuthorDtos;
 using RentACarProject.Dto.BlogDtos;
+using RentACarProject.Dto.BrandDtos;
 using RentACarProject.Dto.CategoryDtos;
 using System.Net.Http.Headers;
 using System.Security.Claims;
@@ -165,6 +166,103 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
             }
 
         }
+
+
+        [Route("UpdateBlog/{id}")]
+        [HttpGet]
+        public async Task<IActionResult> UpdateBlog(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+
+            // Blog verisini çekme
+            var responseMessage = await client.GetAsync($"https://localhost:7262/api/Blogs/{id}");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<UpdateBlogDto>(jsonData);
+
+                // Yazarlar için verileri yükleme
+                var responseMessageAuthors = await client.GetAsync("https://localhost:7262/api/Authors");
+                var jsonDataAuthors = await responseMessageAuthors.Content.ReadAsStringAsync();
+                var authorValues = JsonConvert.DeserializeObject<List<ResultAuthorDto>>(jsonDataAuthors).Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.AuthorID.ToString()
+                }).ToList();
+
+                // Kategoriler için verileri yükleme
+                var responseMessageCategories = await client.GetAsync("https://localhost:7262/api/Categories");
+                var jsonDataCategories = await responseMessageCategories.Content.ReadAsStringAsync();
+                var categoryValues = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonDataCategories).Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.CategoryID.ToString()
+                }).ToList();
+
+                ViewBag.AuthorValues = authorValues; // Yazarları ViewBag'e ekle
+                ViewBag.CategoryValues = categoryValues; // Kategorileri ViewBag'e ekle
+
+                return View(values); // Modeli döndür
+            }
+
+            return View(); // Eğer blog bulunamazsa
+        }
+
+
+        [Route("UpdateBlog/{id}")]
+        [HttpPost]
+        public async Task<IActionResult> UpdateBlog(UpdateBlogDto updateBlogDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                var client = _httpClientFactory.CreateClient();
+
+                var responseMessageAuthors = await client.GetAsync("https://localhost:7262/api/Authors");
+                var jsonDataAuthors = await responseMessageAuthors.Content.ReadAsStringAsync();
+                var authorValues = JsonConvert.DeserializeObject<List<ResultAuthorDto>>(jsonDataAuthors).Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.AuthorID.ToString()
+                }).ToList();
+
+                var responseMessageCategories = await client.GetAsync("https://localhost:7262/api/Categories");
+                var jsonDataCategories = await responseMessageCategories.Content.ReadAsStringAsync();
+                var categoryValues = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonDataCategories).Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.CategoryID.ToString()
+                }).ToList();
+
+                ViewBag.AuthorValues = authorValues;
+                ViewBag.CategoryValues = categoryValues;
+
+                return View(updateBlogDto); 
+            }
+
+            // Blog güncelleme işlemi için API'ye istek gönder
+            var clientForUpdate = _httpClientFactory.CreateClient();
+            var jsonContent = JsonConvert.SerializeObject(updateBlogDto);
+            var contentString = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            var responseMessage = await clientForUpdate.PutAsync($"https://localhost:7262/api/Blogs/", contentString);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index", "AdminBlog"); 
+            }
+
+            return View(updateBlogDto);
+        }
+
+
+
+
+
+
+
+
+
+
 
         [Route("RemoveBlog/{id}")]
         public async Task<IActionResult> RemoveBlog(int id)
