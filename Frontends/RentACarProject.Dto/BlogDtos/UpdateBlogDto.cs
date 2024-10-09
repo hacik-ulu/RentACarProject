@@ -10,7 +10,7 @@ namespace RentACarProject.Dto.BlogDtos
     public class UpdateBlogDto
     {
         [Required(ErrorMessage ="BlogID is required.")]
-        public int BlogID { get; set; }
+        public int? BlogID { get; set; }
 
         [Required(ErrorMessage = "Title is required.")]
         [StringLength(100, MinimumLength = 10, ErrorMessage = "Title must be between 10 and 100 characters.")]

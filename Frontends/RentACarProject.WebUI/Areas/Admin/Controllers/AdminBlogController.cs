@@ -255,15 +255,6 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
         }
 
 
-
-
-
-
-
-
-
-
-
         [Route("RemoveBlog/{id}")]
         public async Task<IActionResult> RemoveBlog(int id)
         {
