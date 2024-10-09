@@ -1,15 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using RentACarProject.Dto.AuthorDtos;
 using RentACarProject.Dto.BlogDtos;
-using RentACarProject.Dto.BrandDtos;
 using RentACarProject.Dto.CategoryDtos;
-using RentACarProject.Dto.LocationDtos;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace RentACarProject.WebUI.Areas.Admin.Controllers
 {
@@ -117,10 +114,8 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                // Hata durumunda dropdown'ların tekrar ayarlanması
                 var client = _httpClientFactory.CreateClient();
 
-                // Blog verilerini çekme
                 var responseMessage1 = await client.GetAsync("https://localhost:7262/api/Blogs");
                 var jsonData1 = await responseMessage1.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultAllBlogsWithAuthorDto>>(jsonData1);
@@ -130,7 +125,6 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                     Value = x.BlogID.ToString()
                 }).ToList();
 
-                // Author verilerini çekme
                 var responseMessage2 = await client.GetAsync("https://localhost:7262/api/Authors");
                 var jsonData2 = await responseMessage2.Content.ReadAsStringAsync();
                 var values2 = JsonConvert.DeserializeObject<List<ResultAuthorDto>>(jsonData2);
@@ -140,7 +134,6 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                     Value = x.AuthorID.ToString()
                 }).ToList();
 
-                // Category verilerini çekme
                 var responseMessage3 = await client.GetAsync("https://localhost:7262/api/Categories");
                 var jsonData3 = await responseMessage3.Content.ReadAsStringAsync();
                 var values3 = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData3);
@@ -150,12 +143,10 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                     Value = x.CategoryID.ToString()
                 }).ToList();
 
-                // ViewBag'i ayarlama
                 ViewBag.BlogValues = blogValues;
                 ViewBag.AuthorValues = authorValues;
                 ViewBag.CategoryValues = categoryValues;
 
-                // Validasyon hatalarını geri döndür
                 return View(createBlogDto);
             }
             else
@@ -168,14 +159,12 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
 
                 if (responseMessage.IsSuccessStatusCode)
                 {
-                    // Başarılı bir şekilde kaydedildikten sonra AdminBlog sayfasına yönlendirme
                     return RedirectToAction("Index", "AdminBlog");
                 }
                 return View(createBlogDto);
             }
 
         }
-
 
         [Route("RemoveBlog/{id}")]
         public async Task<IActionResult> RemoveBlog(int id)
