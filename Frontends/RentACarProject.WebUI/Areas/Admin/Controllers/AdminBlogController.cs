@@ -16,7 +16,6 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
     public class AdminBlogController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
-
         public AdminBlogController(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
