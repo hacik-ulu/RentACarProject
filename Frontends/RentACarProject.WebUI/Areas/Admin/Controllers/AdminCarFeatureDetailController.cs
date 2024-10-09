@@ -59,7 +59,7 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("Index/{id}")] // Özelliklerin checkbox/var olan özelliğin aktif/pasif kontrolünün post edilmesi.)
+        [Route("Index/{id}")] // Var olan Özelliklerin aktif/pasif kontrolünün post edilmesi.)
         public async Task<IActionResult> Index(List<ResultCarFeatureByCarIdDto> resultCarFeatureByCarIdDto)
         {
 
@@ -81,7 +81,7 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("CreateFeatureByCarId/{carId}")] // Daha önceden hiç kaydı bulunmayan ve Availability özelliği 0 olanları getiriyor.
+        [Route("CreateFeatureByCarId/{carId}")] // Daha önceden hiç kaydı bulunmayan ve Availability özelliği 0 olanları getiriyor.(Arabaya atanmamış değerleri post etme işlemi.)
         public async Task<IActionResult> CreateFeatureByCarId(int carId)
         {
             var client = _httpClientFactory.CreateClient();

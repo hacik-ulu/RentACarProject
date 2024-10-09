@@ -27,6 +27,7 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.BlogHandlers.Wr
                 CategoryID = request.CategoryID,
                 CoverImageUrl = request.CoverImageUrl,
                 CreatedDate = request.CreatedDate,
+                Description = request.Description,
                 Title = request.Title
             });
         }

@@ -1,15 +1,18 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using RentACarProject.Dto.AuthorDtos;
 using RentACarProject.Dto.BlogDtos;
+using RentACarProject.Dto.BrandDtos;
+using RentACarProject.Dto.CategoryDtos;
 using RentACarProject.Dto.LocationDtos;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace RentACarProject.WebUI.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/AdminBlog")]
     public class AdminBlogController : Controller
@@ -63,6 +66,116 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
             }
             return View(new List<ResultAllBlogsWithAuthorDto>());
         }
+
+        [Route("CreateBlog")]
+        [HttpGet]
+        public async Task<IActionResult> CreateBlog()
+        {
+            var client = _httpClientFactory.CreateClient();
+
+            // Blog verilerini çekme
+            var responseMessage1 = await client.GetAsync("https://localhost:7262/api/Blogs");
+            var jsonData1 = await responseMessage1.Content.ReadAsStringAsync();
+            var values = JsonConvert.DeserializeObject<List<ResultAllBlogsWithAuthorDto>>(jsonData1);
+            var blogValues = values.Select(x => new SelectListItem
+            {
+                Text = x.Title,
+                Value = x.BlogID.ToString()
+            }).ToList();
+
+            // Author verilerini çekme
+            var responseMessage2 = await client.GetAsync("https://localhost:7262/api/Authors");
+            var jsonData2 = await responseMessage2.Content.ReadAsStringAsync();
+            var values2 = JsonConvert.DeserializeObject<List<ResultAuthorDto>>(jsonData2);
+            var authorValues = values2.Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.AuthorID.ToString()
+            }).ToList();
+
+            // Category verilerini çekme
+            var responseMessage3 = await client.GetAsync("https://localhost:7262/api/Categories");
+            var jsonData3 = await responseMessage3.Content.ReadAsStringAsync();
+            var values3 = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData3);
+            var categoryValues = values3.Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.CategoryID.ToString()
+            }).ToList();
+
+            // ViewBag'i ayarlama
+            ViewBag.BlogValues = blogValues;
+            ViewBag.AuthorValues = authorValues;
+            ViewBag.CategoryValues = categoryValues;
+
+            return View();
+        }
+
+        [HttpPost]
+        [Route("CreateBlog")]
+        public async Task<IActionResult> CreateBlog(CreateBlogDto createBlogDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                // Hata durumunda dropdown'ların tekrar ayarlanması
+                var client = _httpClientFactory.CreateClient();
+
+                // Blog verilerini çekme
+                var responseMessage1 = await client.GetAsync("https://localhost:7262/api/Blogs");
+                var jsonData1 = await responseMessage1.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultAllBlogsWithAuthorDto>>(jsonData1);
+                var blogValues = values.Select(x => new SelectListItem
+                {
+                    Text = x.Title,
+                    Value = x.BlogID.ToString()
+                }).ToList();
+
+                // Author verilerini çekme
+                var responseMessage2 = await client.GetAsync("https://localhost:7262/api/Authors");
+                var jsonData2 = await responseMessage2.Content.ReadAsStringAsync();
+                var values2 = JsonConvert.DeserializeObject<List<ResultAuthorDto>>(jsonData2);
+                var authorValues = values2.Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.AuthorID.ToString()
+                }).ToList();
+
+                // Category verilerini çekme
+                var responseMessage3 = await client.GetAsync("https://localhost:7262/api/Categories");
+                var jsonData3 = await responseMessage3.Content.ReadAsStringAsync();
+                var values3 = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData3);
+                var categoryValues = values3.Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.CategoryID.ToString()
+                }).ToList();
+
+                // ViewBag'i ayarlama
+                ViewBag.BlogValues = blogValues;
+                ViewBag.AuthorValues = authorValues;
+                ViewBag.CategoryValues = categoryValues;
+
+                // Validasyon hatalarını geri döndür
+                return View(createBlogDto);
+            }
+            else
+            {
+                var clientForPost = _httpClientFactory.CreateClient();
+                var jsonContent = JsonConvert.SerializeObject(createBlogDto);
+                var contentString = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                var responseMessage = await clientForPost.PostAsync("https://localhost:7262/api/Blogs", contentString);
+
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    // Başarılı bir şekilde kaydedildikten sonra AdminBlog sayfasına yönlendirme
+                    return RedirectToAction("Index", "AdminBlog");
+                }
+                return View(createBlogDto);
+            }
+
+        }
+
 
         [Route("RemoveBlog/{id}")]
         public async Task<IActionResult> RemoveBlog(int id)

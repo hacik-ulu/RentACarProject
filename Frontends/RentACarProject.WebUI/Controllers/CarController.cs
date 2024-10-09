@@ -29,12 +29,12 @@ namespace RentACarProject.WebUI.Controllers
 			return View();
 		}
 
-		public async Task<IActionResult> CarDetail(int id)
-		{
-			ViewBag.v1 = "CAR DETAİLS ";
-			ViewBag.v2 = "Car Specifications";
-			ViewBag.CarID = id;
-			return View();
-		}
-	}
+        public IActionResult CarDetail(int id)
+        {
+            ViewBag.v1 = "CAR DETAİLS ";
+            ViewBag.v2 = "Car Specifications";
+            ViewBag.CarID = id;
+            return View();
+        }
+    }
 }

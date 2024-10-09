@@ -1,8 +1,59 @@
-﻿
+﻿@model RentACarProject.Dto.BlogDtos.CreateBlogDto
 @{
     ViewData["Title"] = "CreateBlog";
     Layout = "~/Views/AdminLayout/Index.cshtml";
 }
 
-<h1>CreateBlog</h1>
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">New Blog Entry</h4>
+                        <p class="card-subtitle mb-4">You are kindly requested to fill in the following fields completely. Please be sure to press the "Create Blog" button to register the new blog.</p>
+                        <form method="post">
+                            <div class="form-group">
+                                <label for="Title">Blog Title</label>
+                                <input type="text" class="form-control" id="Title" name="Title" asp-for="Title">
+                                @*<span asp-validation-for="Title" class="text-danger"></span> *@
+                            </div>
 
+                            <div class="form-group">
+                                <label for="Description">Description</label>
+                                <textarea class="form-control" id="Description" name="Description" asp-for="Description" style="resize: none; height: 100px;"></textarea>
+                                @*<span asp-validation-for="Description" class="text-danger"></span>*@
+                            </div>
+
+                            <div class="form-group">
+                                <label for="AuthorID">Author Name</label>
+                                @Html.DropDownListFor(x => x.AuthorID, (List<SelectListItem>)ViewBag.AuthorValues, "Select Author", new { @class = "form-control" })
+                                @*<span asp-validation-for="AuthorID" class="text-danger"></span>*@
+                            </div>
+
+                            <div class="form-group">
+                                <label for="AuthorID">Blog Cover Image Url</label>
+                                <input type="text" class="form-control" id="Title" name="CoverImageUrl" asp-for="CoverImageUrl">
+                                @*<span asp-validation-for="AuthorID" class="text-danger"></span>*@
+                            </div>
+
+                            <div class="form-group">
+                                <label for="CategoryID">Category</label>
+                                @Html.DropDownListFor(x => x.CategoryID, (List<SelectListItem>)ViewBag.CategoryValues, "Select Category", new { @class = "form-control" })
+                                @*<span asp-validation-for="CategoryID" class="text-danger"></span>*@
+                            </div>
+
+                            <div class="form-group">
+                                <label for="CreatedDate">Created Date</label>
+                                <input type="date" class="form-control" id="CreatedDate" name="CreatedDate" asp-for="CreatedDate">
+                                @*<span asp-validation-for="CreatedDate" class="text-danger"></span>*@
+                            </div>
+
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Create Blog</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
