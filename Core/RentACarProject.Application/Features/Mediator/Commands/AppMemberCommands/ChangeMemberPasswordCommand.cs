@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RentACarProject.Application.Features.Mediator.Commands.AppUserCommands
+namespace RentACarProject.Application.Features.Mediator.Commands.AppMemberCommands
 {
-    public class UpdateAdminEmailCommand : IRequest
+    public class ChangeMemberPasswordCommand : IRequest
     {
-        public int AppUserID { get; set; }
         public string Email { get; set; }
+        public string NewPassword { get; set; }
     }
 }

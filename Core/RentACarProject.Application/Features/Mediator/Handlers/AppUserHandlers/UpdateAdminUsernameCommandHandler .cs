@@ -8,7 +8,6 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.AppUserHandlers
     public class UpdateAdminUsernameCommandHandler : IRequestHandler<UpdateAdminUsernameCommand>
     {
         private readonly IRepository<AppUser> _appUserRepository;
-
         public UpdateAdminUsernameCommandHandler(IRepository<AppUser> appUserRepository)
         {
             _appUserRepository = appUserRepository ?? throw new ArgumentNullException(nameof(appUserRepository));
