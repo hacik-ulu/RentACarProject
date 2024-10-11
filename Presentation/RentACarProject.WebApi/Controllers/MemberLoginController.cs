@@ -20,16 +20,16 @@ namespace RentACarProject.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(GetCheckAppUserQuery query)
+        public async Task<IActionResult> Index(GetCheckAppMemberQuery query)
         {
             var values = await _mediator.Send(query);
             if (values.IsExist)
             {
-                return Created("", JwtTokenGenerator.GenerateToken(values));
+                return Created("", MemberJwtTokenGenerator.GenerateToken(values));
             }
             else
             {
-                return BadRequest("Username or Password is false!");
+                return BadRequest("Email or Password is false!");
             }
         }
 
@@ -40,8 +40,9 @@ namespace RentACarProject.WebApi.Controllers
             return Ok("Password updated sucessfully!");
         }
 
+
         [HttpGet("GetMemberDetailsById")]
-        public async Task<IActionResult> GetUserDetailsById(int id)
+        public async Task<IActionResult> GetMemberDetailsById(int id)
         {
             var query = new GetMemberAccountDetailsByIdQuery { AppUserID = id };
             var result = await _mediator.Send(query);
@@ -49,8 +50,9 @@ namespace RentACarProject.WebApi.Controllers
             return Ok(result);
         }
 
-        [HttpPut("UpdateUserUsername")]
-        public async Task<IActionResult> UpdateUserUsername(UpdateMemberUsernameCommand command)
+
+        [HttpPut("UpdateMemberUsername")]
+        public async Task<IActionResult> UpdateMemberUsername(UpdateMemberUsernameCommand command)
         {
             try
             {
@@ -63,8 +65,8 @@ namespace RentACarProject.WebApi.Controllers
             }
         }
 
-        [HttpPut("UpdateUserEmail")]
-        public async Task<IActionResult> UpdateUserEmail(UpdateMemberEmailCommand command)
+        [HttpPut("UpdateMemberEmail")]
+        public async Task<IActionResult> UpdateMemberEmail(UpdateMemberEmailCommand command)
         {
             try
             {
