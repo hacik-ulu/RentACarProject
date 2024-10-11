@@ -1,10 +1,7 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RentACarProject.Application.Features.Mediator.Commands.AppMemberCommands;
-using RentACarProject.Application.Features.Mediator.Commands.AppUserCommands;
 using RentACarProject.Application.Features.Mediator.Queries.AppMembersQueries;
-using RentACarProject.Application.Features.Mediator.Queries.AppUserQueries;
 using RentACarProject.Application.Tools;
 
 namespace RentACarProject.WebApi.Controllers

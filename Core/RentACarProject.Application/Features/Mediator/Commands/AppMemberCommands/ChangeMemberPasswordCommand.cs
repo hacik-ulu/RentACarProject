@@ -16,6 +16,6 @@ namespace RentACarProject.Application.Features.Mediator.Commands.AppMemberComman
 
         [Required(ErrorMessage = "Password is required.")]
         [StringLength(30, ErrorMessage = "Password must be between 6 and 30 characters long.", MinimumLength = 6)]
-        public string Password { get; set; }
+        public string NewPassword { get; set; }
     }
 }
