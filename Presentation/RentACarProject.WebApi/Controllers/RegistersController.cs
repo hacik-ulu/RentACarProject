@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RentACarProject.Application.Features.Mediator.Commands.AppMemberCommands;
 using RentACarProject.Application.Features.Mediator.Commands.RegisterCommands;
+using System.ComponentModel.DataAnnotations;
 
 namespace RentACarProject.WebApi.Controllers
 {
@@ -17,7 +18,7 @@ namespace RentACarProject.WebApi.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost]
+        [HttpPost("CreateUser")]
         public async Task<IActionResult> CreateUser(CreateAppUserCommand command)
         {
             await _mediator.Send(command);
@@ -27,8 +28,18 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPost("CreateMember")]
         public async Task<IActionResult> CreateMember(CreateAppMemberCommand command)
         {
+            var validationContext = new ValidationContext(command);
+            var validationResults = new List<ValidationResult>();
+
+            if (!Validator.TryValidateObject(command, validationContext, validationResults, true))
+            {
+                var errors = validationResults.Select(v => v.ErrorMessage).ToList();
+                return BadRequest(new { Errors = errors });
+            }
+
             await _mediator.Send(command);
-            return Ok("Member added sucessfully!");
+            return Ok("Member added successfully!");
         }
+
     }
 }

@@ -34,7 +34,7 @@ namespace RentACarProject.WebApi.Controllers
         }
 
         [HttpPost("ChangePassword")]
-        public async Task<IActionResult> ChangePassword(ChangePasswordCommand command)
+        public async Task<IActionResult> ChangePassword(ChangeMemberPasswordCommand command)
         {
             await _mediator.Send(command);
             return Ok("Password updated sucessfully!");
@@ -82,3 +82,5 @@ namespace RentACarProject.WebApi.Controllers
 
     }
 }
+
+
