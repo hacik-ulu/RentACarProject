@@ -100,21 +100,23 @@
                                     <h1 class="h5 mb-1">Welcome</h1>
                                     <p class="text-muted mb-4">Enter your information to access the User Panel.</p>
 
-                                    @if (!string.IsNullOrEmpty(TempData["Message"] as string))
+                                    @if (!ViewData.ModelState.IsValid)
                                     {
-                                        <div class="alert alert-danger" role="alert">
-                                            @Html.Raw(TempData["Message"])
+                                        <div class="alert alert-danger">
+                                            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                            {
+                                                <p>@error.ErrorMessage</p>
+                                            }
                                         </div>
                                     }
+
 
                                     <form class="user" method="post">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user" id="exampleInputEmail" placeholder="Your Email Address" asp-for="Email" />
-                                            <span asp-validation-for="Email" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Your Password" asp-for="Password" />
-                                            <span asp-validation-for="Password" class="text-danger"></span>
                                         </div>
                                         <button class="btn btn-success btn-block waves-effect waves-light">Log In</button>
                                     </form>

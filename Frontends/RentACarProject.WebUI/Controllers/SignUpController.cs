@@ -30,12 +30,17 @@ namespace RentACarProject.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(CreateSignUpDto createSignUpDto)
         {
+            // Model durumunu kontrol et
+            if (!ModelState.IsValid)
+            {
+                return View(createSignUpDto); // Hata varsa view ile birlikte model gönder
+            }
+
             var client = _httpClientFactory.CreateClient();
             var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(createSignUpDto), Encoding.UTF8, "application/json");
             var response = await client.PostAsync("https://localhost:7262/api/MemberLogin", content);
 
-            bool hasError = false; 
-
+            // API yanıtı başarılıysa
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
@@ -57,45 +62,75 @@ namespace RentACarProject.WebUI.Controllers
                         claims.Add(new Claim("Surname", surname));
                     }
 
-                    if (tokenModel.Token != null)
+                    claims.Add(new Claim("accessToken", tokenModel.Token));
+                    var claimsIdentity = new ClaimsIdentity(claims, JwtBearerDefaults.AuthenticationScheme);
+                    var authProps = new AuthenticationProperties
                     {
-                        claims.Add(new Claim("accessToken", tokenModel.Token));
-                        var claimsIdentity = new ClaimsIdentity(claims, JwtBearerDefaults.AuthenticationScheme);
-                        var authProps = new AuthenticationProperties
-                        {
-                            ExpiresUtc = tokenModel.ExpireDate,
-                            IsPersistent = true
-                        };
+                        ExpiresUtc = tokenModel.ExpireDate,
+                        IsPersistent = true
+                    };
 
-                        await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProps);
+                    await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProps);
 
-                        if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Member"))
-                        {
-                            return RedirectToAction("Index", "Default");
-                        }
-                        else
-                        {
-                            TempData["Message"] = "There is no account. Please register.";
-                            hasError = true; 
-                        }
+                    if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Member"))
+                    {
+                        return RedirectToAction("Index", "Default");
+                    }
+                    else
+                    {
+                        TempData["Message"] = "There is no account. Please register.";
                     }
                 }
             }
             else
             {
+                // Hata mesajlarını kontrol et
                 var errorMessage = await response.Content.ReadAsStringAsync();
-                TempData["Message"] = $"Error: {errorMessage}";
-                hasError = true; 
+
+                if (errorMessage.Contains("You need to register"))
+                {
+                    ModelState.AddModelError(string.Empty, "You need to register."); // E-posta yoksa
+                }
+                else if (errorMessage.Contains("Password is incorrect"))
+                {
+                    ModelState.AddModelError(string.Empty, "Password is incorrect."); // Şifre hatalıysa
+                }
+                else
+                {
+                    TempData["Message"] = $"Hata: {errorMessage}"; // Diğer hatalar için genel mesaj
+                }
             }
 
-         
-            if (hasError)
-            {
-                return View(createSignUpDto); 
-            }
-
-            return View(); 
+            // Hata varsa, view ile birlikte model gönder
+            return View(createSignUpDto);
         }
+
+
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> LogOut()
+        {
+            await HttpContext.SignOutAsync(JwtBearerDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Default");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         private async Task<(string Name, string Surname)> GetUserFullNameByEmailAsync(string email)
