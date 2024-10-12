@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RentACarProject.Dto.SignUpDtos
 {
-    public class CreateSignUpDto
+    public class ChangeMemberPasswordDto
     {
         [Required(ErrorMessage = "Email is required.")]
         [EmailAddress(ErrorMessage = "Please enter a valid email address.")]
@@ -15,6 +15,6 @@ namespace RentACarProject.Dto.SignUpDtos
 
         [Required(ErrorMessage = "Password is required.")]
         [StringLength(30, ErrorMessage = "Password must be between 6 and 30 characters long.", MinimumLength = 6)]
-        public string? Password { get; set; }
+        public string? NewPassword { get; set; }
     }
 }

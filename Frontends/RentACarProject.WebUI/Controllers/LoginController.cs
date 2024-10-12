@@ -112,7 +112,7 @@ namespace RentACarProject.WebUI.Controllers
             var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
             if (userIdClaim == null)
             {
-                return Unauthorized(); // Kullanıcı giriş yapmamışsa veya kimlik bulunamazsa
+                return Unauthorized(); 
             }
 
             var appUserId = int.Parse(userIdClaim.Value);

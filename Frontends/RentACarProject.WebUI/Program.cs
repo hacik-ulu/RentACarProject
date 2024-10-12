@@ -1,10 +1,15 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using RentACarProject.Application.Interfaces.GeneralInterfaces;
+using RentACarProject.Domain.Entities;
+using RentACarProject.Persistence.Repositories.GeneralRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
+
+
 
 // Dynamic AppUserID
 builder.Services.AddHttpContextAccessor();

@@ -5,6 +5,7 @@ using RentACarProject.Application.Features.Mediator.Queries.AppMembersQueries;
 using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Application.Tools;
 using RentACarProject.Domain.Entities;
+using RentACarProject.Dto.LoginDtos;
 
 namespace RentACarProject.WebApi.Controllers
 {
@@ -44,8 +45,15 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPost("ChangePassword")]
         public async Task<IActionResult> ChangePassword(ChangeMemberPasswordCommand command)
         {
+            var existingUser = await _userRepository.GetByFilterAsync(x => x.Email == command.Email);
+
+            if (existingUser == null)
+            {
+                return BadRequest("Please check your email address."); 
+            }
+
             await _mediator.Send(command);
-            return Ok("Password updated sucessfully!");
+            return Ok("Password updated successfully!");
         }
 
 

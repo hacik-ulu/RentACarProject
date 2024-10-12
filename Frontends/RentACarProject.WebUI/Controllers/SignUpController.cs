@@ -10,6 +10,7 @@ using System.Text;
 using RentACarProject.Dto.SignUpDtos;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
+using Newtonsoft.Json;
 
 namespace RentACarProject.WebUI.Controllers
 {
@@ -30,17 +31,15 @@ namespace RentACarProject.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(CreateSignUpDto createSignUpDto)
         {
-            // Model durumunu kontrol et
             if (!ModelState.IsValid)
             {
-                return View(createSignUpDto); // Hata varsa view ile birlikte model gönder
+                return View(createSignUpDto); 
             }
 
             var client = _httpClientFactory.CreateClient();
             var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(createSignUpDto), Encoding.UTF8, "application/json");
             var response = await client.PostAsync("https://localhost:7262/api/MemberLogin", content);
 
-            // API yanıtı başarılıysa
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
@@ -89,21 +88,55 @@ namespace RentACarProject.WebUI.Controllers
 
                 if (errorMessage.Contains("You need to register"))
                 {
-                    ModelState.AddModelError(string.Empty, "You need to register."); // E-posta yoksa
+                    ModelState.AddModelError(string.Empty, "You need to register."); 
                 }
                 else if (errorMessage.Contains("Password is incorrect"))
                 {
-                    ModelState.AddModelError(string.Empty, "Password is incorrect."); // Şifre hatalıysa
+                    ModelState.AddModelError(string.Empty, "Password is incorrect."); 
                 }
                 else
                 {
-                    TempData["Message"] = $"Hata: {errorMessage}"; // Diğer hatalar için genel mesaj
+                    TempData["Message"] = $"Hata: {errorMessage}"; 
                 }
             }
 
-            // Hata varsa, view ile birlikte model gönder
             return View(createSignUpDto);
         }
+
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangeMemberPasswordDto changePasswordDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(changePasswordDto);
+            }
+
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(changePasswordDto);
+            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+            var responseMessage = await client.PostAsync("https://localhost:7262/api/MemberLogin/ChangePassword", stringContent);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index", "SignUp");
+            }
+
+            var errorMessage = await responseMessage.Content.ReadAsStringAsync();
+
+            TempData["ErrorMessage"] = errorMessage;
+
+            return View(changePasswordDto); 
+        }
+
+
+
 
 
 
@@ -115,23 +148,6 @@ namespace RentACarProject.WebUI.Controllers
             await HttpContext.SignOutAsync(JwtBearerDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Default");
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         private async Task<(string Name, string Surname)> GetUserFullNameByEmailAsync(string email)
         {
@@ -158,3 +174,4 @@ namespace RentACarProject.WebUI.Controllers
     }
 }
 
+// Register sayfası yapılacak.
