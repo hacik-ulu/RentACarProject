@@ -19,7 +19,6 @@ namespace RentACarProject.WebUI.Controllers
     public class LoginController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
-
         public LoginController(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;

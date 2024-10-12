@@ -14,10 +14,35 @@
                 <li class="nav-item"><a href="/Car/Index/" class="nav-link">Cars</a></li>
                 <li class="nav-item"><a href="/Blog/Index/" class="nav-link">Blog</a></li>
                 <li class="nav-item"><a href="/Contact/Index/" class="nav-link">Contact</a></li>
-                <li class="nav-item"><a href="/SignUp/Index/" class="nav-link">Sign Up</a></li>
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            My Account
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">
+                            <span class="dropdown-item-text">
+                                @($"{User.Claims.FirstOrDefault(c => c.Type == "Name")?.Value} {User.Claims.FirstOrDefault(c => c.Type == "Surname")?.Value}")
+                            </span>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/User/Informations/">Informations</a>
+                            <a class="dropdown-item" href="/User/Rentals/">Rentals</a>
+                            <a class="dropdown-item" href="/User/Logout/">Logout</a>
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a href="/SignUp/Index/" class="nav-link">Sign Up</a>
+                    </li>
+                }
             </ul>
         </div>
     </div>
 </nav>
 
-@* SignUp kısmına bak *@
+<!-- Bootstrap JavaScript dosyalarını eklediğinizden emin olun -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
