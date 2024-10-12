@@ -22,22 +22,25 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.AppMemberHandle
         public async Task<GetCheckAppMemberQueryResult> Handle(GetCheckAppMemberQuery request, CancellationToken cancellationToken)
         {
             var values = new GetCheckAppMemberQueryResult();
-            var user = await _appUserRepository.GetByFilterAsync(x => x.Email == request.Email && x.Password == request.Password);
-
+            var user = await _appUserRepository.GetByFilterAsync(x => x.Email == request.Email);
 
             if (user == null)
             {
-                values.IsExist = false;
-            }
-            else
-            {
-                values.IsExist = true;
-                values.Email = user.Email;
-                values.Role = (await _appRoleRepository.GetByFilterAsync(x => x.AppRoleID == user.AppRoleID)).AppRoleName;
-                values.ID = user.AppUserID;
+                values.IsExist = false; 
+                return values; 
             }
 
-            return values;
+            if (!user.Password.Equals(request.Password))
+            {
+                values.IsExist = true; 
+                return values; 
+            }
+
+            values.IsExist = true; 
+            values.Email = user.Email;
+            values.Role = (await _appRoleRepository.GetByFilterAsync(x => x.AppRoleID == user.AppRoleID)).AppRoleName;
+            values.ID = user.AppUserID;
+            return values; 
         }
     }
 }

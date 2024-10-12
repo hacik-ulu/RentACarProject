@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using RentACarProject.Application.Features.Mediator.Commands.AppMemberCommands;
 using RentACarProject.Application.Features.Mediator.Queries.AppMembersQueries;
+using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Application.Tools;
+using RentACarProject.Domain.Entities;
 
 namespace RentACarProject.WebApi.Controllers
 {
@@ -11,24 +13,33 @@ namespace RentACarProject.WebApi.Controllers
     public class MemberLoginController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public MemberLoginController(IMediator mediator)
+        private readonly IRepository<AppUser> _userRepository;
+        public MemberLoginController(IMediator mediator, IRepository<AppUser> userRepository)
         {
             _mediator = mediator;
+            _userRepository = userRepository;
         }
 
         [HttpPost]
         public async Task<IActionResult> Index(GetCheckAppMemberQuery query)
         {
             var values = await _mediator.Send(query);
-            if (values.IsExist)
+
+            if (!values.IsExist)
             {
-                return Created("", MemberJwtTokenGenerator.GenerateToken(values));
+                return BadRequest("You need to register."); 
             }
-            else
+
+            // E-posta mevcut ama şifre hatalıysa
+            var user = await _userRepository.GetByFilterAsync(x => x.Email == query.Email);
+            if (user != null && !user.Password.Equals(query.Password))
             {
-                return BadRequest("Email or Password is false!");
+                return BadRequest("Password is incorrect."); 
             }
+
+            return Created("", MemberJwtTokenGenerator.GenerateToken(values));
         }
+
 
         [HttpPost("ChangePassword")]
         public async Task<IActionResult> ChangePassword(ChangeMemberPasswordCommand command)

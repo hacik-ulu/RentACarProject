@@ -26,19 +26,10 @@
     <!-- Custom CSS for background image and form styling -->
     <style>
         .bg-login {
-            background-image: url('/carbook-master/images/register.jpg');
+            background-image: url('/carbook-master/images/registerPhoto.jpg');
             background-size: cover;
             background-position: center;
             position: relative;
-        }
-
-        .bg-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.6); /* Transparent overlay */
         }
 
         .login-box {
@@ -76,6 +67,15 @@
             .text-muted a:hover {
                 color: #28a745;
             }
+
+        .text-danger {
+            font-size: 0.875em;
+            margin-top: 0.5rem;
+        }
+
+        .alert {
+            margin-top: 20px;
+        }
     </style>
 
 </head>
@@ -89,7 +89,6 @@
                     <div class="login-box w-100 d-block bg-white shadow-lg rounded my-5 position-relative">
                         <div class="row">
                             <div class="col-lg-5 d-none d-lg-block bg-login rounded-left">
-                                <div class="bg-overlay"></div> <!-- Overlay effect for background image -->
                             </div>
                             <div class="col-lg-7">
                                 <div class="p-5">
@@ -100,14 +99,24 @@
                                     </div>
                                     <h1 class="h5 mb-1">Welcome</h1>
                                     <p class="text-muted mb-4">Enter your information to access the User Panel.</p>
+
+                                    @if (!string.IsNullOrEmpty(TempData["Message"] as string))
+                                    {
+                                        <div class="alert alert-danger" role="alert">
+                                            @Html.Raw(TempData["Message"])
+                                        </div>
+                                    }
+
                                     <form class="user" method="post">
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user" id="exampleInputEmail" placeholder="Your Email Address" asp-for="Email">
+                                            <input type="text" class="form-control form-control-user" id="exampleInputEmail" placeholder="Your Email Address" asp-for="Email" />
+                                            <span asp-validation-for="Email" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Your Password" asp-for="Password">
+                                            <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Your Password" asp-for="Password" />
+                                            <span asp-validation-for="Password" class="text-danger"></span>
                                         </div>
-                                        <button class="btn btn-success btn-block waves-effect waves-light"> Log In </button>
+                                        <button class="btn btn-success btn-block waves-effect waves-light">Log In</button>
                                     </form>
                                     <div class="row mt-4">
                                         <div class="col-12 text-center">
@@ -130,6 +139,10 @@
     <script src="~/Admin/vertical/assets/js/waves.js"></script>
     <script src="~/Admin/vertical/assets/js/simplebar.min.js"></script>
     <script src="~/Admin/vertical/assets/js/theme.js"></script>
+
+    <!-- Validation Scripts -->
+    <script src="~/Admin/vertical/assets/js/jquery.validate.min.js"></script>
+    <script src="~/Admin/vertical/assets/js/jquery.validate.unobtrusive.min.js"></script>
 
 </body>
 

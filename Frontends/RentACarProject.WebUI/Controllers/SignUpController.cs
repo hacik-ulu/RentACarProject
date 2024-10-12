@@ -34,6 +34,8 @@ namespace RentACarProject.WebUI.Controllers
             var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(createSignUpDto), Encoding.UTF8, "application/json");
             var response = await client.PostAsync("https://localhost:7262/api/MemberLogin", content);
 
+            bool hasError = false; 
+
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
@@ -67,20 +69,32 @@ namespace RentACarProject.WebUI.Controllers
 
                         await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProps);
 
-                        // Member rolüne göre yönlendirme
                         if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Member"))
                         {
                             return RedirectToAction("Index", "Default");
                         }
-                        else if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "User"))
+                        else
                         {
-                            return RedirectToAction("Index", "SignUp");
+                            TempData["Message"] = "There is no account. Please register.";
+                            hasError = true; 
                         }
                     }
                 }
             }
+            else
+            {
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                TempData["Message"] = $"Error: {errorMessage}";
+                hasError = true; 
+            }
 
-            return View();
+         
+            if (hasError)
+            {
+                return View(createSignUpDto); 
+            }
+
+            return View(); 
         }
 
 
