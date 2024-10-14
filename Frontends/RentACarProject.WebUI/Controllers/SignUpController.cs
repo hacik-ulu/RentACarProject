@@ -135,13 +135,6 @@ namespace RentACarProject.WebUI.Controllers
             return View(changePasswordDto); 
         }
 
-
-
-
-
-
-
-
         [HttpGet]
         public async Task<IActionResult> LogOut()
         {
@@ -171,6 +164,8 @@ namespace RentACarProject.WebUI.Controllers
 
             return (null, null); 
         }
+
+
     }
 }
 

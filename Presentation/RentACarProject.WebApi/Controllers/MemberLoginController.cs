@@ -41,7 +41,6 @@ namespace RentACarProject.WebApi.Controllers
             return Created("", MemberJwtTokenGenerator.GenerateToken(values));
         }
 
-
         [HttpPost("ChangePassword")]
         public async Task<IActionResult> ChangePassword(ChangeMemberPasswordCommand command)
         {
@@ -56,7 +55,6 @@ namespace RentACarProject.WebApi.Controllers
             return Ok("Password updated successfully!");
         }
 
-
         [HttpGet("GetMemberDetailsById")]
         public async Task<IActionResult> GetMemberDetailsById(int id)
         {
@@ -65,7 +63,6 @@ namespace RentACarProject.WebApi.Controllers
 
             return Ok(result);
         }
-
 
         [HttpPut("UpdateMemberUsername")]
         public async Task<IActionResult> UpdateMemberUsername(UpdateMemberUsernameCommand command)
