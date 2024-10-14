@@ -1,0 +1,48 @@
+﻿@model ResultMemberDetailsByIdDto
+@{
+    ViewData["Title"] = "Member Details";
+    Layout = "~/Views/UILayout/Index.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-11">
+                <div class="card shadow-sm border-0" style="margin-top: 30px; margin-bottom: 30px;">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="card-title mb-0" style="color: black;">Member Details</h4>
+                        <p class="card-subtitle mt-1">View and update your information if necessary.</p>
+                    </div>
+                    <div class="card-body" style="color: black;">
+                        <input type="hidden" name="AppUserID" value="@ViewBag.id" />
+                        <div class="mb-3">
+                            <label><strong>Name:</strong></label>
+                            <div>@Model.Name</div>
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Surname:</strong></label>
+                            <div>@Model.Surname</div>
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Username:</strong></label>
+                            <div>@Model.Username</div>
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Email:</strong></label>
+                            <div>@Model.Email</div>
+                        </div>
+                        <div class="mb-3">
+                            <label><strong>Password:</strong></label>
+                            <div>******</div>
+                        </div>
+                        <div class="d-grid gap-2 d-md-block">
+                            <a class="btn btn-outline-primary me-3" href="/SignUp/UpdateMemberUsername/@Model.AppUserID">Edit Username</a>
+                            <a class="btn btn-outline-secondary me-3" href="/SignUp/UpdateMemberEmail/@Model.AppUserID">Edit Email</a>
+                            <a class="btn btn-outline-danger" href="#/@Model.AppUserID">Edit Password</a> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

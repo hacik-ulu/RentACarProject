@@ -33,7 +33,7 @@ namespace RentACarProject.WebUI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(createSignUpDto); 
+                return View(createSignUpDto);
             }
 
             var client = _httpClientFactory.CreateClient();
@@ -88,15 +88,15 @@ namespace RentACarProject.WebUI.Controllers
 
                 if (errorMessage.Contains("You need to register"))
                 {
-                    ModelState.AddModelError(string.Empty, "You need to register."); 
+                    ModelState.AddModelError(string.Empty, "You need to register.");
                 }
                 else if (errorMessage.Contains("Password is incorrect"))
                 {
-                    ModelState.AddModelError(string.Empty, "Password is incorrect."); 
+                    ModelState.AddModelError(string.Empty, "Password is incorrect.");
                 }
                 else
                 {
-                    TempData["Message"] = $"Hata: {errorMessage}"; 
+                    TempData["Message"] = $"Hata: {errorMessage}";
                 }
             }
 
@@ -132,8 +132,90 @@ namespace RentACarProject.WebUI.Controllers
 
             TempData["ErrorMessage"] = errorMessage;
 
-            return View(changePasswordDto); 
+            return View(changePasswordDto);
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetMemberDetailsById(int id)
+        {
+            ViewBag.v1 = "MY ACCOUNT ";
+            ViewBag.v2 = "My Account";
+
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
+
+            var appUserId = int.Parse(userIdClaim.Value);
+            ViewBag.id = appUserId;
+
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.GetAsync($"https://localhost:7262/api/MemberLogin/GetMemberDetailsById?id={id}");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<ResultMemberDetailsByIdDto>(jsonData);
+                return View(values);
+            }
+            return View();
+        }
+
+
+
+
+
+
+
+        [HttpGet]
+        public IActionResult UpdateMemberUsername(int id)
+        {
+            var model = new UpdateMemberUsernameDto { AppUserID = id };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateMemberUsername(UpdateMemberUsernameDto updateModel)
+        {
+            try
+            {
+                var client = _httpClientFactory.CreateClient();
+                var jsonData = JsonConvert.SerializeObject(updateModel);
+                StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+                var response = await client.PutAsync("https://localhost:7262/api/Login/UpdateMemberUsername", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("GetMemberDetailsById", "Login", new { id = updateModel.AppUserID });
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Failed to update username.");
+                    return View(updateModel);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
+                return View(updateModel);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         [HttpGet]
         public async Task<IActionResult> LogOut()
@@ -162,11 +244,13 @@ namespace RentACarProject.WebUI.Controllers
                 }
             }
 
-            return (null, null); 
+            return (null, null);
         }
 
 
     }
 }
 
-// Register sayfası yapılacak.
+// Kullanıcıya ait bir controller açılıp tek tek metodlar yapılar.MemberUI/UIMemberController(MVCde).
+
+// Yapayn zeka ile kullanııı kendi sayfasından kendine en uygun araçı bulsun.
