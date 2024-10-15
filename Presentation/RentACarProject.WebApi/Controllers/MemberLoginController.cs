@@ -41,8 +41,8 @@ namespace RentACarProject.WebApi.Controllers
             return Created("", MemberJwtTokenGenerator.GenerateToken(values));
         }
 
-        [HttpPost("ChangePassword")]
-        public async Task<IActionResult> ChangePassword(ChangeMemberPasswordCommand command)
+        [HttpPost("ChangeMemberPassword")]
+        public async Task<IActionResult> ChangeMemberPassword(ChangeMemberPasswordCommand command)
         {
             var existingUser = await _userRepository.GetByFilterAsync(x => x.Email == command.Email);
 

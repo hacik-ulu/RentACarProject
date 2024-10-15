@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
+using RentACarProject.Domain.Entities;
 
 namespace RentACarProject.WebUI.Controllers
 {
@@ -105,13 +106,13 @@ namespace RentACarProject.WebUI.Controllers
         }
 
         [HttpGet]
-        public IActionResult ChangePassword()
+        public IActionResult ChangeMemberPassword()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangePassword(ChangeMemberPasswordDto changePasswordDto)
+        public async Task<IActionResult> ChangeMemberPassword(ChangeMemberPasswordDto changePasswordDto)
         {
             if (!ModelState.IsValid)
             {
@@ -122,11 +123,16 @@ namespace RentACarProject.WebUI.Controllers
             var jsonData = JsonConvert.SerializeObject(changePasswordDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-            var responseMessage = await client.PostAsync("https://localhost:7262/api/MemberLogin/ChangePassword", stringContent);
+            var responseMessage = await client.PostAsync("https://localhost:7262/api/MemberLogin/ChangeMemberPassword", stringContent);
 
             if (responseMessage.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index", "SignUp");
+                var appUserId = HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+                if (appUserId != null)
+                {
+                    return RedirectToAction("GetMemberDetailsById", "SignUp", new { id = int.Parse(appUserId) });
+                }
+
             }
 
             var errorMessage = await responseMessage.Content.ReadAsStringAsync();
@@ -193,6 +199,51 @@ namespace RentACarProject.WebUI.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Failed to update username.");
+                    return View(updateModel);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
+                return View(updateModel);
+            }
+        }
+
+
+        [HttpGet]
+        public IActionResult UpdateMemberEmail(int id)
+        {
+            ViewBag.v1 = "CHANGE Email ";
+            ViewBag.v2 = "Change Email";
+
+            var model = new UpdateMemberEmailDto { AppUserID = id };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateMemberEmail(UpdateMemberEmailDto updateModel)
+        {
+            ViewBag.v1 = "CHANGE Email ";
+            ViewBag.v2 = "Change Email";
+
+            try
+            {
+                var client = _httpClientFactory.CreateClient();
+                var jsonData = JsonConvert.SerializeObject(updateModel);
+                StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+                var response = await client.PutAsync("https://localhost:7262/api/MemberLogin/UpdateMemberEmail", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("GetMemberDetailsById", "SignUp", new { id = updateModel.AppUserID });
+                }
+                else
+                {
+                    // Read error response details
+                    var errorResponse = await response.Content.ReadAsStringAsync();
+                    // Log or handle the error response
+                    ModelState.AddModelError(string.Empty, $"Failed to update email. Server response: {errorResponse}");
                     return View(updateModel);
                 }
             }
