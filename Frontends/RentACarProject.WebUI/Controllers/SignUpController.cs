@@ -136,7 +136,6 @@ namespace RentACarProject.WebUI.Controllers
             return View(changePasswordDto);
         }
 
-
         [HttpGet]
         public async Task<IActionResult> GetMemberDetailsById(int id)
         {
@@ -146,7 +145,7 @@ namespace RentACarProject.WebUI.Controllers
             var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
             if (userIdClaim == null)
             {
-                return Unauthorized();
+                return RedirectToAction("Index", "SignUp");
             }
 
             var appUserId = int.Parse(userIdClaim.Value);
