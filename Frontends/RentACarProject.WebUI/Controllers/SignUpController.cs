@@ -11,6 +11,7 @@ using RentACarProject.Dto.SignUpDtos;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RentACarProject.WebUI.Controllers
 {
@@ -140,7 +141,7 @@ namespace RentACarProject.WebUI.Controllers
         public async Task<IActionResult> GetMemberDetailsById(int id)
         {
             ViewBag.v1 = "MY ACCOUNT ";
-            ViewBag.v2 = "My Account";
+            ViewBag.v2 = "Member Details";
 
             var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
             if (userIdClaim == null)
@@ -162,15 +163,12 @@ namespace RentACarProject.WebUI.Controllers
             return View();
         }
 
-
-
-
-
-
-
         [HttpGet]
         public IActionResult UpdateMemberUsername(int id)
         {
+            ViewBag.v1 = "CHANGE USERNAME ";
+            ViewBag.v2 = "Change Username";
+
             var model = new UpdateMemberUsernameDto { AppUserID = id };
             return View(model);
         }
@@ -178,17 +176,20 @@ namespace RentACarProject.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateMemberUsername(UpdateMemberUsernameDto updateModel)
         {
+            ViewBag.v1 = "CHANGE USERNAME ";
+            ViewBag.v2 = "Change Username";
+
             try
             {
                 var client = _httpClientFactory.CreateClient();
                 var jsonData = JsonConvert.SerializeObject(updateModel);
                 StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-                var response = await client.PutAsync("https://localhost:7262/api/Login/UpdateMemberUsername", content);
+                var response = await client.PutAsync("https://localhost:7262/api/MemberLogin/UpdateMemberUsername", content);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("GetMemberDetailsById", "Login", new { id = updateModel.AppUserID });
+                    return RedirectToAction("GetMemberDetailsById", "SignUp", new { id = updateModel.AppUserID });
                 }
                 else
                 {
@@ -202,19 +203,6 @@ namespace RentACarProject.WebUI.Controllers
                 return View(updateModel);
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         [HttpGet]
