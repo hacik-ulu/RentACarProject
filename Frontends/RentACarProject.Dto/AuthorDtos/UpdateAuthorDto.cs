@@ -24,11 +24,11 @@ namespace RentACarProject.Dto.AuthorDtos
 
         [Required(ErrorMessage = "Description is required.")]
         [StringLength(1000, MinimumLength = 10, ErrorMessage = "Description must be between 10 and 1000 characters.")]
-        public string Description { get; set; } // Description property was missing a type definition
+        public string Description { get; set; }
 
         public string NormalizeFeatureName(string authorName)
         {
-            return authorName.Trim(); // Yalnızca baştaki ve sondaki boşlukları sil, başka bir işleme gerek yok
+            return authorName.Trim(); 
         }
 
         public bool IsExist(string featureName)

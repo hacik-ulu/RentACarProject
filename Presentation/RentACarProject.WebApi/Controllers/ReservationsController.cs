@@ -23,6 +23,14 @@ namespace RentACarProject.WebApi.Controllers
             return Ok(values);
         }
 
+        [HttpGet("GetReservationByUserId/{id}")]
+        public async Task<IActionResult> GetReservationByUserId(int id)
+        {
+            var values = await _mediator.Send(new GetReservationByUserIdQuery(id));
+            return Ok(values);
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> CreateReservation(CreateReservationCommand command)
         {

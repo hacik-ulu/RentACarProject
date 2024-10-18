@@ -23,7 +23,6 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
         [Route("Index")]
         public async Task<IActionResult> Index()
         {
-
             var token = User.Claims.FirstOrDefault(x => x.Type == "accessToken")?.Value;
             if (token == null)
             {
@@ -34,7 +33,6 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                 var claims = User.Claims;
                 if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Admin"))
                 {
-                    // Admin ise işlemleri yap ve AdminLocation/Index sayfasına yönlendir
                     var client = _httpClientFactory.CreateClient();
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                     var responseMessage = await client.GetAsync("https://localhost:7262/api/FooterAddresses");

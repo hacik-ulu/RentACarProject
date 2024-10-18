@@ -105,7 +105,6 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                 {
                     await connection.OpenAsync();
 
-                    // SQL sorgusu
                     string sqlQuery = @"
                 SELECT cf.FeatureID
                 FROM CarFeatures cf
@@ -115,7 +114,6 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                     {
                         command.Parameters.AddWithValue("@CarID", carId);
 
-                        // Sorguyu çalıştırıyoruz
                         using (var reader = await command.ExecuteReaderAsync())
                         {
                             while (await reader.ReadAsync())

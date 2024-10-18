@@ -23,7 +23,7 @@ namespace RentACarProject.Application.Features.Mediator.Commands.AuthorCommands
 
         [Required(ErrorMessage = "Description is required.")]
         [StringLength(500, MinimumLength = 10, ErrorMessage = "Description must be between 10 and 500 characters.")]
-        public string Description { get; set; } // Description property was missing a type definition
+        public string Description { get; set; } 
 
         public string NormalizeFeatureName(string authorName)
         {
