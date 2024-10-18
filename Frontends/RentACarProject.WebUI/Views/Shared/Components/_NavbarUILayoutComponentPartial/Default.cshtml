@@ -27,7 +27,7 @@
                             </span>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/SignUp/GetMemberDetailsById/@(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value)">My User Information</a>
-                            <a class="dropdown-item" href="/SignUp/Rentals/">Rentals</a>
+                            <a class="dropdown-item" href="/Information/Rentals/@(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value)">Rental Informations</a>
                             <a class="dropdown-item" href="/SignUp/Logout/">Logout</a>
                         </div>
                     </li>
