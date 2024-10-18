@@ -1,7 +1,7 @@
 
 # Rapid Rent Modern Car Rental Project
 
-This project is a Car Rental System designed to facilitate online vehicle rental management. The system allows users to rent cars, manage vehicles, make reservations, and handle payment processes seamlessly. It is designed for both car rental companies and individual users who need a platform to streamline car rental transactions.
+This project is a Car Rental System designed to facilitate online vehicle rental management. The system allows users to rent cars, manage vehicles, make reservations, and handle payment processes seamlessly. Users can log in and perform rental transactions based on their login credentials. It is designed for both car rental companies and individual users who need a platform to streamline car rental transactions.
 
 # Technologies Used
 
@@ -18,6 +18,11 @@ This project is a Car Rental System designed to facilitate online vehicle rental
 
 
 ## Application Screnshot
+![01](https://github.com/user-attachments/assets/12778cd4-000d-4a2f-96bb-dcf103efb428)
+
+![1](https://github.com/user-attachments/assets/5db268c3-5bfd-4c9c-9fc3-5a1f608de8da)
+
+![2](https://github.com/user-attachments/assets/7a7cd796-9cee-4613-a243-683345a49b74)
 
 ![5](https://github.com/user-attachments/assets/316080ac-2fb1-4803-9437-02f84688bac1)
 
