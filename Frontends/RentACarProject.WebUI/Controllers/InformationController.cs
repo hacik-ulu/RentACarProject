@@ -32,13 +32,10 @@ namespace RentACarProject.WebUI.Controllers
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
 
-                // Veriyi deserialize etme
                 var values = JsonConvert.DeserializeObject<List<GetReservationByUserIdDto>>(jsonData);
 
-                // Eğer gelen veri tek bir nesne ise onu listeye çeviriyoruz
                 if (values == null || !values.Any())
                 {
-                    // Eğer tek bir nesne gelmişse, onu liste olarak al
                     var singleValue = JsonConvert.DeserializeObject<GetReservationByUserIdDto>(jsonData);
                     if (singleValue != null)
                     {
@@ -46,14 +43,14 @@ namespace RentACarProject.WebUI.Controllers
                     }
                 }
 
-                // Veriyi view'a gönder
                 return View(values);
             }
 
-            // API çağrısı başarısız olduysa uygun bir hata mesajı verebiliriz
             ViewBag.ErrorMessage = "Failed to retrieve reservations.";
-            return View(new List<GetReservationByUserIdDto>()); // Boş bir liste döndürüyoruz
+            return View(new List<GetReservationByUserIdDto>()); 
         }
 
     }
 }
+
+//Finished
