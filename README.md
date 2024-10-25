@@ -1,9 +1,9 @@
 
-# Rapid Rent Modern Car Rental Project
+## 🏎️🚗 Rapid Rent Modern Car Rental Project ## 
 
 This project is a Car Rental System designed to facilitate online vehicle rental management. The system allows users to rent cars, manage vehicles, make reservations, and handle payment processes seamlessly. Users can log in and perform rental transactions based on their login credentials. It is designed for both car rental companies and individual users who need a platform to streamline car rental transactions.
 
-# Technologies Used
+## 🚀 Technologies Used ##
 
 - Asp.Net Core 8
 - Onion Architecture
