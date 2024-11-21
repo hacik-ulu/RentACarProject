@@ -31,11 +31,27 @@ namespace RentACarProject.WebApi.Controllers
             return Ok(value);
         }
 
+        [HttpGet("GetBlogListByAuthorId/{id}")]
+        public async Task<IActionResult> GetBlogListByAuthorId(int id)
+        {
+            var value = await _mediator.Send(new GetBlogsByAuthorIdQuery(id));
+            return Ok(value);
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> CreateAuthor(CreateAuthorCommand command)
         {
-            await _mediator.Send(command);
-            return Ok("Author Added!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _mediator.Send(command);
+                return Ok("Author Added!");
+            }
+
         }
 
         [HttpDelete]
@@ -48,9 +64,15 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateAuthor(UpdateAuthorCommand command)
         {
-            await _mediator.Send(command);
-            return Ok("Author Updated!");
-
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _mediator.Send(command);
+                return Ok("Author Updated!");
+            }
         }
     }
 }

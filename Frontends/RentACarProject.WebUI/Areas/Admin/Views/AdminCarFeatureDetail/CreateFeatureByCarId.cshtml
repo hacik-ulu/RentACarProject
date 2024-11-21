@@ -1,0 +1,38 @@
+﻿@model List<ResultFeatureDto>
+
+@{
+    ViewData["Title"] = "CreateFeatureByCarId";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    var carId = ViewBag.CarID;
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Add Features to Car Page</h4>
+                        <p class="card-subtitle mb-4">
+                            This is the page where features will be assigned to a car.
+                        </p>
+                        <form method="post">
+                            @for (int i = 0; i < Model.Count; i++)
+                            {
+                                <div class="form-check">
+                                    <input type="hidden" name="CarID" value="@carId" />
+                                    <input type="checkbox" class="form-check-input"
+                                           name="selectedFeatureIds"
+                                           value="@Model[i].FeatureID" /> <!-- Value değerini ekleyin -->
+                                    <label class="form-check-label">@Model[i].Name</label>
+                                </div>
+                            }
+                            <br />
+                            <button class="btn btn-primary">Assign Features to Car</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

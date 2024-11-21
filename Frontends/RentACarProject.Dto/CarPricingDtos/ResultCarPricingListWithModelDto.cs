@@ -8,6 +8,7 @@ namespace RentACarProject.Dto.CarPricingDtos
 {
 	public class ResultCarPricingListWithModelDto
 	{
+        public int CarID { get; set; }
         public string Model { get; set; }
 		public decimal DailyAmount { get; set; }
 		public decimal WeeklyAmount { get; set; }

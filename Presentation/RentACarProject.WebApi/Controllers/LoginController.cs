@@ -40,6 +40,7 @@ namespace RentACarProject.WebApi.Controllers
             return Ok("Password updated sucessfully!");
         }
 
+
         [HttpGet("GetAdminDetailsById")]
         public async Task<IActionResult> GetAdminDetailsById(int id)
         {
@@ -48,6 +49,7 @@ namespace RentACarProject.WebApi.Controllers
 
             return Ok(result);
         }
+
 
         [HttpPut("UpdateAdminUsername")]
         public async Task<IActionResult> UpdateAdminUsername(UpdateAdminUsernameCommand command)

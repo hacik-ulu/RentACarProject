@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RentACarProject.Domain.Entities;
@@ -19,7 +20,6 @@ namespace RentACarProject.WebUI.Controllers
     public class LoginController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
-
         public LoginController(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
@@ -113,7 +113,7 @@ namespace RentACarProject.WebUI.Controllers
             var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
             if (userIdClaim == null)
             {
-                return Unauthorized(); // Kullanıcı giriş yapmamışsa veya kimlik bulunamazsa
+                return Unauthorized();
             }
 
             var appUserId = int.Parse(userIdClaim.Value);

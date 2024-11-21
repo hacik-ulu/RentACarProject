@@ -16,7 +16,7 @@ namespace RentACarProject.WebUI.ViewComponents.CarDetailViewComponents
         {
             ViewBag.carid = id;
             var client = _httpClientFactory.CreateClient();
-            var resposenMessage = await client.GetAsync($"https://localhost:7262/api/CarDescriptions?id=" + id);
+            var resposenMessage = await client.GetAsync($"https://localhost:7262/api/CarDescriptions/GetCarDescriptionsByCarID?id=" + id);
             if (resposenMessage.IsSuccessStatusCode)
             {
                 var jsonData = await resposenMessage.Content.ReadAsStringAsync();

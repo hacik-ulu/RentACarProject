@@ -21,7 +21,6 @@ namespace RentACarProject.WebApi.Controllers
         public async Task<IActionResult> FeatureList()
         {
             // GetFeatureQuery' istek gönderdiğimizde Handle edilip liste dönecek
-
             var values = await _mediator.Send(new GetFeatureQuery());
             return Ok(values);
         }
@@ -36,8 +35,16 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateFeature(CreateFeatureCommand command)
         {
-            await _mediator.Send(command);
-            return Ok("Feature Added!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _mediator.Send(command);
+                return Ok("Feature Added!");
+            }
+
         }
 
         [HttpDelete("{id}")]

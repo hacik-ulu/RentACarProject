@@ -13,7 +13,6 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.FeatureHandlers
     public class UpdateFeatureCommandHandler : IRequestHandler<UpdateFeatureCommand>
     {
         private readonly IRepository<Feature> _repository;
-
         public UpdateFeatureCommandHandler(IRepository<Feature> repository)
         {
             _repository = repository;

@@ -45,9 +45,9 @@
                                 <div class="invalid-feedback">Please enter a valid email address.</div>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="Phone">Contact Number</label>
-                                <input type="tel" asp-for="Phone" class="form-control" placeholder="Your Contact Number" required>
-                                <div class="invalid-feedback">Please enter your contact number.</div>
+                                <label for="Phone">Phone Number</label>
+                                <input type="text" class="form-control" id="Phone" asp-for="Phone" onfocus="addCountryCode(this)" oninput="formatPhoneNumber(this)" placeholder="530 123 45 67">
+                                <span asp-validation-for="Phone" class="text-danger" id="phoneError"></span>
                             </div>
                         </div>
                         <div class="form-row">
@@ -130,3 +130,46 @@
         }, false);
     })();
 </script>
+
+<script>
+    function addCountryCode(input) {
+        if (input.value.trim() === "") {
+            input.value = "+90 ";
+        }
+    }
+
+    function phoneNumberFormatView(phoneNumberString) {
+        let cleaned = ('' + phoneNumberString).replace(/\D/g, '');
+        let match = cleaned.match(/^(\d{3})(\d{3})(\d{2})(\d{2})$/);
+        if (match) {
+            return `+90 ${match[1]} ${match[2]} ${match[3]} ${match[4]}`;
+        }
+        return null;
+    }
+
+    function formatPhoneNumber(input) {
+        if (input.value.startsWith('+90')) {
+            let formattedNumber = phoneNumberFormatView(input.value.replace('+90 ', '')); 
+            if (formattedNumber) {
+                input.value = formattedNumber; 
+            }
+        } else {
+            input.value = input.value.replace(/\D/g, ''); 
+        }
+    }
+
+    function validatePhoneNumber() {
+        const phoneInput = document.getElementById('Phone');
+        const phoneError = document.getElementById('phoneError');
+        const regex = /^\+90 (5(0[5-7]|[3-5]\d) \d{3} \d{2} \d{2})$/;
+
+        if (!regex.test(phoneInput.value)) {
+            phoneError.textContent = "Invalid phone number format. Please use: +90 530 123 45 67";
+            return false; 
+        } else {
+            phoneError.textContent = ""; 
+            return true; 
+        }
+    }
+</script>
+

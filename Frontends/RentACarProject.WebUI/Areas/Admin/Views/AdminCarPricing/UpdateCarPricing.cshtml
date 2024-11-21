@@ -1,0 +1,56 @@
+﻿@model RentACarProject.Dto.CarPricingDtos.UpdateCarPricingDto
+
+@{
+    ViewData["Title"] = "Update Car Pricing";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Update Car Pricing Page</h4>
+                        <p class="card-subtitle mb-4">You are kindly requested to fill in the following fields completely. Please be sure to press the "Save Car Pricing" button to register the update Car Pricing.</p>
+                        <form method="post">
+                            <input type="hidden" asp-for="CarID" />
+
+                            <!-- Araç Modeli Seçimi -->
+                            <div class="form-group">
+                                <label asp-for="CarID" class="form-label">Car Model</label>
+                                <select asp-for="CarID" asp-items="ViewBag.CarValues" class="form-control" id="carModel" disabled>
+                                    <option value="">Select Car Model</option>
+                                </select>
+                                <span asp-validation-for="CarID" class="text-danger"></span>
+                            </div>
+
+                            <!-- Pricing Type ve Amount Alanları -->
+                            <h5>Pricing Amounts</h5>
+                            @for (int i = 0; i < Model.PricingAmounts.Count; i++)
+                            {
+                                <div class="form-group">
+                                    <label asp-for="PricingAmounts[i].PricingID" class="form-label">Pricing Type</label>
+                                    <select asp-for="PricingAmounts[i].PricingID" asp-items="ViewBag.PricingValues" class="form-control" disabled>
+                                        <option value="">Select Pricing Type</option>
+                                    </select>
+                                    <input type="hidden" asp-for="PricingAmounts[i].PricingID" /> 
+                                    <span asp-validation-for="PricingAmounts[i].PricingID" class="text-danger"></span> 
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="PricingAmounts[i].Amount" class="form-label">Amount</label>
+                                    <input type="text" class="form-control" asp-for="PricingAmounts[i].Amount"
+                                           oninput="this.value = this.value.replace(/[^0-9.]/g, '');" /> 
+                                    <span asp-validation-for="PricingAmounts[i].Amount" class="text-danger"></span> 
+                                </div>
+                            }
+
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Update Pricing</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using RentACarProject.Application.Interfaces.GeneralInterfaces;
 using RentACarProject.Domain.Entities;
+using RentACarProject.Persistence.Repositories.GeneralRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,9 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
 
+
+
 // Dynamic AppUserID
 builder.Services.AddHttpContextAccessor();
-
 
 // JWT
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddCookie(JwtBearerDefaults.AuthenticationScheme, opt =>
@@ -21,8 +24,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddCo
     opt.Cookie.HttpOnly = true;
     opt.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
     opt.Cookie.Name = "RapidRentJwt";
-
 });
+
+// Fluent Validation
 
 var app = builder.Build();
 
@@ -30,7 +34,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -39,6 +42,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication(); // Authentication middleware
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -13,7 +13,6 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.AppUserHandlers
     public class UpdateAdminEmailCommandHandler : IRequestHandler<UpdateAdminEmailCommand>
     {
         private readonly IRepository<AppUser> _appUserRepository;
-
         public UpdateAdminEmailCommandHandler(IRepository<AppUser> appUserRepository)
         {
             _appUserRepository = appUserRepository ?? throw new ArgumentNullException(nameof(appUserRepository));

@@ -18,7 +18,8 @@
                         <form method="post">
                             <div class="form-group">
                                 <label for="exampleInputTitle">Location Name</label>
-                                <input type="text" class="form-control" id="exampleInputTitle" asp-for="Name">
+                                <input type="text" class="form-control" id="featureName" name="Name" asp-for="Name" oninput="this.value = this.value.replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ\s]/g, '')">
+                                <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
                             <button type="submit" class="btn btn-primary waves-effect waves-light">Save Location</button>
                         </form>

@@ -35,8 +35,16 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateBlog(CreateBlogCommand command)
         {
-            await _mediator.Send(command);
-            return Ok("Blog Added!");
+            if (!ModelState.IsValid) 
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _mediator.Send(command);
+                return Ok("Blog Added!");
+            }
+           
         }
 
         [HttpDelete]
@@ -49,8 +57,15 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateBlog(UpdateBlogCommand command)
         {
-            await _mediator.Send(command);
-            return Ok("Blog Updated!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _mediator.Send(command);
+                return Ok("Blog Updated!");
+            }
 
         }
 

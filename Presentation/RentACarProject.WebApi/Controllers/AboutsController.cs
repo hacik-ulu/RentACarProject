@@ -42,8 +42,16 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAbout(CreateAboutCommand command)
         {
-            await _createAboutCommandHandler.Handle(command);
-            return Ok("About Added!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _createAboutCommandHandler.Handle(command);
+                return Ok("About Added!");
+            }
+
         }
 
         [HttpDelete]
@@ -56,8 +64,15 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateAbout(UpdateAboutCommand command)
         {
-            await _updateAboutCommandHandler.Handle(command);
-            return Ok("About Updated!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _updateAboutCommandHandler.Handle(command);
+                return Ok("About Updated!");
+            }
         }
     }
 }

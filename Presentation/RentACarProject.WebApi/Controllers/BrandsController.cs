@@ -42,9 +42,18 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateBrand(CreateBrandCommand command)
         {
-            await _createBrandCommandHandler.Handle(command);
-            return Ok("Brand Created!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _createBrandCommandHandler.Handle(command);
+                return Ok("Brand Created!");
+            }
+
         }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveBrand(int id)
@@ -56,8 +65,17 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateBrand(UpdateBrandCommand command)
         {
-            await _updateBrandCommandHandler.Handle(command);
-            return Ok("Brand Updated!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _updateBrandCommandHandler.Handle(command);
+                return Ok("Brand Updated!");
+            }
         }
     }
 }
+
+

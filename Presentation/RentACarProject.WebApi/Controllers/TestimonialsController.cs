@@ -30,8 +30,16 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateTestimonial(CreateTestimonialCommand command)
         {
-            await _mediator.Send(command);
-            return Ok("Testimonial added!");
+            if (!ModelState.IsValid) 
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _mediator.Send(command);
+                return Ok("Testimonial added!");
+            }
+           
         }
         [HttpDelete]
         public async Task<IActionResult> RemoveTestimonial(int id)
@@ -42,8 +50,15 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateTestimonial(UpdateTestimonialCommand command)
         {
-            await _mediator.Send(command);
-            return Ok("Testimonial updated!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _mediator.Send(command);
+                return Ok("Testimonial Updated!");
+            }
         }
     }
 }

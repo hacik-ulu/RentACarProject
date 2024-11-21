@@ -1,4 +1,6 @@
-﻿namespace RentACarProject.Domain.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace RentACarProject.Domain.Entities;
 
 public class Brand
 {

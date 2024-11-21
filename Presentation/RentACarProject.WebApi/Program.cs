@@ -1,4 +1,5 @@
-﻿using FluentValidation.AspNetCore;
+﻿#region Using 
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using NETCore.MailKit.Extensions;
@@ -17,6 +18,7 @@ using RentACarProject.Application.Features.CQRS.Handlers.CategoryHandlers.WriteO
 using RentACarProject.Application.Features.CQRS.Handlers.ContactHandler.ReadOperations;
 using RentACarProject.Application.Features.CQRS.Handlers.ContactHandler.WriteOperations;
 using RentACarProject.Application.Features.RepositoryPattern;
+using RentACarProject.Application.Interfaces.AuthorInterfaces;
 using RentACarProject.Application.Interfaces.BlogInterfaces;
 using RentACarProject.Application.Interfaces.CarDescriptionInterfaces;
 using RentACarProject.Application.Interfaces.CarFeatureInterfaces;
@@ -33,6 +35,7 @@ using RentACarProject.Application.Interfaces.TagCloudInterfaces;
 using RentACarProject.Application.Services;
 using RentACarProject.Application.Tools;
 using RentACarProject.Persistence.Context;
+using RentACarProject.Persistence.Repositories.AuthorRepositories;
 using RentACarProject.Persistence.Repositories.BlogRepositories;
 using RentACarProject.Persistence.Repositories.CarDescriptionRepositories;
 using RentACarProject.Persistence.Repositories.CarFeatureRepositories;
@@ -49,11 +52,14 @@ using RentACarProject.Persistence.Repositories.TagCloudRepositories;
 using RentACarProject.WebApi.Hubs;
 using System.Reflection;
 using System.Text;
+#endregion 
 
+#region builder
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpClient();
+#endregion
 
-// CORS and SignalR
+# region CORS And SignalR
 builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("CorsPolicy", builder =>
@@ -65,9 +71,9 @@ builder.Services.AddCors(opt =>
     });
 });
 builder.Services.AddSignalR();
+#endregion
 
-
-// JWT Configuration
+# region JWT 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
 {
     opt.RequireHttpsMetadata = false;
@@ -80,18 +86,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidIssuer = JwtTokenDefaults.ValidIssuer,
         ValidAudience = JwtTokenDefaults.ValidAudience,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtTokenDefaults.Key)),
-        ClockSkew = TimeSpan.Zero 
+        ClockSkew = TimeSpan.Zero
     };
 });
+#endregion
 
-
-# region Registrations
+# region MediatR Registrations
 // Add Services to the container. - These are using for Mediator - 
 builder.Services.AddScoped<RentACarContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(ICarRepository), typeof(CarRepository));
 builder.Services.AddScoped(typeof(IStatisticsRepository), typeof(StatisticsRepository));
 builder.Services.AddScoped(typeof(IBlogRepository), typeof(BlogRepository));
+builder.Services.AddScoped(typeof(IAuthorRepository), typeof(AuthorRepository));
 builder.Services.AddScoped(typeof(ICarPricingRepository), typeof(CarPricingRepository));
 builder.Services.AddScoped(typeof(ITagCloudRepository), typeof(TagCloudRepository));
 builder.Services.AddScoped(typeof(IRentCarRepository), typeof(RentCarRepository));
@@ -102,9 +109,9 @@ builder.Services.AddScoped(typeof(ICarDescriptionRepository), typeof(CarDescript
 builder.Services.AddScoped(typeof(IReviewRepository), typeof(ReviewRepository));
 builder.Services.AddScoped(typeof(IEmailRepository), typeof(EmailRepository));
 builder.Services.AddScoped(typeof(IReservationRepository), typeof(ReservationRepository));
+#endregion
 
-
-//- These are using for CQRS -
+# region CQRS Registrations
 
 // About Service
 builder.Services.AddScoped<GetAboutQueryHandler>();
@@ -151,8 +158,7 @@ builder.Services.AddScoped<CreateContactCommandHandler>();
 builder.Services.AddScoped<UpdateContactCommandHandler>();
 builder.Services.AddScoped<RemoveContactCommandHandler>();
 
-// Email Service
-// Email Service
+
 // Email Service
 builder.Services.AddMailKit(config =>
 {
@@ -169,15 +175,17 @@ builder.Services.AddMailKit(config =>
 
 #endregion
 
-// Mediator
+#region Mediator Service Config
 builder.Services.AddApplicationService(builder.Configuration);
+#endregion
 
-// Fluent Validation
 builder.Services.AddControllers().AddFluentValidation(x =>
 {
     x.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 });
 
+
+#region Other Config
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -205,3 +213,5 @@ app.MapControllers();
 app.MapHub<CarHub>("/carhub");
 
 app.Run();
+
+#endregion

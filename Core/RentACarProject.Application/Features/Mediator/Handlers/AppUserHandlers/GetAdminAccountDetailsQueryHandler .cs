@@ -14,7 +14,6 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.AppUserHandlers
     public class GetAdminAccountDetailsQueryHandler : IRequestHandler<GetAdminAccountDetailsByIDQuery, AdminAccountDetailsQueryResult>
     {
         private readonly IRepository<AppUser> _appUserRepository;
-
         public GetAdminAccountDetailsQueryHandler(IRepository<AppUser> appUserRepository)
         {
             _appUserRepository = appUserRepository;

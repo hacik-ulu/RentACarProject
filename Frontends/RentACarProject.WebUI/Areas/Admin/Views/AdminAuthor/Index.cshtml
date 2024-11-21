@@ -2,7 +2,10 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
-    int count = 0;
+    int itemsPerPage = 5; // Her sayfadaki öğe sayısı
+    int currentPage = ViewBag.CurrentPage ?? 1;
+    int totalPages = ViewBag.TotalPages ?? 1;
+    int count = (currentPage - 1) * itemsPerPage; // Sayfaya göre başlama numarasını hesapla
 }
 
 <div class="page-content">
@@ -29,23 +32,36 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                        count++;
+                                        count++; // Her bir öğe için sayacı artır
                                         <tr>
                                             <td>@count</td>
                                             <td><img src="@item.ImageUrl" width="50" height="50" style="margin-right:10px" /> @item.Name</td>
                                             <td><a href="/Admin/AdminAuthor/RemoveAuthor/@item.AuthorID" class="btn btn-outline-danger">Remove</a></td>
                                             <td><a href="/Admin/AdminAuthor/UpdateAuthor/@item.AuthorID" class="btn btn-outline-success">Update</a></td>
-                                            <td><a href="/Admin/AdminAuthor/#/@item.AuthorID" class="btn btn-outline-dark">Authors Blogs</a></td>
+                                            <td><a href="/Admin/AdminAuthor/GetBlogListByAuthorId/@item.AuthorID" class="btn btn-outline-dark">Authors Blogs</a></td>
                                         </tr>
                                     }
                                 </tbody>
                             </table>
+                            <br />
                             <a href="/Admin/AdminAuthor/CreateAuthor" class="btn btn-outline-primary">Create New Author</a>
                         </div>
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                    @for (int i = 1; i <= totalPages; i++)
+                                    {
+                                        <li class="page-item @(currentPage == i ? "active" : "")">
+                                            <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </nav>
+                        }
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-

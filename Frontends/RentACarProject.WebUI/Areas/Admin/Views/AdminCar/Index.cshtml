@@ -1,0 +1,94 @@
+﻿@model List<ResultCarWithBrandsDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    int itemsPerPage = 5; 
+    int currentPage = ViewBag.CurrentPage ?? 1;
+    int totalPages = ViewBag.TotalPages ?? 1;
+    int count = (currentPage - 1) * itemsPerPage; 
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Car List</h4>
+                        <p class="card-subtitle mb-4">
+                            You can perform operations such as adding, deleting, updating, searching, and listing related to cars on this page.
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Brand</th>
+                                        <th>Model</th>
+                                        <th>Transmission Type</th>
+                                        <th>Year</th>
+                                        <th>Mileage</th>
+                                        <th>Delete</th>
+                                        <th>Update</th>
+                                        <th>Details</th>
+                                        <th>Assign Feature</th>
+                                        <th>See in Website</th>
+                                        <th>Pricing Informations</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null && Model.Count > 0)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            count++;
+                                            <tr>
+                                                <th scope="row">@count</th>
+                                                <td>@item.BrandName</td>
+                                                <td>@item.Model</td>
+                                                <td>@item.Transmission</td>
+                                                <td>@item.Year</td>
+                                                <td>@item.Mileage</td>
+                                                <td><a href="/Admin/AdminCar/RemoveCar/@item.CarID" class="btn btn-outline-danger">Remove</a></td>
+                                                <td><a href="/Admin/AdminCar/UpdateCar/@item.CarID" class="btn btn-outline-success">Update</a></td>
+                                                <td><a href="/Admin/AdminCarFeatureDetail/Index/@item.CarID" class="btn btn-outline-dark">Edit Car Features</a></td>
+                                                <td><a href="/Admin/AdminCarFeatureDetail/CreateFeatureByCarID/@item.CarID" class="btn btn-outline-info">Assing Feature</a></td>
+                                                <td><a href="/Car/CarDetail/@item.CarID" class="btn btn-outline-warning" target="_blank">See in Website</a></td>
+                                                <td>
+                                                    <a href="/Admin/AdminCarPricing/Index?page=@currentPage#car-@item.CarID" class="btn btn-outline-secondary" target="_blank">Pricing Informations</a>
+                                                </td>
+                                            </tr>
+
+                                          
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="11" class="text-center">No cars found.</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                            <a href="/Admin/AdminCar/CreateCar/" class="btn btn-outline-dark">Create New Car</a>
+                        </div>
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                    @for (int i = 1; i <= totalPages; i++)
+                                    {
+                                        <li class="page-item @(currentPage == i ? "active" : "")">
+                                            <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </nav>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

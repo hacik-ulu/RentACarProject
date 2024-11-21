@@ -1,0 +1,35 @@
+﻿@model UpdateCarDescriptionDto
+@{
+    ViewData["Title"] = "Update Car Description";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Update Car Description Page</h4>
+                        <p class="card-subtitle mb-4">
+                            It's important to fill in the basic information about the car description completely. After entering the data, you can complete the update process by clicking the save button.
+                        </p>
+                        <form method="post">
+                            <input type="hidden" asp-for="CarDescriptionID" />
+                            <input type="hidden" asp-for="CarID" />
+                            <div class="mb-3">
+                                <label for="Details" class="form-label">Details</label>
+                                <textarea asp-for="Details" class="form-control" rows="5" style="resize: none;" maxlength="1000"></textarea>
+                                <span asp-validation-for="Details" class="text-danger"></span>
+                                <small class="form-text text-muted">Minimum 100 characters, maximum 1000 characters.</small>
+                            </div>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Save Car Description</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

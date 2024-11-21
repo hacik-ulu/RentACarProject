@@ -29,8 +29,16 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateService(CreateServiceCommand command)
         {
-            await _mediator.Send(command);
-            return Ok("Service Added!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _mediator.Send(command);
+                return Ok("Service Added!");
+            }
+           
         }
         [HttpDelete]
         public async Task<IActionResult> RemoveService(int id)
@@ -41,8 +49,15 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateService(UpdateServiceCommand command)
         {
-            await _mediator.Send(command);
-            return Ok("Service Updated!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _mediator.Send(command);
+                return Ok("Service Updated!");
+            }
         }
     }
 }

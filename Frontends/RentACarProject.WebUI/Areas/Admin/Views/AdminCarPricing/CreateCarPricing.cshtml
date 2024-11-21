@@ -1,0 +1,75 @@
+﻿@model RentACarProject.Dto.CarPricingDtos.CreateCarPricingDto
+@{
+    ViewData["Title"] = "Create Car Pricing";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">New Car Pricing Entry</h4>
+                        <p class="card-subtitle mb-4">
+                            You are kindly requested to fill in the following fields completely. Please be sure to press the "Save Car Pricing" button to register the new Car Pricing.
+                        </p>
+
+                        <form method="post">
+                            <!-- Araç Modeli Seçimi -->
+                            <div class="form-group">
+                                <label asp-for="CarID" class="form-label">Car Model</label>
+                                <select asp-for="CarID" asp-items="ViewBag.CarValues" class="form-control" id="carModel">
+                                    <option value="">Select Car Model</option>
+                                </select>
+                                <span asp-validation-for="CarID" class="text-danger"></span>
+                            </div>
+
+                            <!-- Pricing ID'ler (Gizli Alanlar) -->
+                            <input type="hidden" name="PricingIDs" value="1" />
+                            <input type="hidden" name="PricingIDs" value="3" />
+                            <input type="hidden" name="PricingIDs" value="4" />
+
+                            <!-- Kiralama Bedeli Girişi -->
+                            <div class="form-group">
+                                <label class="form-label">Pricing Amounts</label>
+
+                                <!-- Günlük Bedel -->
+                                <div class="amount-entry mb-3">
+                                    <label class="form-label">Daily</label>
+                                    <input type="text" class="form-control mb-2" asp-for="Amounts[0]"
+                                           id="amount_daily"
+                                           oninput="this.value = this.value.replace(/[^0-9.]/g, '');"
+                                           placeholder="Enter daily amount" />
+                                    @Html.ValidationMessageFor(model => model.Amounts[0], "", new { @class = "text-danger" })
+                                </div>
+
+                                <!-- Haftalık Bedel -->
+                                <div class="amount-entry mb-3">
+                                    <label class="form-label">Weekly</label>
+                                    <input type="text" class="form-control mb-2" asp-for="Amounts[1]"
+                                           id="amount_weekly"
+                                           oninput="this.value = this.value.replace(/[^0-9.]/g, '');"
+                                           placeholder="Enter weekly amount" />
+                                    @Html.ValidationMessageFor(model => model.Amounts[1], "", new { @class = "text-danger" })
+                                </div>
+
+                                <!-- Aylık Bedel -->
+                                <div class="amount-entry mb-3">
+                                    <label class="form-label">Monthly</label>
+                                    <input type="text" class="form-control mb-2" asp-for="Amounts[2]"
+                                           id="amount_monthly"
+                                           oninput="this.value = this.value.replace(/[^0-9.]/g, '');"
+                                           placeholder="Enter monthly amount" />
+                                    @Html.ValidationMessageFor(model => model.Amounts[2], "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <!-- Kaydet Butonu -->
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Save Car Pricing</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

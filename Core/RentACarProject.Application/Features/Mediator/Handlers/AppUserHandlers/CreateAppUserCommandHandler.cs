@@ -14,7 +14,6 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.AppUserHandlers
     public class CreateAppUserCommandHandler : IRequestHandler<CreateAppUserCommand>
     {
         private readonly IRepository<AppUser> _repository;
-
         public CreateAppUserCommandHandler(IRepository<AppUser> repository)
         {
             _repository = repository;

@@ -2,13 +2,15 @@
 using RentACarProject.Application.Features.Mediator.Queries.CarDescriptionQueries;
 using RentACarProject.Application.Features.Mediator.Results.CarDescriptionResults;
 using RentACarProject.Application.Interfaces.CarDescriptionInterfaces;
+using RentACarProject.Application.Interfaces.GeneralInterfaces;
+using RentACarProject.Domain.Entities;
 
 namespace UdemyCarBook.Application.Features.Mediator.Handlers.CarDescriptionHandlers
 {
-    public class GetCarDescriptionByCarIDQueryHandler : IRequestHandler<GetCarDescriptionByCarIDQuery, GetCarDescriptionQueryResult>
+    public class GetCarDescriptionByCarIdQueryHandler : IRequestHandler<GetCarDescriptionByCarIDQuery, GetCarDescriptionQueryResult>
     {
         private readonly ICarDescriptionRepository _repository;
-        public GetCarDescriptionByCarIDQueryHandler(ICarDescriptionRepository repository)
+        public GetCarDescriptionByCarIdQueryHandler(ICarDescriptionRepository repository)
         {
             _repository = repository;
         }

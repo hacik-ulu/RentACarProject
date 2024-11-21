@@ -26,6 +26,7 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.CarPricingHandl
 			var values = await _repository.GetCarPricingWithTimePeriodAsync();
 			return values.Select(x => new GetCarPricingWithTimePeriodQueryResult
 			{
+				CarID = x.CarID,
 				Brand = x.Brand,
 				Model = x.Model,
 				CoverImagerUrl = x.CoverImagerUrl,

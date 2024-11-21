@@ -22,11 +22,14 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.BlogHandlers.Wr
         public async Task Handle(UpdateBlogCommand request, CancellationToken cancellationToken)
         {
             var values = await _repository.GetByIdAsync(request.BlogID);
+
             values.AuthorID = request.AuthorID;
+            values.Description = request.Description;
             values.CreatedDate = request.CreatedDate;
             values.CategoryID = request.CategoryID;
             values.CoverImageUrl = request.CoverImageUrl;
             values.Title = request.Title;
+
             await _repository.UpdateAsync(values);
         }
     }

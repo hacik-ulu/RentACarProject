@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,5 +17,6 @@ namespace RentACarProject.Application.ViewModels
 		public List<Decimal> Amounts { get; set; }
 		public string CoverImagerUrl { get; set; }
 		public string Brand { get; set; }
-	}
+        public int CarID { get; set; }
+    }
 }

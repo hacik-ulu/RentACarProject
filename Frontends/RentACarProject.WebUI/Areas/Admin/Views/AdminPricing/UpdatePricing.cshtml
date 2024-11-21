@@ -16,7 +16,8 @@
                             <input type="hidden" asp-for="PricingID" />
                             <div class="form-group">
                                 <label for="exampleInputName">Pricing Period Title</label>
-                                <input type="text" class="form-control" id="exampleInputName" asp-for="Name">
+                                <input type="text" class="form-control" id="exampleInputTitle" asp-for="Name" oninput="this.value = this.value.replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ\s]/g, '')">
+                                <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
                             <button type="submit" class="btn btn-primary waves-effect waves-light">Save Pricing Period</button>
                         </form>

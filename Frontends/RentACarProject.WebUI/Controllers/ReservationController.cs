@@ -18,10 +18,14 @@ namespace RentACarProject.WebUI.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(int id)
         {
-            ViewBag.v1 = "CAR RENTAL ";
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "SignUp");
+            }
+
+            ViewBag.v1 = "CAR RENTAL";
             ViewBag.v2 = "Car Rental Form";
             ViewBag.v3 = id;
-
 
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.GetAsync("https://localhost:7262/api/Locations");
@@ -42,6 +46,11 @@ namespace RentACarProject.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(CreateReservationDto createReservationDto)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "SignUp");
+            }
+
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createReservationDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");

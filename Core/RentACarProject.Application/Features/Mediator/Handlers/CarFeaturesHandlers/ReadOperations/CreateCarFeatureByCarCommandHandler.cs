@@ -21,13 +21,27 @@ namespace RentACarProject.Application.Features.Mediator.Handlers.CarFeaturesHand
 
         public async Task Handle(CreateCarFeatureByCarCommand request, CancellationToken cancellationToken)
         {
-            _repository.CreateCarFeatureByCar(new CarFeature
+            foreach (var featureId in request.FeatureIDs)
             {
-                Availability = false,
-                CarID = request.CarID,
-                FeatureID = request.FeatureID,               
-            });
-
+                _repository.CreateCarFeatureByCar(new CarFeature
+                {
+                    Availability = true,
+                    CarID = request.CarID,
+                    FeatureID = featureId,
+                });
+            }
         }
+
+
+        //public async Task Handle(CreateCarFeatureByCarCommand request, CancellationToken cancellationToken)
+        //{
+        //    _repository.CreateCarFeatureByCar(new CarFeature
+        //    {
+        //        Availability = true,
+        //        CarID = request.CarID,
+        //        //FeatureID = request.FeatureID,               
+        //    });
+
+        //}
     }
 }

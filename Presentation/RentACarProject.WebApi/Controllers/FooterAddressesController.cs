@@ -35,8 +35,15 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateFooterAddress(CreateFooterAddressCommand command)
         {
-            await _mediator.Send(command);
-            return Ok("FooterAdress Added!");
+            if (!ModelState.IsValid) 
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _mediator.Send(command);
+                return Ok("FooterAdress Added!");
+            }
         }
 
         [HttpDelete]
@@ -49,8 +56,15 @@ namespace RentACarProject.WebApi.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateFooterAddress(UpdateFooterAddressCommand command)
         {
-            await _mediator.Send(command);
-            return Ok("FooterAddress Updated!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                await _mediator.Send(command);
+                return Ok("FooterAdress Updated!");
+            }
         }
     }
 }

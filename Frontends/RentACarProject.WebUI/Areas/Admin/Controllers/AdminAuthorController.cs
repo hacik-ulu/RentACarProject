@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using NuGet.Common;
 using RentACarProject.Dto.AuthorDtos;
 using RentACarProject.Dto.LocationDtos;
 using System.Net.Http.Headers;
@@ -9,7 +10,6 @@ using System.Text;
 
 namespace RentACarProject.WebUI.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/AdminAuthor")]
     public class AdminAuthorController : Controller
@@ -21,7 +21,7 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
         }
 
         [Route("Index")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
             var token = User.Claims.FirstOrDefault(x => x.Type == "accessToken")?.Value;
             if (token == null)
@@ -41,7 +41,17 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                     {
                         var jsonData = await responseMessage.Content.ReadAsStringAsync();
                         var values = JsonConvert.DeserializeObject<List<ResultAuthorDto>>(jsonData);
-                        return View(values);
+
+                        // Pagination settings
+                        int pageSize = 5;
+                        int totalRecords = values.Count;
+                        int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+
+                        var paginatedItems = values.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+                        ViewBag.CurrentPage = page;
+                        ViewBag.TotalPages = totalPages;
+                        return View(paginatedItems);
                     }
                 }
                 else if (claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "Member"))
@@ -49,7 +59,27 @@ namespace RentACarProject.WebUI.Areas.Admin.Controllers
                     return RedirectToAction("Index", "Default");
                 }
             }
-            return View();
+            return View(new List<ResultAuthorDto>());
+        }
+
+
+        [HttpGet]
+        [Route("GetBlogListByAuthorId/{id}")]
+        public async Task<IActionResult> GetBlogListByAuthorId(int id)
+        {
+            // Admin ise işlemleri yap ve AdminLocation/Index sayfasına yönlendir
+            var client = _httpClientFactory.CreateClient();
+            // 'id' parametresini URL'ye ekliyoruz
+            var responseMessage = await client.GetAsync($"https://localhost:7262/api/Authors/GetBlogListByAuthorId/{id}");
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<GetBlogListByAuthorIdDto>>(jsonData);
+                return View(values);
+            }
+
+            return View("Error");
         }
 
         [HttpGet]

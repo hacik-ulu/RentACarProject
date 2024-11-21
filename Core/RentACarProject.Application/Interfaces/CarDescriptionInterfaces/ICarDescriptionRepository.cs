@@ -10,5 +10,6 @@ namespace RentACarProject.Application.Interfaces.CarDescriptionInterfaces
     public interface ICarDescriptionRepository
     {
         Task<CarDescription> GetCarDescriptionAsync(int carID);
+        Task<List<CarDescription>> GetAllCarDescriptionAsync();
     }
 }
